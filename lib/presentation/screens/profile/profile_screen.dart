@@ -1,349 +1,369 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../providers/theme_provider.dart';
 import '../../widgets/app_card.dart';
 import '../../widgets/battle_menu.dart';
 
-class ProfileScreen extends ConsumerStatefulWidget {
+final profileNameProvider = StateProvider<String>((ref) => 'Lucas Andrade');
+
+class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
-  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends ConsumerState<ProfileScreen> {
-  String _userName = 'Lucas Andrade';
-
-  @override
-  Widget build(BuildContext context) {
-    final themeMode = ref.watch(themeNotifierProvider);
-    final isDark = themeMode == ThemeMode.dark;
-    final bgColor = isDark ? AppColors.bg : const Color(0xFFF5F5F5);
-    final adColor = isDark ? AppColors.surfaceVariant : const Color(0xFFE0E0E0);
-    final adTextColor = isDark ? AppColors.textDark : Colors.grey[600]!;
-    final textColor = isDark ? AppColors.textPrimary : AppColors.textDark;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userName = ref.watch(profileNameProvider);
+    final colors = _ProfileColors.fromContext(context);
 
     return Scaffold(
-      backgroundColor: bgColor,
-      // Fixed bottom nav using bottomNavigationBar slot
-      bottomNavigationBar: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 16, top: 8),
-          child: const Center(child: BattleMenu()),
+      backgroundColor: colors.background,
+      bottomNavigationBar: const SizedBox(
+        height: 136,
+        child: SafeArea(
+          top: false,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 16, top: 8),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: BattleMenu(),
+            ),
+          ),
         ),
       ),
       body: SafeArea(
         bottom: false,
-        child: Stack(
-          children: [
-            // Top Banner (Mock Ad)
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: 100,
-                color: adColor,
-                alignment: Alignment.center,
-                child: Text(
-                  'AD',
-                  style: AppTextStyles.h1.copyWith(color: adTextColor),
-                ),
-              ),
-            ),
-
-            // Content
-            Padding(
-              padding: const EdgeInsets.only(top: 116, left: 16, right: 16, bottom: 24),
-              child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+          child: Column(
+            children: [
+              _AdBanner(colors: colors),
+              const SizedBox(height: 16),
+              _ProfileHeader(userName: userName, colors: colors),
+              const SizedBox(height: 24),
+              AppCard(
+                padding: EdgeInsets.zero,
+                color: colors.card,
+                borderColor: colors.border,
                 child: Column(
                   children: [
-                    // User Info Card
-                    AppCard(
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 40,
-                            backgroundColor: isDark ? AppColors.surface2 : const Color(0xFFEEEEEE),
-                            child: Icon(
-                              Icons.person,
-                              size: 48,
-                              color: AppColors.blue,
-                            ),
-                          ),
-                          const SizedBox(width: 24),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Bem-vindo!',
-                                  style: AppTextStyles.bodyBold.copyWith(color: textColor),
-                                ),
-                                Text(
-                                  _userName,
-                                  style: AppTextStyles.h3.copyWith(color: textColor),
-                                ),
-                                const Text(
-                                  'Conta Vinculada',
-                                  style: TextStyle(
-                                    color: AppColors.green,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                    _ProfileMenuItem(
+                      title: 'Alterar nome',
+                      subtitle: 'Atualize o nome exibido na sua conta.',
+                      icon: Icons.badge_outlined,
+                      onTap: () => context.push('/profile/name'),
                     ),
-                    const SizedBox(height: 24),
-
-                    // Menu List
-                    AppCard(
-                      padding: EdgeInsets.zero,
-                      child: Column(
-                        children: [
-                          _ProfileMenuItem(
-                            title: 'Conta',
-                            subtitle: 'Mude seu nome e senha.',
-                            icon: Icons.person_outline,
-                            onTap: () => _showAccountDialog(context, isDark, textColor),
-                          ),
-                          Divider(
-                            height: 1,
-                            color: isDark ? AppColors.border : const Color(0xFFEEEEEE),
-                          ),
-                          _ProfileMenuItem(
-                            title: 'Planos',
-                            subtitle: 'Altere seu plano para customizar o aplicativo.',
-                            icon: Icons.star_outline,
-                            onTap: () => context.push('/plans'),
-                          ),
-                          Divider(
-                            height: 1,
-                            color: isDark ? AppColors.border : const Color(0xFFEEEEEE),
-                          ),
-                          _ProfileMenuItem(
-                            title: 'Temas',
-                            subtitle: 'Altere a aparência do app.',
-                            icon: Icons.palette_outlined,
-                            trailing: Switch(
-                              value: isDark,
-                              onChanged: (_) => ref.read(themeNotifierProvider.notifier).toggle(),
-                              activeColor: AppColors.blue,
-                            ),
-                            onTap: () => _showThemeDialog(context, ref, isDark, textColor),
-                          ),
-                          Divider(
-                            height: 1,
-                            color: isDark ? AppColors.border : const Color(0xFFEEEEEE),
-                          ),
-                          _ProfileMenuItem(
-                            title: 'Sobre',
-                            subtitle: 'Versão e informações do app.',
-                            icon: Icons.info_outline,
-                            onTap: () => _showAboutDialog(context, isDark, textColor),
-                          ),
-                        ],
-                      ),
+                    _Divider(colors: colors),
+                    _ProfileMenuItem(
+                      title: 'Alterar senha',
+                      subtitle: 'Defina uma nova senha de acesso.',
+                      icon: Icons.lock_outline,
+                      onTap: () => context.push('/profile/password'),
+                    ),
+                    _Divider(colors: colors),
+                    _ProfileMenuItem(
+                      title: 'Planos',
+                      subtitle: 'Gerencie benefícios e recursos do app.',
+                      icon: Icons.star_outline,
+                      onTap: () => context.push('/plans'),
+                    ),
+                    _Divider(colors: colors),
+                    _ProfileMenuItem(
+                      title: 'Temas',
+                      subtitle: 'Altere a aparência do app.',
+                      icon: Icons.palette_outlined,
+                      onTap: () => context.push('/profile/themes'),
+                    ),
+                    _Divider(colors: colors),
+                    _ProfileMenuItem(
+                      title: 'Sobre',
+                      subtitle: 'Versão e informações do Pokenion.',
+                      icon: Icons.info_outline,
+                      onTap: () => context.push('/profile/about'),
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
+}
 
-  // ─── Account Dialog ───────────────────────────────────────────────
-  void _showAccountDialog(BuildContext context, bool isDark, Color textColor) {
-    final nameCtrl = TextEditingController(text: _userName);
-    final passCtrl = TextEditingController();
-    final bgColor = isDark ? AppColors.surface : Colors.white;
+class ChangeNameScreen extends ConsumerStatefulWidget {
+  const ChangeNameScreen({super.key});
 
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: bgColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Text('Minha Conta', style: AppTextStyles.h3.copyWith(color: textColor)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _StyledTextField(
-              controller: nameCtrl,
-              label: 'Nome',
-              isDark: isDark,
-            ),
-            const SizedBox(height: 12),
-            _StyledTextField(
-              controller: passCtrl,
-              label: 'Nova senha',
-              isDark: isDark,
-              obscureText: true,
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(
-              'Cancelar',
-              style: TextStyle(color: isDark ? AppColors.textSecondary : Colors.grey),
+  @override
+  ConsumerState<ChangeNameScreen> createState() => _ChangeNameScreenState();
+}
+
+class _ChangeNameScreenState extends ConsumerState<ChangeNameScreen> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: ref.read(profileNameProvider));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = _ProfileColors.fromContext(context);
+
+    return _ProfileSubScreenScaffold(
+      title: 'Alterar nome',
+      colors: colors,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _SectionCard(
+            colors: colors,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text('Nome da conta',
+                    style:
+                        AppTextStyles.labelBold.copyWith(color: colors.text)),
+                const SizedBox(height: 12),
+                _ProfileTextField(
+                  controller: _controller,
+                  colors: colors,
+                  hintText: 'Digite seu nome',
+                  icon: Icons.person_outline,
+                  textInputAction: TextInputAction.done,
+                  onSubmitted: (_) => _save(context),
+                ),
+              ],
             ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              setState(() => _userName = nameCtrl.text.trim().isNotEmpty
-                  ? nameCtrl.text.trim()
-                  : _userName);
-              Navigator.of(ctx).pop();
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.blue,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            ),
-            child: const Text('Salvar', style: TextStyle(color: Colors.white)),
+          const SizedBox(height: 16),
+          _PrimaryButton(
+            label: 'Salvar nome',
+            icon: Icons.check,
+            onPressed: () => _save(context),
           ),
         ],
       ),
     );
   }
 
-  // ─── Theme Dialog ─────────────────────────────────────────────────
-  void _showThemeDialog(BuildContext context, WidgetRef ref, bool isDark, Color textColor) {
-    final bgColor = isDark ? AppColors.surface : Colors.white;
+  void _save(BuildContext context) {
+    final nextName = _controller.text.trim();
+    if (nextName.isEmpty) {
+      _showSnack(context, 'Informe um nome para continuar.', AppColors.red);
+      return;
+    }
 
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: bgColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Text('Tema', style: AppTextStyles.h3.copyWith(color: textColor)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _ThemeOption(
-              label: '🌙  Escuro',
-              selected: isDark,
-              isDark: isDark,
-              onTap: () {
-                ref.read(themeNotifierProvider.notifier).setTheme(ThemeMode.dark);
-                Navigator.of(ctx).pop();
-              },
+    ref.read(profileNameProvider.notifier).state = nextName;
+    _showSnack(context, 'Nome atualizado com sucesso.', AppColors.green);
+    context.pop();
+  }
+}
+
+class ChangePasswordScreen extends StatefulWidget {
+  const ChangePasswordScreen({super.key});
+
+  @override
+  State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
+}
+
+class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+  final _currentPasswordController = TextEditingController();
+  final _newPasswordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _currentPasswordController.dispose();
+    _newPasswordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = _ProfileColors.fromContext(context);
+
+    return _ProfileSubScreenScaffold(
+      title: 'Alterar senha',
+      colors: colors,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _SectionCard(
+            colors: colors,
+            child: Column(
+              children: [
+                _ProfileTextField(
+                  controller: _currentPasswordController,
+                  colors: colors,
+                  hintText: 'Senha atual',
+                  icon: Icons.lock_outline,
+                  obscureText: true,
+                ),
+                const SizedBox(height: 12),
+                _ProfileTextField(
+                  controller: _newPasswordController,
+                  colors: colors,
+                  hintText: 'Nova senha',
+                  icon: Icons.password_outlined,
+                  obscureText: true,
+                ),
+                const SizedBox(height: 12),
+                _ProfileTextField(
+                  controller: _confirmPasswordController,
+                  colors: colors,
+                  hintText: 'Confirmar nova senha',
+                  icon: Icons.verified_user_outlined,
+                  obscureText: true,
+                  textInputAction: TextInputAction.done,
+                  onSubmitted: (_) => _save(context),
+                ),
+              ],
             ),
-            const SizedBox(height: 8),
-            _ThemeOption(
-              label: '☀️  Claro',
-              selected: !isDark,
-              isDark: isDark,
-              onTap: () {
-                ref.read(themeNotifierProvider.notifier).setTheme(ThemeMode.light);
-                Navigator.of(ctx).pop();
-              },
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(
-              'Fechar',
-              style: TextStyle(color: isDark ? AppColors.textSecondary : Colors.grey),
-            ),
+          ),
+          const SizedBox(height: 16),
+          _PrimaryButton(
+            label: 'Salvar senha',
+            icon: Icons.check,
+            onPressed: () => _save(context),
           ),
         ],
       ),
     );
   }
 
-  // ─── About Dialog ─────────────────────────────────────────────────
-  void _showAboutDialog(BuildContext context, bool isDark, Color textColor) {
-    final bgColor = isDark ? AppColors.surface : Colors.white;
-    final subColor = isDark ? AppColors.textSecondary : Colors.grey[600]!;
+  void _save(BuildContext context) {
+    final currentPassword = _currentPasswordController.text.trim();
+    final newPassword = _newPasswordController.text.trim();
+    final confirmPassword = _confirmPasswordController.text.trim();
 
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: bgColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Text('Sobre o Pokenion', style: AppTextStyles.h3.copyWith(color: textColor)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+    if (currentPassword.isEmpty ||
+        newPassword.isEmpty ||
+        confirmPassword.isEmpty) {
+      _showSnack(context, 'Preencha todos os campos.', AppColors.red);
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      _showSnack(context, 'A nova senha deve ter pelo menos 6 caracteres.',
+          AppColors.red);
+      return;
+    }
+
+    if (newPassword != confirmPassword) {
+      _showSnack(context, 'A confirmação não confere com a nova senha.',
+          AppColors.red);
+      return;
+    }
+
+    _showSnack(context, 'Senha atualizada com sucesso.', AppColors.green);
+    context.pop();
+  }
+}
+
+class ThemesScreen extends ConsumerWidget {
+  const ThemesScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeNotifierProvider);
+    final colors = _ProfileColors.fromContext(context);
+
+    return _ProfileSubScreenScaffold(
+      title: 'Temas',
+      colors: colors,
+      child: _SectionCard(
+        colors: colors,
+        padding: EdgeInsets.zero,
+        child: Column(
           children: [
-            Center(
-              child: Container(
-                width: 64,
-                height: 64,
-                decoration: BoxDecoration(
-                  color: AppColors.blue.withOpacity(0.15),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(Icons.catching_pokemon, color: AppColors.blue, size: 36),
-              ),
+            _ThemeMenuItem(
+              title: 'Tema escuro',
+              subtitle: 'Interface com fundo escuro.',
+              icon: Icons.dark_mode_outlined,
+              selected: themeMode == ThemeMode.dark,
+              onTap: () => ref
+                  .read(themeNotifierProvider.notifier)
+                  .setTheme(ThemeMode.dark),
             ),
-            const SizedBox(height: 16),
-            _AboutRow(
-              label: 'Versão',
-              value: '1.0.0',
-              isDark: isDark,
-            ),
-            const SizedBox(height: 8),
-            _AboutRow(
-              label: 'Build',
-              value: '2026.06.07',
-              isDark: isDark,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Política de Privacidade',
-              style: TextStyle(
-                color: AppColors.blue,
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-                decoration: TextDecoration.underline,
-              ),
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: const Text('Você já possui a versão mais recente! 🎉'),
-                      backgroundColor: AppColors.green,
-                      behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.update, color: Colors.white),
-                label: const Text('Procurar Atualizações', style: TextStyle(color: Colors.white)),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.blue,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                ),
-              ),
+            _Divider(colors: colors),
+            _ThemeMenuItem(
+              title: 'Tema claro',
+              subtitle: 'Interface com fundo claro.',
+              icon: Icons.light_mode_outlined,
+              selected: themeMode == ThemeMode.light,
+              onTap: () => ref
+                  .read(themeNotifierProvider.notifier)
+                  .setTheme(ThemeMode.light),
             ),
           ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(
-              'Fechar',
-              style: TextStyle(color: isDark ? AppColors.textSecondary : Colors.grey),
+      ),
+    );
+  }
+}
+
+class AboutScreen extends StatelessWidget {
+  const AboutScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = _ProfileColors.fromContext(context);
+
+    return _ProfileSubScreenScaffold(
+      title: 'Sobre',
+      colors: colors,
+      child: Column(
+        children: [
+          _SectionCard(
+            colors: colors,
+            child: Column(
+              children: [
+                Container(
+                  width: 72,
+                  height: 72,
+                  decoration: BoxDecoration(
+                    color: AppColors.blue.withValues(alpha: 0.14),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.catching_pokemon,
+                      color: AppColors.blue, size: 40),
+                ),
+                const SizedBox(height: 16),
+                Text('Pokenion',
+                    style: AppTextStyles.h2.copyWith(color: colors.text)),
+                const SizedBox(height: 4),
+                Text(
+                  'Organize decks, acompanhe batalhas e personalize sua experiência.',
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.body.copyWith(color: colors.subtext),
+                ),
+                const SizedBox(height: 20),
+                _InfoRow(label: 'Versão', value: '1.0.0', colors: colors),
+                const SizedBox(height: 8),
+                _InfoRow(label: 'Build', value: '2026.06.07', colors: colors),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          _PrimaryButton(
+            label: 'Procurar atualizações',
+            icon: Icons.update,
+            onPressed: () => _showSnack(
+              context,
+              'Você já possui a versão mais recente.',
+              AppColors.green,
             ),
           ),
         ],
@@ -352,62 +372,203 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 }
 
-// ─── Helper Widgets ───────────────────────────────────────────────────────────
+class _ProfileSubScreenScaffold extends StatelessWidget {
+  final String title;
+  final _ProfileColors colors;
+  final Widget child;
+
+  const _ProfileSubScreenScaffold({
+    required this.title,
+    required this.colors,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: colors.background,
+      appBar: AppBar(
+        backgroundColor: colors.background,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: colors.text),
+          onPressed: () => context.pop(),
+        ),
+        title:
+            Text(title, style: AppTextStyles.h2.copyWith(color: colors.text)),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+
+class _AdBanner extends StatelessWidget {
+  final _ProfileColors colors;
+
+  const _AdBanner({required this.colors});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      width: double.infinity,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: colors.adBackground,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Text('AD', style: AppTextStyles.h1.copyWith(color: colors.adText)),
+    );
+  }
+}
+
+class _ProfileHeader extends StatelessWidget {
+  final String userName;
+  final _ProfileColors colors;
+
+  const _ProfileHeader({
+    required this.userName,
+    required this.colors,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AppCard(
+      color: colors.card,
+      borderColor: colors.border,
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 42,
+            backgroundColor: AppColors.blue.withValues(alpha: 0.14),
+            child: const Icon(Icons.person, size: 48, color: AppColors.blue),
+          ),
+          const SizedBox(width: 20),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Bem-vindo!',
+                    style:
+                        AppTextStyles.bodyBold.copyWith(color: colors.subtext)),
+                const SizedBox(height: 2),
+                Text(userName,
+                    style: AppTextStyles.h3.copyWith(color: colors.text)),
+                const SizedBox(height: 6),
+                Row(
+                  children: [
+                    const Icon(Icons.verified,
+                        color: AppColors.green, size: 16),
+                    const SizedBox(width: 6),
+                    Text(
+                      'Conta vinculada',
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.green,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Plano Freemium',
+                  style: AppTextStyles.caption.copyWith(color: colors.subtext),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class _ProfileMenuItem extends StatelessWidget {
   final String title;
   final String subtitle;
   final IconData icon;
   final VoidCallback onTap;
-  final Widget? trailing;
 
   const _ProfileMenuItem({
     required this.title,
     required this.subtitle,
     required this.icon,
     required this.onTap,
-    this.trailing,
   });
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? AppColors.textPrimary : AppColors.textDark;
+    final colors = _ProfileColors.fromContext(context);
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       leading: Icon(icon, color: AppColors.blue, size: 22),
-      title: Text(
-        title,
-        style: AppTextStyles.labelBold.copyWith(color: textColor),
-      ),
-      subtitle: Text(
-        subtitle,
-        style: AppTextStyles.bodySmall.copyWith(
-          color: isDark ? AppColors.textSecondary : Colors.grey[600],
-        ),
-      ),
-      trailing: trailing ??
-          Icon(
-            Icons.chevron_right,
-            color: isDark ? AppColors.textSecondary : Colors.grey,
-          ),
+      title: Text(title,
+          style: AppTextStyles.labelBold.copyWith(color: colors.text)),
+      subtitle: Text(subtitle,
+          style: AppTextStyles.bodySmall.copyWith(color: colors.subtext)),
+      trailing: Icon(Icons.chevron_right, color: colors.subtext),
       onTap: onTap,
     );
   }
 }
 
-class _StyledTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final String label;
-  final bool isDark;
-  final bool obscureText;
+class _ThemeMenuItem extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final bool selected;
+  final VoidCallback onTap;
 
-  const _StyledTextField({
+  const _ThemeMenuItem({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = _ProfileColors.fromContext(context);
+
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      leading: Icon(icon, color: AppColors.blue, size: 22),
+      title: Text(title,
+          style: AppTextStyles.labelBold.copyWith(color: colors.text)),
+      subtitle: Text(subtitle,
+          style: AppTextStyles.bodySmall.copyWith(color: colors.subtext)),
+      trailing: selected
+          ? const Icon(Icons.check_circle, color: AppColors.green)
+          : Icon(Icons.radio_button_unchecked, color: colors.subtext),
+      onTap: onTap,
+    );
+  }
+}
+
+class _ProfileTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final _ProfileColors colors;
+  final String hintText;
+  final IconData icon;
+  final bool obscureText;
+  final TextInputAction textInputAction;
+  final ValueChanged<String>? onSubmitted;
+
+  const _ProfileTextField({
     required this.controller,
-    required this.label,
-    required this.isDark,
+    required this.colors,
+    required this.hintText,
+    required this.icon,
     this.obscureText = false,
+    this.textInputAction = TextInputAction.next,
+    this.onSubmitted,
   });
 
   @override
@@ -415,13 +576,18 @@ class _StyledTextField extends StatelessWidget {
     return TextField(
       controller: controller,
       obscureText: obscureText,
-      style: TextStyle(color: isDark ? AppColors.textPrimary : AppColors.textDark),
+      textInputAction: textInputAction,
+      onSubmitted: onSubmitted,
+      style: TextStyle(color: colors.text),
       decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyle(color: isDark ? AppColors.textSecondary : Colors.grey),
+        prefixIcon: Icon(icon, color: AppColors.blue),
+        hintText: hintText,
+        hintStyle: TextStyle(color: colors.subtext),
+        filled: true,
+        fillColor: colors.input,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: isDark ? AppColors.border : const Color(0xFFE0E0E0)),
+          borderSide: BorderSide(color: colors.border),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -432,72 +598,155 @@ class _StyledTextField extends StatelessWidget {
   }
 }
 
-class _ThemeOption extends StatelessWidget {
-  final String label;
-  final bool selected;
-  final bool isDark;
-  final VoidCallback onTap;
+class _SectionCard extends StatelessWidget {
+  final _ProfileColors colors;
+  final Widget child;
+  final EdgeInsetsGeometry padding;
 
-  const _ThemeOption({
-    required this.label,
-    required this.selected,
-    required this.isDark,
-    required this.onTap,
+  const _SectionCard({
+    required this.colors,
+    required this.child,
+    this.padding = const EdgeInsets.all(16),
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
-          color: selected
-              ? AppColors.blue.withOpacity(0.15)
-              : (isDark ? AppColors.surface2 : const Color(0xFFF5F5F5)),
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: selected ? AppColors.blue : (isDark ? AppColors.border : const Color(0xFFE0E0E0)),
-            width: selected ? 1.5 : 1,
-          ),
-        ),
-        child: Row(
-          children: [
-            Text(
-              label,
-              style: TextStyle(
-                color: selected ? AppColors.blue : (isDark ? AppColors.textPrimary : AppColors.textDark),
-                fontWeight: selected ? FontWeight.bold : FontWeight.normal,
-                fontSize: 14,
-              ),
-            ),
-            const Spacer(),
-            if (selected)
-              const Icon(Icons.check_circle, color: AppColors.blue, size: 20),
-          ],
+    return AppCard(
+      color: colors.card,
+      borderColor: colors.border,
+      padding: padding,
+      child: child,
+    );
+  }
+}
+
+class _PrimaryButton extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final VoidCallback onPressed;
+
+  const _PrimaryButton({
+    required this.label,
+    required this.icon,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 48,
+      width: double.infinity,
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
+        icon: Icon(icon, color: Colors.white),
+        label: Text(label, style: AppTextStyles.buttonText),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.blue,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
       ),
     );
   }
 }
 
-class _AboutRow extends StatelessWidget {
+class _InfoRow extends StatelessWidget {
   final String label;
   final String value;
-  final bool isDark;
+  final _ProfileColors colors;
 
-  const _AboutRow({required this.label, required this.value, required this.isDark});
+  const _InfoRow({
+    required this.label,
+    required this.value,
+    required this.colors,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final textColor = isDark ? AppColors.textPrimary : AppColors.textDark;
-    final subColor = isDark ? AppColors.textSecondary : Colors.grey[600]!;
     return Row(
       children: [
-        Text('$label: ', style: AppTextStyles.caption.copyWith(color: subColor)),
-        Text(value, style: AppTextStyles.bodySmall.copyWith(color: textColor, fontWeight: FontWeight.bold)),
+        Text('$label: ',
+            style: AppTextStyles.caption.copyWith(color: colors.subtext)),
+        Text(
+          value,
+          style: AppTextStyles.bodySmall.copyWith(
+            color: colors.text,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
+}
+
+class _Divider extends StatelessWidget {
+  final _ProfileColors colors;
+
+  const _Divider({required this.colors});
+
+  @override
+  Widget build(BuildContext context) {
+    return Divider(height: 1, color: colors.border);
+  }
+}
+
+class _ProfileColors {
+  final Color background;
+  final Color card;
+  final Color input;
+  final Color border;
+  final Color text;
+  final Color subtext;
+  final Color adBackground;
+  final Color adText;
+
+  const _ProfileColors({
+    required this.background,
+    required this.card,
+    required this.input,
+    required this.border,
+    required this.text,
+    required this.subtext,
+    required this.adBackground,
+    required this.adText,
+  });
+
+  factory _ProfileColors.fromContext(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    if (isDark) {
+      return const _ProfileColors(
+        background: AppColors.bg,
+        card: AppColors.surface,
+        input: AppColors.surface2,
+        border: AppColors.border,
+        text: AppColors.textPrimary,
+        subtext: AppColors.textSecondary,
+        adBackground: AppColors.surfaceVariant,
+        adText: AppColors.textDark,
+      );
+    }
+
+    return const _ProfileColors(
+      background: Color(0xFFF5F5F5),
+      card: Colors.white,
+      input: Color(0xFFF7F7F9),
+      border: AppColors.borderVariant,
+      text: AppColors.textDark,
+      subtext: Color(0xFF6B6F76),
+      adBackground: Color(0xFFE4E5E7),
+      adText: Color(0xFF6B6F76),
+    );
+  }
+}
+
+void _showSnack(BuildContext context, String message, Color color) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(message),
+      backgroundColor: color,
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    ),
+  );
 }

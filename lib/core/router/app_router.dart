@@ -31,6 +31,22 @@ final appRouter = GoRouter(
       builder: (context, state) => const ProfileScreen(),
     ),
     GoRoute(
+      path: '/profile/name',
+      builder: (context, state) => const ChangeNameScreen(),
+    ),
+    GoRoute(
+      path: '/profile/password',
+      builder: (context, state) => const ChangePasswordScreen(),
+    ),
+    GoRoute(
+      path: '/profile/themes',
+      builder: (context, state) => const ThemesScreen(),
+    ),
+    GoRoute(
+      path: '/profile/about',
+      builder: (context, state) => const AboutScreen(),
+    ),
+    GoRoute(
       path: '/plans',
       builder: (context, state) => const PlansScreen(),
     ),
