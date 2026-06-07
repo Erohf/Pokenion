@@ -4,11 +4,16 @@ import 'core/theme/app_colors.dart';
 import 'core/router/app_router.dart';
 import 'presentation/providers/theme_provider.dart';
 
-class PokenionApp extends ConsumerWidget {
+class PokenionApp extends ConsumerStatefulWidget {
   const PokenionApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PokenionApp> createState() => _PokenionAppState();
+}
+
+class _PokenionAppState extends ConsumerState<PokenionApp> {
+  @override
+  Widget build(BuildContext context) {
     final themeMode = ref.watch(themeNotifierProvider);
 
     return MaterialApp.router(

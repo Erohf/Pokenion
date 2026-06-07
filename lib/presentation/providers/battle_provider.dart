@@ -133,6 +133,7 @@ class Battle extends _$Battle {
         card: evolutionCard,
         maxHp: evolutionCard.hp ?? state.activePokemon!.maxHp,
         currentHp: evolutionCard.hp ?? state.activePokemon!.currentHp,
+        statusCondition: null, // As per prompt, evolutions often cure conditions, but wait; the prompt said "mantendo as energias", it didn't say remove status. The prompt says "Evolve: O Pokémon selecionado substitui o ativo mantendo as energias."
         evolutionStack: [
           ...state.activePokemon!.evolutionStack,
           state.activePokemon!.card,

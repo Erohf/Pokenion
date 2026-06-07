@@ -6,9 +6,12 @@ part of 'battle_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$battleHash() => r'ad57fd8df588e93543fb548d57f186f43fd558e8';
+String _$battleHash() => r'e8096da52734103737a295a46551859873d3827c';
 
-/// See also [Battle].
+/// A battle provider that is scoped to a deck.
+/// Pass the [Deck] that should be used for this battle session.
+///
+/// Copied from [Battle].
 @ProviderFor(Battle)
 final battleProvider =
     AutoDisposeNotifierProvider<Battle, PlayerState>.internal(

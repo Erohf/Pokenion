@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -44,80 +46,7 @@ const _statusConfig = {
   ),
 };
 
-// ─── Gen 1 evolutions map (pre→next) ─────────────────────────────────────────
-
-const _evolutionMap = <String, List<(int, String, int)>>{
-  'bulbasaur':  [(2, 'Ivysaur', 600), (3, 'Venusaur', 800)],
-  'ivysaur':    [(3, 'Venusaur', 800)],
-  'charmander': [(5, 'Charmeleon', 580), (6, 'Charizard', 780)],
-  'charmeleon': [(6, 'Charizard', 780)],
-  'squirtle':   [(8, 'Wartortle', 590), (9, 'Blastoise', 790)],
-  'wartortle':  [(9, 'Blastoise', 790)],
-  'caterpie':   [(11, 'Metapod', 500), (12, 'Butterfree', 600)],
-  'metapod':    [(12, 'Butterfree', 600)],
-  'weedle':     [(14, 'Kakuna', 450), (15, 'Beedrill', 650)],
-  'kakuna':     [(15, 'Beedrill', 650)],
-  'pidgey':     [(17, 'Pidgeotto', 630), (18, 'Pidgeot', 830)],
-  'pidgeotto':  [(18, 'Pidgeot', 830)],
-  'rattata':    [(20, 'Raticate', 550)],
-  'spearow':    [(22, 'Fearow', 650)],
-  'ekans':      [(24, 'Arbok', 600)],
-  'pikachu':    [(26, 'Raichu', 600)],
-  'sandshrew':  [(28, 'Sandslash', 750)],
-  'nidoran♀':   [(30, 'Nidorina', 700), (31, 'Nidoqueen', 900)],
-  'nidorina':   [(31, 'Nidoqueen', 900)],
-  'nidoran♂':   [(33, 'Nidorino', 610), (34, 'Nidoking', 810)],
-  'nidorino':   [(34, 'Nidoking', 810)],
-  'clefairy':   [(36, 'Clefable', 950)],
-  'vulpix':     [(38, 'Ninetales', 730)],
-  'jigglypuff': [(40, 'Wigglytuff', 1400)],
-  'zubat':      [(42, 'Golbat', 750)],
-  'oddish':     [(44, 'Gloom', 600), (45, 'Vileplume', 750)],
-  'gloom':      [(45, 'Vileplume', 750)],
-  'paras':      [(47, 'Parasect', 600)],
-  'venonat':    [(49, 'Venomoth', 700)],
-  'diglett':    [(51, 'Dugtrio', 350)],
-  'meowth':     [(53, 'Persian', 650)],
-  'psyduck':    [(55, 'Golduck', 800)],
-  'mankey':     [(57, 'Primeape', 650)],
-  'growlithe':  [(59, 'Arcanine', 900)],
-  'poliwag':    [(61, 'Poliwhirl', 650), (62, 'Poliwrath', 900)],
-  'poliwhirl':  [(62, 'Poliwrath', 900)],
-  'abra':       [(64, 'Kadabra', 400), (65, 'Alakazam', 550)],
-  'kadabra':    [(65, 'Alakazam', 550)],
-  'machop':     [(67, 'Machoke', 800), (68, 'Machamp', 900)],
-  'machoke':    [(68, 'Machamp', 900)],
-  'bellsprout': [(70, 'Weepinbell', 650), (71, 'Victreebel', 800)],
-  'weepinbell': [(71, 'Victreebel', 800)],
-  'tentacool':  [(73, 'Tentacruel', 800)],
-  'geodude':    [(75, 'Graveler', 550), (76, 'Golem', 800)],
-  'graveler':   [(76, 'Golem', 800)],
-  'ponyta':     [(78, 'Rapidash', 650)],
-  'slowpoke':   [(80, 'Slowbro', 950)],
-  'magnemite':  [(82, 'Magneton', 500)],
-  'doduo':      [(85, 'Dodrio', 600)],
-  'seel':       [(87, 'Dewgong', 900)],
-  'grimer':     [(89, 'Muk', 1050)],
-  'shellder':   [(91, 'Cloyster', 500)],
-  'gastly':     [(93, 'Haunter', 450), (94, 'Gengar', 600)],
-  'haunter':    [(94, 'Gengar', 600)],
-  'drowzee':    [(97, 'Hypno', 850)],
-  'krabby':     [(99, 'Kingler', 550)],
-  'voltorb':    [(101, 'Electrode', 600)],
-  'exeggcute':  [(103, 'Exeggutor', 950)],
-  'cubone':     [(105, 'Marowak', 600)],
-  'rhyhorn':    [(112, 'Rhydon', 1050)],
-  'tangela':    [],
-  'horsea':     [(117, 'Seadra', 550)],
-  'goldeen':    [(119, 'Seaking', 800)],
-  'staryu':     [(121, 'Starmie', 600)],
-  'magikarp':   [(130, 'Gyarados', 950)],
-  'eevee':      [(134, 'Vaporeon', 1300), (135, 'Jolteon', 650), (136, 'Flareon', 650)],
-  'omanyte':    [(139, 'Omastar', 700)],
-  'kabuto':     [(141, 'Kabutops', 600)],
-  'dratini':    [(148, 'Dragonair', 610), (149, 'Dragonite', 910)],
-  'dragonair':  [(149, 'Dragonite', 910)],
-};
+// ─── Evolution API Logic ───────────────────────────────────────────────────
 
 String _spriteUrl(int dex) =>
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$dex.png';
@@ -301,14 +230,70 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
   }
 
   // ─── Evolve Menu ───────────────────────────────────────────────────
-  void _showEvolveMenu(BuildContext context, dynamic state) {
+  Future<void> _showEvolveMenu(BuildContext context, dynamic state) async {
     final active = state.activePokemon as ActivePokemon?;
     if (active == null) return;
 
     final key = active.card.name.toLowerCase();
-    final evolutions = _evolutionMap[key];
 
-    if (evolutions == null || evolutions.isEmpty) {
+    // Mostrar modal de carregamento
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => const Center(child: CircularProgressIndicator()),
+    );
+
+    List<(int, String, int)> evolutions = [];
+    try {
+      final speciesRes = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon-species/$key'));
+      if (speciesRes.statusCode == 200) {
+        final speciesData = jsonDecode(speciesRes.body);
+        final chainUrl = speciesData['evolution_chain']['url'];
+        final chainRes = await http.get(Uri.parse(chainUrl));
+        if (chainRes.statusCode == 200) {
+          final chainData = jsonDecode(chainRes.body);
+
+          dynamic findCurrent(dynamic node) {
+            if (node['species']['name'] == key) return node;
+            for (var evo in node['evolves_to']) {
+              final res = findCurrent(evo);
+              if (res != null) return res;
+            }
+            return null;
+          }
+
+          final currentNode = findCurrent(chainData['chain']);
+          if (currentNode != null) {
+            for (var evo in currentNode['evolves_to']) {
+              final evoNameStr = evo['species']['name'] as String;
+              final evoName = evoNameStr[0].toUpperCase() + evoNameStr.substring(1);
+              final evoUrl = evo['species']['url'] as String;
+              final urlParts = evoUrl.split('/');
+              final dexId = int.parse(urlParts[urlParts.length - 2]);
+
+              int hp = 1000;
+              try {
+                final pokeRes = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$dexId'));
+                if (pokeRes.statusCode == 200) {
+                  final pokeData = jsonDecode(pokeRes.body);
+                  final hpStat = pokeData['stats'].firstWhere((s) => s['stat']['name'] == 'hp')['base_stat'] as int;
+                  hp = hpStat * 10;
+                }
+              } catch (_) {}
+
+              evolutions.add((dexId, evoName, hp));
+            }
+          }
+        }
+      }
+    } catch (e) {
+      debugPrint('Error fetching evolutions: $e');
+    }
+
+    if (!context.mounted) return;
+    Navigator.pop(context); // Fechar modal de carregamento
+
+    if (evolutions.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('${active.card.name} não possui evoluções.'),
