@@ -8,31 +8,40 @@ class DeckListItem extends StatelessWidget {
   final Deck deck;
   final VoidCallback? onTap;
   final VoidCallback? onPlayTap;
+  final VoidCallback? onEditTap;
 
   const DeckListItem({
     super.key,
     required this.deck,
     this.onTap,
     this.onPlayTap,
+    this.onEditTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textColor = isDark ? AppColors.textPrimary : AppColors.textDark;
+    final subColor = isDark ? AppColors.textSecondary : Colors.grey[600]!;
+
     return GestureDetector(
       onTap: onTap,
       child: AppCard(
         padding: const EdgeInsets.all(12),
         child: Row(
           children: [
-            // Deck Cover / Thumbnail placeholder
+            // Deck Cover Placeholder
             Container(
               width: 60,
               height: 80,
               decoration: BoxDecoration(
-                color: AppColors.surface2,
+                color: isDark ? AppColors.surface2 : const Color(0xFFEEEEEE),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Icon(Icons.style, color: AppColors.textDim),
+              child: Icon(
+                Icons.style,
+                color: isDark ? AppColors.textDim : Colors.grey,
+              ),
             ),
             const SizedBox(width: 16),
             // Deck Info
@@ -42,63 +51,46 @@ class DeckListItem extends StatelessWidget {
                 children: [
                   Text(
                     deck.name,
-                    style: AppTextStyles.h3,
+                    style: AppTextStyles.h3.copyWith(color: textColor),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),
                   Text(
                     deck.format ?? 'Standard',
-                    style: AppTextStyles.bodySmall,
+                    style: AppTextStyles.bodySmall.copyWith(color: subColor),
                   ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      _StatBadge(label: 'W', value: deck.wins.toString(), color: AppColors.green),
-                      const SizedBox(width: 8),
-                      _StatBadge(label: 'L', value: deck.losses.toString(), color: AppColors.red),
-                    ],
+                  const SizedBox(height: 4),
+                  Text(
+                    '${deck.cards.length} carta${deck.cards.length == 1 ? '' : 's'}',
+                    style: AppTextStyles.caption.copyWith(color: subColor),
                   ),
                 ],
               ),
             ),
+            // Edit button
+            IconButton(
+              onPressed: onEditTap,
+              icon: Icon(
+                Icons.edit_outlined,
+                color: isDark ? AppColors.textSecondary : Colors.grey,
+                size: 20,
+              ),
+              tooltip: 'Renomear deck',
+            ),
             // Play Button
             IconButton(
               onPressed: onPlayTap,
-              icon: const Icon(Icons.play_circle_fill, color: AppColors.blue, size: 32),
+              icon: const Icon(
+                Icons.play_circle_fill,
+                color: AppColors.blue,
+                size: 32,
+              ),
+              tooltip: 'Jogar',
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class _StatBadge extends StatelessWidget {
-  final String label;
-  final String value;
-  final Color color;
-
-  const _StatBadge({
-    required this.label,
-    required this.value,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          '$label:',
-          style: AppTextStyles.caption,
-        ),
-        const SizedBox(width: 2),
-        Text(
-          value,
-          style: AppTextStyles.bodySmall.copyWith(color: color, fontWeight: FontWeight.bold),
-        ),
-      ],
     );
   }
 }

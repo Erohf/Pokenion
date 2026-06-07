@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../domain/models/deck.dart';
+import '../../domain/models/card.dart';
 
 part 'deck_provider.g.dart';
 
@@ -7,8 +8,6 @@ part 'deck_provider.g.dart';
 class DeckNotifier extends _$DeckNotifier {
   @override
   FutureOr<List<Deck>> build() async {
-    // Initializing with empty list or loading from local storage/db
-    // For now, returning some mock data if empty to test UI
     return [
       Deck(
         id: '1',
@@ -17,8 +16,6 @@ class DeckNotifier extends _$DeckNotifier {
         cards: [],
         createdAt: DateTime.now(),
         format: 'Standard',
-        wins: 15,
-        losses: 3,
       ),
       Deck(
         id: '2',
@@ -27,25 +24,50 @@ class DeckNotifier extends _$DeckNotifier {
         cards: [],
         createdAt: DateTime.now(),
         format: 'Standard',
-        wins: 8,
-        losses: 7,
       ),
     ];
   }
 
-  Future<void> addDeck(Deck deck) async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      final currentDecks = state.value ?? [];
-      return [...currentDecks, deck];
-    });
+  Future<void> addDeck(String name) async {
+    final current = state.value ?? [];
+    final newDeck = Deck(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      name: name,
+      description: '',
+      cards: [],
+      createdAt: DateTime.now(),
+      format: 'Standard',
+    );
+    state = AsyncValue.data([...current, newDeck]);
+  }
+
+  Future<void> renameDeck(String id, String newName) async {
+    final current = state.value ?? [];
+    state = AsyncValue.data(
+      current.map((d) => d.id == id ? d.copyWith(name: newName) : d).toList(),
+    );
   }
 
   Future<void> removeDeck(String id) async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      final currentDecks = state.value ?? [];
-      return currentDecks.where((d) => d.id != id).toList();
-    });
+    final current = state.value ?? [];
+    state = AsyncValue.data(current.where((d) => d.id != id).toList());
+  }
+
+  Future<void> addCardToDeck(String deckId, PokemonCard card) async {
+    final current = state.value ?? [];
+    state = AsyncValue.data(current.map((d) {
+      if (d.id != deckId) return d;
+      // Check if already in deck, increment quantity
+      final existingIndex = d.cards.indexWhere((dc) => dc.card.id == card.id);
+      if (existingIndex >= 0) {
+        final updated = List<DeckCard>.from(d.cards);
+        updated[existingIndex] = DeckCard(
+          card: card,
+          quantity: updated[existingIndex].quantity + 1,
+        );
+        return d.copyWith(cards: updated);
+      }
+      return d.copyWith(cards: [...d.cards, DeckCard(card: card, quantity: 1)]);
+    }).toList());
   }
 }

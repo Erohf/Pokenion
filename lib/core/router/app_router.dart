@@ -22,8 +22,8 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/deck/:id/battle',
       builder: (context, state) {
-        // In a real app, we'd pass the deckId to the provider before navigating
-        return const BattleScreen();
+        final id = state.pathParameters['id']!;
+        return BattleScreen(deckId: id);
       },
     ),
     GoRoute(
