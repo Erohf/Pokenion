@@ -222,7 +222,7 @@ class MainCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 StatusBadge(
-                  icon: const Icon(Icons.skull, size: 16, color: AppColors.textDark),
+                  icon: const Icon(Icons.dangerous, size: 16, color: AppColors.textDark),
                   label: 'x3',
                 ),
                 const SizedBox(height: 5),

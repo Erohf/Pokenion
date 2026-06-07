@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'core/theme/app_colors.dart';
-import 'presentation/screens/battle/battle_screen.dart';
+import 'core/router/app_router.dart';
 
 class PokenionApp extends StatelessWidget {
   const PokenionApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Pokenion',
       debugShowCheckedModeBanner: false,
+      routerConfig: appRouter,
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: AppColors.bg,
@@ -18,7 +19,6 @@ class PokenionApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
       ),
-      home: const BattleScreen(),
     );
   }
 }
