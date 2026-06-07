@@ -1,0 +1,56 @@
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$ActivePokemonImpl _$$ActivePokemonImplFromJson(Map<String, dynamic> json) =>
+    _$ActivePokemonImpl(
+      card: PokemonCard.fromJson(json['card'] as Map<String, dynamic>),
+      currentHp: (json['currentHp'] as num).toInt(),
+      maxHp: (json['maxHp'] as num).toInt(),
+      attachedEnergies: (json['attachedEnergies'] as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$EnergyTypeEnumMap, e))
+              .toList() ??
+          const [],
+      statusCondition: $enumDecodeNullable(
+          _$StatusConditionEnumMap, json['statusCondition']),
+      evolutionStack: (json['evolutionStack'] as List<dynamic>?)
+              ?.map((e) => PokemonCard.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      hasTurboToken: json['hasTurboToken'] as bool? ?? false,
+    );
+
+Map<String, dynamic> _$$ActivePokemonImplToJson(_$ActivePokemonImpl instance) =>
+    <String, dynamic>{
+      'card': instance.card,
+      'currentHp': instance.currentHp,
+      'maxHp': instance.maxHp,
+      'attachedEnergies': instance.attachedEnergies
+          .map((e) => _$EnergyTypeEnumMap[e]!)
+          .toList(),
+      'statusCondition': _$StatusConditionEnumMap[instance.statusCondition],
+      'evolutionStack': instance.evolutionStack,
+      'hasTurboToken': instance.hasTurboToken,
+    };
+
+const _$EnergyTypeEnumMap = {
+  EnergyType.fire: 'fire',
+  EnergyType.water: 'water',
+  EnergyType.grass: 'grass',
+  EnergyType.lightning: 'lightning',
+  EnergyType.psychic: 'psychic',
+  EnergyType.fighting: 'fighting',
+  EnergyType.darkness: 'darkness',
+  EnergyType.metal: 'metal',
+  EnergyType.fairy: 'fairy',
+  EnergyType.dragon: 'dragon',
+  EnergyType.colorless: 'colorless',
+};
+
+const _$StatusConditionEnumMap = {
+  StatusCondition.burned: 'burned',
+  StatusCondition.poisoned: 'poisoned',
+  StatusCondition.paralyzed: 'paralyzed',
+  StatusCondition.asleep: 'asleep',
+  StatusCondition.confused: 'confused',
+};

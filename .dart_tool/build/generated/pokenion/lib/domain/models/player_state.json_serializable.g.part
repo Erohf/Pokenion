@@ -1,0 +1,54 @@
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$PlayerStateImpl _$$PlayerStateImplFromJson(Map<String, dynamic> json) =>
+    _$PlayerStateImpl(
+      playerId: json['playerId'] as String,
+      bench: (json['bench'] as List<dynamic>?)
+              ?.map((e) => ActivePokemon.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      activePokemon: json['activePokemon'] == null
+          ? null
+          : ActivePokemon.fromJson(
+              json['activePokemon'] as Map<String, dynamic>),
+      handCount: (json['handCount'] as num?)?.toInt() ?? 0,
+      deckCount: (json['deckCount'] as num?)?.toInt() ?? 60,
+      discardCount: (json['discardCount'] as num?)?.toInt() ?? 0,
+      prizeCardsCount: (json['prizeCardsCount'] as num?)?.toInt() ?? 6,
+      attachedEnergies: (json['attachedEnergies'] as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$EnergyTypeEnumMap, e))
+              .toList() ??
+          const [],
+      lostZoneCount: (json['lostZoneCount'] as num?)?.toInt() ?? 0,
+    );
+
+Map<String, dynamic> _$$PlayerStateImplToJson(_$PlayerStateImpl instance) =>
+    <String, dynamic>{
+      'playerId': instance.playerId,
+      'bench': instance.bench,
+      'activePokemon': instance.activePokemon,
+      'handCount': instance.handCount,
+      'deckCount': instance.deckCount,
+      'discardCount': instance.discardCount,
+      'prizeCardsCount': instance.prizeCardsCount,
+      'attachedEnergies': instance.attachedEnergies
+          .map((e) => _$EnergyTypeEnumMap[e]!)
+          .toList(),
+      'lostZoneCount': instance.lostZoneCount,
+    };
+
+const _$EnergyTypeEnumMap = {
+  EnergyType.fire: 'fire',
+  EnergyType.water: 'water',
+  EnergyType.grass: 'grass',
+  EnergyType.lightning: 'lightning',
+  EnergyType.psychic: 'psychic',
+  EnergyType.fighting: 'fighting',
+  EnergyType.darkness: 'darkness',
+  EnergyType.metal: 'metal',
+  EnergyType.fairy: 'fairy',
+  EnergyType.dragon: 'dragon',
+  EnergyType.colorless: 'colorless',
+};

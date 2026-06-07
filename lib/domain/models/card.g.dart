@@ -1,0 +1,48 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'card.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$PokemonCardImpl _$$PokemonCardImplFromJson(Map<String, dynamic> json) =>
+    _$PokemonCardImpl(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      set: json['set'] as String,
+      number: json['number'] as String,
+      type: $enumDecode(_$CardTypeEnumMap, json['type']),
+      supertype: json['supertype'] as String?,
+      subtypes: (json['subtypes'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      hp: (json['hp'] as num?)?.toInt(),
+      types:
+          (json['types'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      imageUrl: json['imageUrl'] as String?,
+      imageLargeUrl: json['imageLargeUrl'] as String?,
+      rarity: json['rarity'] as String?,
+    );
+
+Map<String, dynamic> _$$PokemonCardImplToJson(_$PokemonCardImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'set': instance.set,
+      'number': instance.number,
+      'type': _$CardTypeEnumMap[instance.type]!,
+      'supertype': instance.supertype,
+      'subtypes': instance.subtypes,
+      'hp': instance.hp,
+      'types': instance.types,
+      'imageUrl': instance.imageUrl,
+      'imageLargeUrl': instance.imageLargeUrl,
+      'rarity': instance.rarity,
+    };
+
+const _$CardTypeEnumMap = {
+  CardType.pokemon: 'pokemon',
+  CardType.trainer: 'trainer',
+  CardType.energy: 'energy',
+};
