@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/theme/app_colors.dart';
 import 'core/router/app_router.dart';
-import 'presentation/providers/theme_provider.dart';
+import 'presentation/providers/settings_provider.dart';
 
 class PokenionApp extends ConsumerStatefulWidget {
   const PokenionApp({super.key});
@@ -14,12 +14,12 @@ class PokenionApp extends ConsumerStatefulWidget {
 class _PokenionAppState extends ConsumerState<PokenionApp> {
   @override
   Widget build(BuildContext context) {
-    final themeMode = ref.watch(themeNotifierProvider);
+    final themeMode = ref.watch(settingsProvider).themeMode;
 
     return MaterialApp.router(
       title: 'Pokenion',
       debugShowCheckedModeBanner: false,
-      routerConfig: appRouter,
+      routerConfig: ref.watch(appRouterProvider),
       themeMode: themeMode,
       theme: ThemeData(
         useMaterial3: true,

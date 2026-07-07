@@ -1,57 +1,28 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
-import '../../widgets/hp_tracker.dart';
-import '../../widgets/status_badge.dart';
-import '../../widgets/battle_menu.dart';
-import '../../widgets/energy_tracker.dart';
+import '../../../domain/models/active_pokemon.dart';
+import '../../../domain/models/deck.dart';
+import '../../../domain/models/status_condition.dart';
 import '../../providers/battle_provider.dart';
 import '../../providers/deck_provider.dart';
-import '../../../domain/models/status_condition.dart';
-import '../../../domain/models/active_pokemon.dart';
-import '../../../domain/models/card.dart';
+import '../../providers/settings_provider.dart';
+import '../../widgets/ad_banner.dart';
+import '../../widgets/battle_menu.dart';
 
-// ─── Status config ────────────────────────────────────────────────────────────
+typedef StatusCfg = ({IconData icon, String label, Color color});
 
-const _statusConfig = {
-  StatusCondition.asleep: (
-    icon: Icons.bedtime_outlined,
-    label: 'Dormindo',
-    color: Color(0xFF9090A8),
-  ),
-  StatusCondition.burned: (
-    icon: Icons.local_fire_department,
-    label: 'Queimado',
-    color: AppColors.energyFire,
-  ),
-  StatusCondition.confused: (
-    icon: Icons.cyclone,
-    label: 'Confuso',
-    color: AppColors.energyPsychic,
-  ),
-  StatusCondition.paralyzed: (
-    icon: Icons.bolt,
-    label: 'Paralisado',
-    color: AppColors.energyLightning,
-  ),
-  StatusCondition.poisoned: (
-    icon: Icons.dangerous,
-    label: 'Envenenado',
-    color: AppColors.energyGrass,
-  ),
+const Map<StatusCondition, StatusCfg> statusConfig = {
+  StatusCondition.asleep: (icon: Icons.bedtime, label: 'Asleep', color: Color(0xFF9090A8)),
+  StatusCondition.burned: (icon: Icons.local_fire_department, label: 'Burned', color: AppColors.energyFire),
+  StatusCondition.confused: (icon: Icons.cyclone, label: 'Confused', color: AppColors.energyPsychic),
+  StatusCondition.paralyzed: (icon: Icons.block, label: 'Paralyzed', color: AppColors.energyLightning),
+  StatusCondition.poisoned: (icon: Icons.dangerous, label: 'Poisoned', color: AppColors.energyGrass),
 };
-
-// ─── Evolution API Logic ───────────────────────────────────────────────────
-
-String _spriteUrl(int dex) =>
-    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$dex.png';
-
-// ─── BattleScreen ─────────────────────────────────────────────────────────────
 
 class BattleScreen extends ConsumerStatefulWidget {
   final String deckId;
@@ -62,468 +33,370 @@ class BattleScreen extends ConsumerStatefulWidget {
 }
 
 class _BattleScreenState extends ConsumerState<BattleScreen> {
-  bool _initialized = false;
-
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (!_initialized) {
-      _initialized = true;
-      WidgetsBinding.instance.addPostFrameCallback((_) => _init());
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _ensureStarted());
+  }
+
+  void _ensureStarted() {
+    final deck = ref.read(deckNotifierProvider.notifier).byId(widget.deckId);
+    if (deck == null) return;
+    final battle = ref.read(battleProvider);
+    // Start a fresh battle only if none is running for this deck.
+    if (!battle.inProgress || battle.deckId != widget.deckId) {
+      ref.read(battleProvider.notifier).startBattle(deck);
     }
   }
 
-  void _init() {
-    final decks = ref.read(deckNotifierProvider).value ?? [];
-    final deck = decks.firstWhere(
-      (d) => d.id == widget.deckId,
-      orElse: () => decks.isNotEmpty ? decks.first : throw Exception('No decks'),
-    );
-    ref.read(battleProvider.notifier).startBattle(deck);
+  Deck? get _deck => ref.read(deckNotifierProvider.notifier).byId(widget.deckId);
+
+  /// Deck cards eligible to be picked, excluding those already in play (by id).
+  List<DeckCard> _available({bool onlyStartable = true}) {
+    final deck = _deck;
+    if (deck == null) return [];
+    final state = ref.read(battleProvider);
+    final inPlay = <String>{
+      if (state.active != null) state.active!.card.id,
+      for (final b in state.bench) b.card.id,
+    };
+    return deck.pokemonCards.where((dc) {
+      if (inPlay.contains(dc.card.id)) return false;
+      if (onlyStartable && !(dc.card.stage?.canStartInPlay ?? false)) return false;
+      return true;
+    }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    final battleState = ref.watch(battleProvider);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? AppColors.bg : const Color(0xFFF5F5F5);
-    final adColor = isDark ? AppColors.surfaceVariant : const Color(0xFFE0E0E0);
-    final adTextColor = isDark ? AppColors.textDark : Colors.grey[600]!;
+    final state = ref.watch(battleProvider);
+    final showAds = ref.watch(settingsProvider).plan.showsAds;
 
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: AppColors.bg,
       body: SafeArea(
-        child: Stack(
-          children: [
-            // AD Banner
-            Positioned(
-              top: 0, left: 0, right: 0,
-              child: Container(
-                height: 100,
-                color: adColor,
-                alignment: Alignment.center,
-                child: Text(
-                  'AD',
-                  style: AppTextStyles.h1.copyWith(color: adTextColor),
-                ),
-              ),
-            ),
-
-            // Main Content
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 116, bottom: 120),
-                child: _MainCard(
-                  state: battleState,
-                  isDark: isDark,
-                  onHpChanged: (hp) => ref.read(battleProvider.notifier).updateHp(hp),
-                  onStatusTap: () => _showStatusMenu(context),
-                  onEvolveTap: () => _showEvolveMenu(context, battleState),
-                  onDefeatedTap: () => _showDefeatedMenu(context, battleState),
-                  onBenchTap: (i) => ref.read(battleProvider.notifier).swapWithBench(i),
-                  onEndGame: () => context.go('/'),
-                  onNewGame: () => _confirmNewGame(context),
-                ),
-              ),
-            ),
-
-            // Bottom Menu
-            const Positioned(
-              bottom: 16, left: 0, right: 0,
-              child: Center(child: BattleMenu()),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // ─── Status Menu ───────────────────────────────────────────────────
-  void _showStatusMenu(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? AppColors.surface : Colors.white;
-    final textColor = isDark ? AppColors.textPrimary : AppColors.textDark;
-    final current = ref.read(battleProvider).activePokemon?.statusCondition;
-
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: bgColor,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => Padding(
-        padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
+        bottom: false,
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Container(
-                width: 40, height: 4,
-                decoration: BoxDecoration(
-                  color: isDark ? AppColors.border : const Color(0xFFDDDDDD),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text('Selecionar Status', style: AppTextStyles.h3.copyWith(color: textColor)),
-            const SizedBox(height: 8),
-            if (current != null)
-              TextButton.icon(
-                onPressed: () {
-                  ref.read(battleProvider.notifier).clearStatus();
-                  Navigator.pop(ctx);
-                },
-                icon: const Icon(Icons.close, color: AppColors.red, size: 16),
-                label: const Text('Remover status', style: TextStyle(color: AppColors.red)),
-              ),
-            const SizedBox(height: 8),
-            ...StatusCondition.values.map((status) {
-              final cfg = _statusConfig[status]!;
-              final isSelected = current == status;
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: GestureDetector(
-                  onTap: () {
-                    ref.read(battleProvider.notifier).toggleStatus(status);
-                    Navigator.pop(ctx);
-                  },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 150),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? cfg.color.withOpacity(0.15)
-                          : (isDark ? AppColors.surface2 : const Color(0xFFF5F5F5)),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: isSelected ? cfg.color : (isDark ? AppColors.border : const Color(0xFFE0E0E0)),
-                        width: isSelected ? 1.5 : 1,
+            if (showAds) const AdBanner(),
+            Expanded(
+              child: state.active == null
+                  ? _ActiveSelection(
+                      options: _available(),
+                      onPick: (dc) => ref.read(battleProvider.notifier).chooseActive(dc),
+                    )
+                  : SingleChildScrollView(
+                      padding: const EdgeInsets.only(bottom: 24),
+                      child: _BattleBoard(
+                        active: state.active!,
+                        bench: state.bench,
+                        onEndGame: _confirmEndGame,
+                        onNewGame: _newGame,
+                        onHpChanged: (hp) => ref.read(battleProvider.notifier).updateHp(hp),
+                        onHpDelta: (d) => ref.read(battleProvider.notifier).addHp(d),
+                        onStatus: _statusMenu,
+                        onEvolve: _evolveMenu,
+                        onDefeated: _defeatedMenu,
+                        onBenchTap: _benchTap,
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        Icon(cfg.icon, color: cfg.color, size: 22),
-                        const SizedBox(width: 12),
-                        Text(
-                          cfg.label,
-                          style: TextStyle(
-                            color: isSelected ? cfg.color : textColor,
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                            fontSize: 14,
-                          ),
-                        ),
-                        const Spacer(),
-                        if (isSelected)
-                          Icon(Icons.check_circle, color: cfg.color, size: 18),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            }),
+            ),
           ],
         ),
       ),
+      bottomNavigationBar: const _BottomBar(),
     );
   }
 
-  // ─── Evolve Menu ───────────────────────────────────────────────────
-  Future<void> _showEvolveMenu(BuildContext context, dynamic state) async {
-    final active = state.activePokemon as ActivePokemon?;
-    if (active == null) return;
-
-    final key = active.card.name.toLowerCase();
-
-    // Mostrar modal de carregamento
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (ctx) => const Center(child: CircularProgressIndicator()),
-    );
-
-    List<(int, String, int)> evolutions = [];
-    try {
-      final speciesRes = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon-species/$key'));
-      if (speciesRes.statusCode == 200) {
-        final speciesData = jsonDecode(speciesRes.body);
-        final chainUrl = speciesData['evolution_chain']['url'];
-        final chainRes = await http.get(Uri.parse(chainUrl));
-        if (chainRes.statusCode == 200) {
-          final chainData = jsonDecode(chainRes.body);
-
-          dynamic findCurrent(dynamic node) {
-            if (node['species']['name'] == key) return node;
-            for (var evo in node['evolves_to']) {
-              final res = findCurrent(evo);
-              if (res != null) return res;
-            }
-            return null;
-          }
-
-          final currentNode = findCurrent(chainData['chain']);
-          if (currentNode != null) {
-            for (var evo in currentNode['evolves_to']) {
-              final evoNameStr = evo['species']['name'] as String;
-              final evoName = evoNameStr[0].toUpperCase() + evoNameStr.substring(1);
-              final evoUrl = evo['species']['url'] as String;
-              final urlParts = evoUrl.split('/');
-              final dexId = int.parse(urlParts[urlParts.length - 2]);
-
-              int hp = 1000;
-              try {
-                final pokeRes = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$dexId'));
-                if (pokeRes.statusCode == 200) {
-                  final pokeData = jsonDecode(pokeRes.body);
-                  final hpStat = pokeData['stats'].firstWhere((s) => s['stat']['name'] == 'hp')['base_stat'] as int;
-                  hp = hpStat * 10;
-                }
-              } catch (_) {}
-
-              evolutions.add((dexId, evoName, hp));
-            }
-          }
-        }
+  // ── Bench ────────────────────────────────────────────────────────────────
+  Future<void> _benchTap(int index) async {
+    final state = ref.read(battleProvider);
+    if (index >= state.bench.length) {
+      // Empty slot → add from deck.
+      final dc = await _pickDeckCard('Adicionar ao banco', _available());
+      if (dc != null) ref.read(battleProvider.notifier).addToBench(dc);
+    } else {
+      // Occupied → swap active with this bench slot, or replace it.
+      final action = await showModalBottomSheet<String>(
+        context: context,
+        backgroundColor: AppColors.surface,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+        builder: (ctx) => SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 12),
+              ListTile(
+                leading: const Icon(Icons.swap_vert, color: AppColors.blue),
+                title: Text('Tornar ativo (recuar)', style: AppTextStyles.label),
+                onTap: () => Navigator.pop(ctx, 'swap'),
+              ),
+              ListTile(
+                leading: const Icon(Icons.autorenew, color: AppColors.blue),
+                title: Text('Trocar por outro do deck', style: AppTextStyles.label),
+                onTap: () => Navigator.pop(ctx, 'replace'),
+              ),
+            ],
+          ),
+        ),
+      );
+      if (action == 'swap') {
+        ref.read(battleProvider.notifier).swapWithBench(index);
+      } else if (action == 'replace') {
+        final dc = await _pickDeckCard('Trocar Pokémon do banco', _available());
+        if (dc != null) ref.read(battleProvider.notifier).replaceBench(index, dc);
       }
-    } catch (e) {
-      debugPrint('Error fetching evolutions: $e');
     }
-
-    if (!context.mounted) return;
-    Navigator.pop(context); // Fechar modal de carregamento
-
-    if (evolutions.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('${active.card.name} não possui evoluções.'),
-          backgroundColor: AppColors.textDim,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        ),
-      );
-      return;
-    }
-
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? AppColors.surface : Colors.white;
-    final textColor = isDark ? AppColors.textPrimary : AppColors.textDark;
-
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: bgColor,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => Padding(
-        padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 40, height: 4,
-                decoration: BoxDecoration(
-                  color: isDark ? AppColors.border : const Color(0xFFDDDDDD),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text('Evoluir ${active.card.name}', style: AppTextStyles.h3.copyWith(color: textColor)),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: evolutions.map((evo) {
-                final (dex, name, hp) = evo;
-                return GestureDetector(
-                  onTap: () {
-                    final card = PokemonCard(
-                      id: 'gen1-$dex',
-                      name: name,
-                      set: 'Gen I',
-                      number: '$dex',
-                      type: CardType.pokemon,
-                      hp: hp,
-                      imageUrl: _spriteUrl(dex),
-                      imageLargeUrl: _spriteUrl(dex),
-                    );
-                    ref.read(battleProvider.notifier).evolve(card);
-                    Navigator.pop(ctx);
-                  },
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 80, height: 80,
-                        decoration: BoxDecoration(
-                          color: isDark ? AppColors.surface2 : const Color(0xFFF0F0F0),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: AppColors.blue, width: 1.5),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            _spriteUrl(dex),
-                            fit: BoxFit.contain,
-                            errorBuilder: (_, __, ___) => const Icon(
-                              Icons.catching_pokemon,
-                              color: AppColors.blue,
-                              size: 40,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(name, style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 13)),
-                      Text('HP: $hp', style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary)),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
-  // ─── Defeated Menu ─────────────────────────────────────────────────
-  void _showDefeatedMenu(BuildContext context, dynamic state) {
-    final bench = (state.bench as List<ActivePokemon>);
+  // ── Status ───────────────────────────────────────────────────────────────
+  Future<void> _statusMenu() async {
+    final current = ref.read(battleProvider).active?.statuses ?? const <StatusCondition>{};
+    await showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.surface,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setModal) {
+          final statuses = ref.read(battleProvider).active?.statuses ?? const <StatusCondition>{};
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Container(width: 40, height: 4,
+                      decoration: BoxDecoration(color: AppColors.border, borderRadius: BorderRadius.circular(2))),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Text('Status', style: AppTextStyles.h3),
+                      const Spacer(),
+                      if (statuses.isNotEmpty)
+                        TextButton(
+                          onPressed: () {
+                            ref.read(battleProvider.notifier).clearStatus();
+                            setModal(() {});
+                          },
+                          child: const Text('Limpar', style: TextStyle(color: AppColors.red)),
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  for (final s in StatusCondition.values)
+                    _StatusRow(
+                      cfg: statusConfig[s]!,
+                      selected: statuses.contains(s),
+                      onTap: () {
+                        ref.read(battleProvider.notifier).toggleStatus(s);
+                        setModal(() {});
+                      },
+                    ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+    if (current != ref.read(battleProvider).active?.statuses) setState(() {});
+  }
+
+  // ── Evolve ───────────────────────────────────────────────────────────────
+  Future<void> _evolveMenu() async {
+    final deck = _deck;
+    final active = ref.read(battleProvider).active;
+    if (deck == null || active == null) return;
+    // Evolutions must be present in the deck.
+    final options = deck.pokemonCards
+        .where((dc) => active.card.evolvesToIds.contains(dc.card.id))
+        .toList();
+    if (options.isEmpty) {
+      _snack('${active.card.name} não possui evolução neste deck.');
+      return;
+    }
+    final chosen = await _pickDeckCard('Evoluir ${active.card.name}', options);
+    if (chosen != null) {
+      ref.read(battleProvider.notifier).evolve(chosen.card, chosen.effectiveHp);
+    }
+  }
+
+  // ── Defeated ─────────────────────────────────────────────────────────────
+  Future<void> _defeatedMenu() async {
+    final bench = ref.read(battleProvider).bench;
     if (bench.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Não há Pokémon no banco para substituir.'),
-          backgroundColor: AppColors.red,
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
+      _snack('Sem Pokémon no banco para substituir. Adicione um antes.');
       return;
     }
-
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? AppColors.surface : Colors.white;
-    final textColor = isDark ? AppColors.textPrimary : AppColors.textDark;
-
-    showModalBottomSheet(
+    final index = await showModalBottomSheet<int>(
       context: context,
-      backgroundColor: bgColor,
+      backgroundColor: AppColors.surface,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => Padding(
-        padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 40, height: 4,
-                decoration: BoxDecoration(
-                  color: isDark ? AppColors.border : const Color(0xFFDDDDDD),
-                  borderRadius: BorderRadius.circular(2),
-                ),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Escolher novo Pokémon ativo', style: AppTextStyles.h3),
+              const SizedBox(height: 12),
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  for (var i = 0; i < bench.length; i++)
+                    _PokemonPickTile(
+                      imageUrl: bench[i].card.imageUrl,
+                      name: bench[i].card.name,
+                      subtitle: '${bench[i].currentHp}/${bench[i].maxHp}',
+                      onTap: () => Navigator.pop(ctx, i),
+                    ),
+                ],
               ),
-            ),
-            const SizedBox(height: 16),
-            Text('Escolher Substituto', style: AppTextStyles.h3.copyWith(color: textColor)),
-            const SizedBox(height: 4),
-            Text(
-              'Selecione um Pokémon do banco:',
-              style: AppTextStyles.body.copyWith(color: isDark ? AppColors.textSecondary : Colors.grey[600]),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: bench.asMap().entries.map((entry) {
-                final i = entry.key;
-                final pokemon = entry.value;
-                final imgUrl = pokemon.card.imageUrl;
-                return GestureDetector(
-                  onTap: () {
-                    ref.read(battleProvider.notifier).defeatActive(i);
-                    Navigator.pop(ctx);
-                  },
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 64, height: 64,
-                        decoration: BoxDecoration(
-                          color: isDark ? AppColors.surface2 : const Color(0xFFF0F0F0),
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: AppColors.blue, width: 1.5),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: imgUrl != null
-                              ? Image.network(imgUrl, fit: BoxFit.contain,
-                                  errorBuilder: (_, __, ___) => const Icon(Icons.catching_pokemon, color: AppColors.blue))
-                              : const Icon(Icons.catching_pokemon, color: AppColors.blue),
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      SizedBox(
-                        width: 60,
-                        child: Text(
-                          pokemon.card.name,
-                          style: TextStyle(color: textColor, fontSize: 10, fontWeight: FontWeight.w600),
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Text(
-                        '${pokemon.currentHp}/${pokemon.maxHp}',
-                        style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary),
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
+    if (index != null) ref.read(battleProvider.notifier).markDefeated(index);
   }
 
-  // ─── Confirm New Game ──────────────────────────────────────────────
-  void _confirmNewGame(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    showDialog(
+  // ── Session ──────────────────────────────────────────────────────────────
+  Future<void> _confirmEndGame() async {
+    final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: isDark ? AppColors.surface : Colors.white,
+        backgroundColor: AppColors.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Text(
-          'Novo Jogo',
-          style: AppTextStyles.h3.copyWith(
-            color: isDark ? AppColors.textPrimary : AppColors.textDark,
-          ),
-        ),
-        content: Text(
-          'Deseja reiniciar a partida com o mesmo deck?',
-          style: AppTextStyles.body.copyWith(
-            color: isDark ? AppColors.textSecondary : Colors.grey[600],
-          ),
-        ),
+        title: Text('Encerrar jogo', style: AppTextStyles.h3),
+        content: Text('Tem certeza? O progresso da batalha será perdido.',
+            style: AppTextStyles.body),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: Text('Cancelar', style: TextStyle(color: isDark ? AppColors.textSecondary : Colors.grey)),
+            onPressed: () => Navigator.pop(ctx, false),
+            child: Text('Cancelar',
+                style: AppTextStyles.label.copyWith(color: AppColors.textSecondary)),
           ),
           ElevatedButton(
-            onPressed: () {
-              ref.read(battleProvider.notifier).resetGame();
-              Navigator.pop(ctx);
-            },
+            onPressed: () => Navigator.pop(ctx, true),
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.blue,
+              backgroundColor: AppColors.red,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             ),
-            child: const Text('Reiniciar', style: TextStyle(color: Colors.white)),
+            child: const Text('Encerrar', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+    if (ok == true) {
+      ref.read(battleProvider.notifier).endGame();
+      if (mounted) context.go('/');
+    }
+  }
+
+  void _newGame() {
+    final deck = _deck;
+    if (deck == null) return;
+    ref.read(battleProvider.notifier).startBattle(deck);
+    setState(() {});
+  }
+
+  // ── Helpers ────────────────────────────────────────────────────────────
+  Future<DeckCard?> _pickDeckCard(String title, List<DeckCard> options) {
+    if (options.isEmpty) {
+      _snack('Nenhum Pokémon disponível no deck.');
+      return Future.value(null);
+    }
+    return showModalBottomSheet<DeckCard>(
+      context: context,
+      backgroundColor: AppColors.surface,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: AppTextStyles.h3),
+              const SizedBox(height: 12),
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  for (final dc in options)
+                    _PokemonPickTile(
+                      imageUrl: dc.card.imageUrl,
+                      name: dc.card.name,
+                      subtitle: '${dc.effectiveHp} HP',
+                      onTap: () => Navigator.pop(ctx, dc),
+                    ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _snack(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        backgroundColor: AppColors.surface2,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    );
+  }
+}
+
+// ── Active selection ─────────────────────────────────────────────────────────
+class _ActiveSelection extends StatelessWidget {
+  final List<DeckCard> options;
+  final ValueChanged<DeckCard> onPick;
+  const _ActiveSelection({required this.options, required this.onPick});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const SizedBox(height: 12),
+          Text('Escolha seu Pokémon inicial', style: AppTextStyles.h2, textAlign: TextAlign.center),
+          const SizedBox(height: 4),
+          Text('Somente Básico ou EX podem começar.',
+              style: AppTextStyles.body, textAlign: TextAlign.center),
+          const SizedBox(height: 20),
+          Expanded(
+            child: options.isEmpty
+                ? Center(child: Text('Nenhum Pokémon elegível no deck.', style: AppTextStyles.body))
+                : GridView.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 0.8,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                    ),
+                    itemCount: options.length,
+                    itemBuilder: (context, i) => _PokemonPickTile(
+                      imageUrl: options[i].card.imageUrl,
+                      name: options[i].card.name,
+                      subtitle: '${options[i].effectiveHp} HP',
+                      onTap: () => onPick(options[i]),
+                    ),
+                  ),
           ),
         ],
       ),
@@ -531,382 +404,461 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
   }
 }
 
-// ─── MainCard ─────────────────────────────────────────────────────────────────
-
-class _MainCard extends StatelessWidget {
-  final dynamic state;
-  final bool isDark;
-  final ValueChanged<int> onHpChanged;
-  final VoidCallback onStatusTap;
-  final VoidCallback onEvolveTap;
-  final VoidCallback onDefeatedTap;
-  final ValueChanged<int> onBenchTap;
+// ── Battle board ─────────────────────────────────────────────────────────────
+class _BattleBoard extends StatelessWidget {
+  final ActivePokemon active;
+  final List<ActivePokemon> bench;
   final VoidCallback onEndGame;
   final VoidCallback onNewGame;
+  final ValueChanged<int> onHpChanged;
+  final ValueChanged<int> onHpDelta;
+  final VoidCallback onStatus;
+  final VoidCallback onEvolve;
+  final VoidCallback onDefeated;
+  final ValueChanged<int> onBenchTap;
 
-  const _MainCard({
-    required this.state,
-    required this.isDark,
-    required this.onHpChanged,
-    required this.onStatusTap,
-    required this.onEvolveTap,
-    required this.onDefeatedTap,
-    required this.onBenchTap,
+  const _BattleBoard({
+    required this.active,
+    required this.bench,
     required this.onEndGame,
     required this.onNewGame,
+    required this.onHpChanged,
+    required this.onHpDelta,
+    required this.onStatus,
+    required this.onEvolve,
+    required this.onDefeated,
+    required this.onBenchTap,
   });
-
-  Map<EnergyType, int> _mapEnergies(List<EnergyType> attached) {
-    final Map<EnergyType, int> map = {};
-    for (final e in attached) {
-      map[e] = (map[e] ?? 0) + 1;
-    }
-    return map;
-  }
 
   @override
   Widget build(BuildContext context) {
-    final active = state.activePokemon as ActivePokemon?;
-    final bench = state.bench as List<ActivePokemon>;
-    final currentHp = active?.currentHp ?? 0;
-    final maxHp = active?.maxHp ?? 0;
-    final status = active?.statusCondition;
-    final imgUrl = active?.card.imageUrl;
-
-    final cardBg = isDark ? AppColors.surfaceVariant : const Color(0xFFEEEEEE);
-    final cardBorder = isDark ? AppColors.borderVariant : const Color(0xFFCCCCCC);
-    final innerBg = isDark ? AppColors.borderVariant : const Color(0xFFDDDDDD);
-
-    return SizedBox(
-      width: 300,
-      height: 544,
-      child: Stack(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
         children: [
-          // Background Card
-          Positioned(
-            top: 44, bottom: 80, left: 0, right: 0,
-            child: Container(
-              decoration: BoxDecoration(
-                color: cardBg,
-                border: Border.all(color: cardBorder, width: 2),
-                borderRadius: BorderRadius.circular(24),
-              ),
-            ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _PillButton(text: 'End Game', color: AppColors.surfaceVariant, textColor: AppColors.textDark, onTap: onEndGame),
+              const SizedBox(width: 24),
+              _PillButton(text: 'New Game', color: AppColors.blue, textColor: Colors.white, onTap: onNewGame),
+            ],
           ),
-
-          // Internal image area
-          Positioned(
-            top: 140, bottom: 112, left: 32, right: 32,
-            child: Container(
-              decoration: BoxDecoration(
-                color: innerBg,
-                borderRadius: BorderRadius.circular(24),
-              ),
-            ),
+          const SizedBox(height: 16),
+          _ActiveCard(
+            active: active,
+            onStatus: onStatus,
+            onEvolve: onEvolve,
+            onDefeated: onDefeated,
+            onHpChanged: onHpChanged,
+            onHpDelta: onHpDelta,
           ),
-
-          // Pokémon Image
-          Positioned(
-            top: 150, bottom: 120, left: 48, right: 48,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: imgUrl != null
-                  ? CachedNetworkImage(imageUrl: imgUrl, fit: BoxFit.contain)
-                  : Icon(
-                      Icons.catching_pokemon,
-                      size: 80,
-                      color: isDark ? AppColors.textDim : Colors.grey,
-                    ),
-            ),
-          ),
-
-          // Pokémon Name tag
-          if (active != null)
-            Positioned(
-              top: 154,
-              left: 48,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                decoration: BoxDecoration(
-                  color: AppColors.blue.withOpacity(0.85),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  active.card.name,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-
-          // HP Section
-          Positioned(
-            top: 60, left: 0, right: 0,
-            child: Column(
-              children: [
-                Center(
-                  child: HpTracker(
-                    currentHp: currentHp,
-                    maxHp: maxHp,
-                    onChanged: onHpChanged,
-                  ),
-                ),
-                if (active != null && active.attachedEnergies.isNotEmpty) ...[
-                  const SizedBox(height: 8),
-                  EnergyTracker(
-                    energies: _mapEnergies(active.attachedEnergies),
-                  ),
-                ],
-              ],
-            ),
-          ),
-
-          // Action Buttons (Evolve, Defeated)
-          Positioned(
-            bottom: 100, left: 0, right: 0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _ActionButton(
-                  text: 'Evolve',
-                  color: AppColors.blue,
-                  width: 128,
-                  onPressed: onEvolveTap,
-                ),
-                const SizedBox(height: 8),
-                _ActionButton(
-                  text: 'Defeated',
-                  color: isDark ? AppColors.textDark : const Color(0xFF555555),
-                  width: 96,
-                  height: 24,
-                  fontSize: 12,
-                  onPressed: onDefeatedTap,
-                ),
-              ],
-            ),
-          ),
-
-          // Right side: Status button + active status icon
-          Positioned(
-            top: 116, right: 8,
-            child: Column(
-              children: [
-                // Status selector button
-                StatusBadge(
-                  icon: const Icon(Icons.shield_outlined, size: 16, color: Colors.white),
-                  backgroundColor: AppColors.blue,
-                  onTap: onStatusTap,
-                ),
-                // Active status icon (if any)
-                if (status != null) ...[
-                  const SizedBox(height: 5),
-                  StatusBadge(
-                    icon: Icon(
-                      _statusConfig[status]!.icon,
-                      size: 16,
-                      color: Colors.white,
-                    ),
-                    backgroundColor: _statusConfig[status]!.color,
-                  ),
-                ],
-              ],
-            ),
-          ),
-
-          // Bench Cards
-          Positioned(
-            bottom: 0, left: 0, right: 0,
-            child: bench.isEmpty
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      5,
-                      (_) => _EmptyBenchCard(isDark: isDark),
-                    ),
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: bench.asMap().entries.map((entry) {
-                      return _BenchCard(
-                        pokemon: entry.value,
-                        isDark: isDark,
-                        onTap: () => onBenchTap(entry.key),
-                      );
-                    }).toList(),
-                  ),
-          ),
-
-          // Control Buttons (End Game, New Game)
-          Positioned(
-            top: 0, left: 22, right: 22,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _ControlButton(
-                  text: 'End Game',
-                  color: isDark ? AppColors.textDark : const Color(0xFF555555),
-                  onPressed: onEndGame,
-                ),
-                const SizedBox(width: 32),
-                _ControlButton(
-                  text: 'New Game',
-                  color: AppColors.blue,
-                  onPressed: onNewGame,
-                ),
-              ],
-            ),
-          ),
+          const SizedBox(height: 16),
+          _BenchRow(bench: bench, onTap: onBenchTap),
+          const SizedBox(height: 12),
         ],
       ),
     );
   }
 }
 
-// ─── Sub-widgets ──────────────────────────────────────────────────────────────
+class _ActiveCard extends StatelessWidget {
+  final ActivePokemon active;
+  final VoidCallback onStatus;
+  final VoidCallback onEvolve;
+  final VoidCallback onDefeated;
+  final ValueChanged<int> onHpChanged;
+  final ValueChanged<int> onHpDelta;
 
-class _ActionButton extends StatelessWidget {
+  const _ActiveCard({
+    required this.active,
+    required this.onStatus,
+    required this.onEvolve,
+    required this.onDefeated,
+    required this.onHpChanged,
+    required this.onHpDelta,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: AppColors.border),
+      ),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
+      child: Column(
+        children: [
+          _HpControl(
+            currentHp: active.currentHp,
+            maxHp: active.maxHp,
+            onChanged: onHpChanged,
+            onDelta: onHpDelta,
+          ),
+          const SizedBox(height: 12),
+          Stack(
+            children: [
+              Container(
+                height: 220,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: AppColors.surfaceVariant,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: const EdgeInsets.all(12),
+                child: active.card.imageUrl == null
+                    ? const Icon(Icons.catching_pokemon, size: 90, color: AppColors.blue)
+                    : CachedNetworkImage(
+                        imageUrl: active.card.imageUrl!,
+                        fit: BoxFit.contain,
+                        errorWidget: (_, __, ___) =>
+                            const Icon(Icons.catching_pokemon, size: 90, color: AppColors.blue),
+                      ),
+              ),
+              Positioned(
+                left: 8, top: 8,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: AppColors.blue.withValues(alpha: 0.9),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(active.card.name,
+                      style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+                ),
+              ),
+              Positioned(
+                right: 8, top: 8,
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: onStatus,
+                      child: Container(
+                        width: 44, height: 44,
+                        decoration: const BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
+                        child: const Icon(Icons.medical_services_outlined, color: Colors.white, size: 20),
+                      ),
+                    ),
+                    for (final s in active.statuses) ...[
+                      const SizedBox(height: 6),
+                      Container(
+                        width: 40, height: 40,
+                        decoration: BoxDecoration(color: statusConfig[s]!.color, shape: BoxShape.circle),
+                        child: Icon(statusConfig[s]!.icon, color: Colors.white, size: 18),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _PillButton(text: 'Evolve', color: AppColors.blue, textColor: Colors.white, width: 160, onTap: onEvolve),
+          const SizedBox(height: 8),
+          _PillButton(text: 'Defeated', color: AppColors.surfaceVariant, textColor: AppColors.textDark, width: 120, height: 30, onTap: onDefeated),
+        ],
+      ),
+    );
+  }
+}
+
+class _HpControl extends StatefulWidget {
+  final int currentHp;
+  final int maxHp;
+  final ValueChanged<int> onChanged;
+  final ValueChanged<int> onDelta;
+  const _HpControl({required this.currentHp, required this.maxHp, required this.onChanged, required this.onDelta});
+
+  @override
+  State<_HpControl> createState() => _HpControlState();
+}
+
+class _HpControlState extends State<_HpControl> {
+  bool _editing = false;
+  late final TextEditingController _controller = TextEditingController(text: '${widget.currentHp}');
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Color get _hpColor {
+    final ratio = widget.maxHp == 0 ? 0 : widget.currentHp / widget.maxHp;
+    if (ratio > 0.5) return AppColors.green;
+    if (ratio > 0.2) return AppColors.yellow;
+    return AppColors.red;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('LIFE', style: AppTextStyles.lifeLabel),
+        const SizedBox(height: 6),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _round(Icons.remove, () => widget.onDelta(-1)),
+            const SizedBox(width: 10),
+            GestureDetector(
+              onTap: () {
+                _controller.text = '${widget.currentHp}';
+                setState(() => _editing = true);
+              },
+              child: Container(
+                width: 96,
+                height: 40,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: AppColors.surfaceVariant,
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: _editing
+                    ? TextField(
+                        controller: _controller,
+                        autofocus: true,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.hpValue,
+                        decoration: const InputDecoration(border: InputBorder.none, isDense: true, contentPadding: EdgeInsets.zero),
+                        onSubmitted: (v) {
+                          setState(() => _editing = false);
+                          widget.onChanged(int.tryParse(v) ?? widget.currentHp);
+                        },
+                      )
+                    : Text('${widget.currentHp}',
+                        style: AppTextStyles.hpValue.copyWith(color: _hpColor)),
+              ),
+            ),
+            const SizedBox(width: 10),
+            _round(Icons.add, () => widget.onDelta(1)),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text('máx ${widget.maxHp}', style: AppTextStyles.caption),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _quick('-50', () => widget.onDelta(-50)),
+            _quick('-10', () => widget.onDelta(-10)),
+            _quick('+10', () => widget.onDelta(10)),
+            _quick('+50', () => widget.onDelta(50)),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _round(IconData icon, VoidCallback onTap) => GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 40, height: 40,
+          decoration: const BoxDecoration(color: AppColors.surfaceVariant, shape: BoxShape.circle),
+          child: Icon(icon, color: AppColors.blue, size: 20),
+        ),
+      );
+
+  Widget _quick(String label, VoidCallback onTap) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: GestureDetector(
+          onTap: onTap,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: AppColors.surface2,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: AppColors.border),
+            ),
+            child: Text(label, style: AppTextStyles.labelBold),
+          ),
+        ),
+      );
+}
+
+class _BenchRow extends StatelessWidget {
+  final List<ActivePokemon> bench;
+  final ValueChanged<int> onTap;
+  const _BenchRow({required this.bench, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: List.generate(5, (i) {
+        final has = i < bench.length;
+        return GestureDetector(
+          onTap: () => onTap(i),
+          child: Container(
+            width: 56,
+            height: 72,
+            decoration: BoxDecoration(
+              color: AppColors.surface,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: AppColors.border, width: has ? 1.5 : 1),
+            ),
+            padding: const EdgeInsets.all(4),
+            child: has
+                ? Column(
+                    children: [
+                      Expanded(
+                        child: bench[i].card.imageUrl == null
+                            ? const Icon(Icons.catching_pokemon, color: AppColors.blue)
+                            : CachedNetworkImage(
+                                imageUrl: bench[i].card.imageUrl!,
+                                fit: BoxFit.contain,
+                                errorWidget: (_, __, ___) =>
+                                    const Icon(Icons.catching_pokemon, color: AppColors.blue),
+                              ),
+                      ),
+                      Text('${bench[i].currentHp}',
+                          style: AppTextStyles.caption.copyWith(fontSize: 9)),
+                    ],
+                  )
+                : const Icon(Icons.add, color: AppColors.textDim, size: 20),
+          ),
+        );
+      }),
+    );
+  }
+}
+
+// ── Small shared widgets ─────────────────────────────────────────────────────
+class _PillButton extends StatelessWidget {
   final String text;
   final Color color;
-  final double width;
+  final Color textColor;
+  final double? width;
   final double height;
-  final double fontSize;
-  final VoidCallback onPressed;
-
-  const _ActionButton({
-    required this.text,
-    required this.color,
-    required this.width,
-    this.height = 32,
-    this.fontSize = 16,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(48),
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          text,
-          style: AppTextStyles.buttonText.copyWith(fontSize: fontSize),
-        ),
-      ),
-    );
-  }
-}
-
-class _ControlButton extends StatelessWidget {
-  final String text;
-  final Color color;
-  final VoidCallback onPressed;
-
-  const _ControlButton({
-    required this.text,
-    required this.color,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        width: 112,
-        height: 28,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(48),
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          text,
-          style: AppTextStyles.buttonText.copyWith(fontSize: 13),
-        ),
-      ),
-    );
-  }
-}
-
-class _BenchCard extends StatelessWidget {
-  final ActivePokemon pokemon;
-  final bool isDark;
   final VoidCallback onTap;
-
-  const _BenchCard({
-    required this.pokemon,
-    required this.isDark,
+  const _PillButton({
+    required this.text,
+    required this.color,
+    required this.textColor,
+    this.width,
+    this.height = 40,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = isDark ? AppColors.surfaceVariant : const Color(0xFFEEEEEE);
-    final borderColor = isDark ? AppColors.borderVariant : const Color(0xFFCCCCCC);
-    final imgUrl = pokemon.card.imageUrl;
-
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 48,
-        height: 64,
-        decoration: BoxDecoration(
-          color: bgColor,
-          border: Border.all(color: borderColor, width: 2),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: imgUrl != null
-              ? Image.network(
-                  imgUrl,
-                  fit: BoxFit.contain,
-                  errorBuilder: (_, __, ___) => const Icon(
-                    Icons.catching_pokemon,
-                    size: 24,
-                    color: AppColors.blue,
-                  ),
-                )
-              : const Icon(Icons.catching_pokemon, size: 24, color: AppColors.blue),
+        width: width,
+        height: height,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(28)),
+        child: Text(text, style: AppTextStyles.buttonText.copyWith(color: textColor)),
+      ),
+    );
+  }
+}
+
+class _PokemonPickTile extends StatelessWidget {
+  final String? imageUrl;
+  final String name;
+  final String subtitle;
+  final VoidCallback onTap;
+  const _PokemonPickTile({
+    required this.imageUrl,
+    required this.name,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+        width: 84,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 84, height: 84,
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: AppColors.surface2,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.blue, width: 1.2),
+              ),
+              child: imageUrl == null
+                  ? const Icon(Icons.catching_pokemon, color: AppColors.blue)
+                  : CachedNetworkImage(
+                      imageUrl: imageUrl!,
+                      fit: BoxFit.contain,
+                      errorWidget: (_, __, ___) =>
+                          const Icon(Icons.catching_pokemon, color: AppColors.blue),
+                    ),
+            ),
+            const SizedBox(height: 4),
+            Text(name,
+                style: AppTextStyles.caption.copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.w600),
+                maxLines: 1, overflow: TextOverflow.ellipsis),
+            Text(subtitle, style: AppTextStyles.caption),
+          ],
         ),
       ),
     );
   }
 }
 
-class _EmptyBenchCard extends StatelessWidget {
-  final bool isDark;
-  const _EmptyBenchCard({required this.isDark});
+class _StatusRow extends StatelessWidget {
+  final StatusCfg cfg;
+  final bool selected;
+  final VoidCallback onTap;
+  const _StatusRow({required this.cfg, required this.selected, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 48,
-      height: 64,
-      margin: const EdgeInsets.symmetric(horizontal: 4),
-      decoration: BoxDecoration(
-        color: isDark ? AppColors.surface2 : const Color(0xFFEEEEEE),
-        border: Border.all(
-          color: isDark ? AppColors.border : const Color(0xFFDDDDDD),
-          width: 1.5,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            color: selected ? cfg.color.withValues(alpha: 0.15) : AppColors.surface2,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: selected ? cfg.color : AppColors.border, width: selected ? 1.5 : 1),
+          ),
+          child: Row(
+            children: [
+              Icon(cfg.icon, color: cfg.color, size: 22),
+              const SizedBox(width: 12),
+              Text(cfg.label,
+                  style: AppTextStyles.label.copyWith(
+                      color: selected ? cfg.color : AppColors.textPrimary,
+                      fontWeight: selected ? FontWeight.bold : FontWeight.w500)),
+              const Spacer(),
+              if (selected) Icon(Icons.check_circle, color: cfg.color, size: 18),
+            ],
+          ),
         ),
-        borderRadius: BorderRadius.circular(8),
       ),
-      child: Icon(
-        Icons.add,
-        size: 20,
-        color: isDark ? AppColors.textDim : Colors.grey[400],
+    );
+  }
+}
+
+class _BottomBar extends StatelessWidget {
+  const _BottomBar();
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      height: 132,
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 12),
+          child: Align(alignment: Alignment.bottomCenter, child: BattleMenu(inBattleScreen: true)),
+        ),
       ),
     );
   }

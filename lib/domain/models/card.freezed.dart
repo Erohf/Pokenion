@@ -22,15 +22,24 @@ PokemonCard _$PokemonCardFromJson(Map<String, dynamic> json) {
 mixin _$PokemonCard {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get set => throw _privateConstructorUsedError;
-  String get number => throw _privateConstructorUsedError;
   CardType get type => throw _privateConstructorUsedError;
+  int? get dexNumber => throw _privateConstructorUsedError;
+  PokemonStage? get stage =>
+      throw _privateConstructorUsedError; // Canonical HP used as the default LIFE suggestion when adding to a deck.
+  int? get baseHp => throw _privateConstructorUsedError;
+  List<String>? get types => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
+  String? get imageLargeUrl =>
+      throw _privateConstructorUsedError; // Ids of cards this Pokémon can evolve into (next stages / mega).
+  List<String> get evolvesToIds =>
+      throw _privateConstructorUsedError; // Optional descriptor for variants (e.g. "Mega", "EX", "V Astro").
+  String? get variant =>
+      throw _privateConstructorUsedError; // Legacy / TCG-import fields (kept for compatibility).
+  String? get set => throw _privateConstructorUsedError;
+  String? get number => throw _privateConstructorUsedError;
   String? get supertype => throw _privateConstructorUsedError;
   List<String>? get subtypes => throw _privateConstructorUsedError;
   int? get hp => throw _privateConstructorUsedError;
-  List<String>? get types => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
-  String? get imageLargeUrl => throw _privateConstructorUsedError;
   String? get rarity => throw _privateConstructorUsedError;
 
   /// Serializes this PokemonCard to a JSON map.
@@ -52,15 +61,20 @@ abstract class $PokemonCardCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      String set,
-      String number,
       CardType type,
-      String? supertype,
-      List<String>? subtypes,
-      int? hp,
+      int? dexNumber,
+      PokemonStage? stage,
+      int? baseHp,
       List<String>? types,
       String? imageUrl,
       String? imageLargeUrl,
+      List<String> evolvesToIds,
+      String? variant,
+      String? set,
+      String? number,
+      String? supertype,
+      List<String>? subtypes,
+      int? hp,
       String? rarity});
 }
 
@@ -81,15 +95,20 @@ class _$PokemonCardCopyWithImpl<$Res, $Val extends PokemonCard>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? set = null,
-    Object? number = null,
     Object? type = null,
-    Object? supertype = freezed,
-    Object? subtypes = freezed,
-    Object? hp = freezed,
+    Object? dexNumber = freezed,
+    Object? stage = freezed,
+    Object? baseHp = freezed,
     Object? types = freezed,
     Object? imageUrl = freezed,
     Object? imageLargeUrl = freezed,
+    Object? evolvesToIds = null,
+    Object? variant = freezed,
+    Object? set = freezed,
+    Object? number = freezed,
+    Object? supertype = freezed,
+    Object? subtypes = freezed,
+    Object? hp = freezed,
     Object? rarity = freezed,
   }) {
     return _then(_value.copyWith(
@@ -101,29 +120,21 @@ class _$PokemonCardCopyWithImpl<$Res, $Val extends PokemonCard>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      set: null == set
-          ? _value.set
-          : set // ignore: cast_nullable_to_non_nullable
-              as String,
-      number: null == number
-          ? _value.number
-          : number // ignore: cast_nullable_to_non_nullable
-              as String,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as CardType,
-      supertype: freezed == supertype
-          ? _value.supertype
-          : supertype // ignore: cast_nullable_to_non_nullable
-              as String?,
-      subtypes: freezed == subtypes
-          ? _value.subtypes
-          : subtypes // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      hp: freezed == hp
-          ? _value.hp
-          : hp // ignore: cast_nullable_to_non_nullable
+      dexNumber: freezed == dexNumber
+          ? _value.dexNumber
+          : dexNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
+      stage: freezed == stage
+          ? _value.stage
+          : stage // ignore: cast_nullable_to_non_nullable
+              as PokemonStage?,
+      baseHp: freezed == baseHp
+          ? _value.baseHp
+          : baseHp // ignore: cast_nullable_to_non_nullable
               as int?,
       types: freezed == types
           ? _value.types
@@ -137,6 +148,34 @@ class _$PokemonCardCopyWithImpl<$Res, $Val extends PokemonCard>
           ? _value.imageLargeUrl
           : imageLargeUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      evolvesToIds: null == evolvesToIds
+          ? _value.evolvesToIds
+          : evolvesToIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      variant: freezed == variant
+          ? _value.variant
+          : variant // ignore: cast_nullable_to_non_nullable
+              as String?,
+      set: freezed == set
+          ? _value.set
+          : set // ignore: cast_nullable_to_non_nullable
+              as String?,
+      number: freezed == number
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as String?,
+      supertype: freezed == supertype
+          ? _value.supertype
+          : supertype // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subtypes: freezed == subtypes
+          ? _value.subtypes
+          : subtypes // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      hp: freezed == hp
+          ? _value.hp
+          : hp // ignore: cast_nullable_to_non_nullable
+              as int?,
       rarity: freezed == rarity
           ? _value.rarity
           : rarity // ignore: cast_nullable_to_non_nullable
@@ -156,15 +195,20 @@ abstract class _$$PokemonCardImplCopyWith<$Res>
   $Res call(
       {String id,
       String name,
-      String set,
-      String number,
       CardType type,
-      String? supertype,
-      List<String>? subtypes,
-      int? hp,
+      int? dexNumber,
+      PokemonStage? stage,
+      int? baseHp,
       List<String>? types,
       String? imageUrl,
       String? imageLargeUrl,
+      List<String> evolvesToIds,
+      String? variant,
+      String? set,
+      String? number,
+      String? supertype,
+      List<String>? subtypes,
+      int? hp,
       String? rarity});
 }
 
@@ -183,15 +227,20 @@ class __$$PokemonCardImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? set = null,
-    Object? number = null,
     Object? type = null,
-    Object? supertype = freezed,
-    Object? subtypes = freezed,
-    Object? hp = freezed,
+    Object? dexNumber = freezed,
+    Object? stage = freezed,
+    Object? baseHp = freezed,
     Object? types = freezed,
     Object? imageUrl = freezed,
     Object? imageLargeUrl = freezed,
+    Object? evolvesToIds = null,
+    Object? variant = freezed,
+    Object? set = freezed,
+    Object? number = freezed,
+    Object? supertype = freezed,
+    Object? subtypes = freezed,
+    Object? hp = freezed,
     Object? rarity = freezed,
   }) {
     return _then(_$PokemonCardImpl(
@@ -203,29 +252,21 @@ class __$$PokemonCardImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      set: null == set
-          ? _value.set
-          : set // ignore: cast_nullable_to_non_nullable
-              as String,
-      number: null == number
-          ? _value.number
-          : number // ignore: cast_nullable_to_non_nullable
-              as String,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as CardType,
-      supertype: freezed == supertype
-          ? _value.supertype
-          : supertype // ignore: cast_nullable_to_non_nullable
-              as String?,
-      subtypes: freezed == subtypes
-          ? _value._subtypes
-          : subtypes // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      hp: freezed == hp
-          ? _value.hp
-          : hp // ignore: cast_nullable_to_non_nullable
+      dexNumber: freezed == dexNumber
+          ? _value.dexNumber
+          : dexNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
+      stage: freezed == stage
+          ? _value.stage
+          : stage // ignore: cast_nullable_to_non_nullable
+              as PokemonStage?,
+      baseHp: freezed == baseHp
+          ? _value.baseHp
+          : baseHp // ignore: cast_nullable_to_non_nullable
               as int?,
       types: freezed == types
           ? _value._types
@@ -239,6 +280,34 @@ class __$$PokemonCardImplCopyWithImpl<$Res>
           ? _value.imageLargeUrl
           : imageLargeUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      evolvesToIds: null == evolvesToIds
+          ? _value._evolvesToIds
+          : evolvesToIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      variant: freezed == variant
+          ? _value.variant
+          : variant // ignore: cast_nullable_to_non_nullable
+              as String?,
+      set: freezed == set
+          ? _value.set
+          : set // ignore: cast_nullable_to_non_nullable
+              as String?,
+      number: freezed == number
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as String?,
+      supertype: freezed == supertype
+          ? _value.supertype
+          : supertype // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subtypes: freezed == subtypes
+          ? _value._subtypes
+          : subtypes // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      hp: freezed == hp
+          ? _value.hp
+          : hp // ignore: cast_nullable_to_non_nullable
+              as int?,
       rarity: freezed == rarity
           ? _value.rarity
           : rarity // ignore: cast_nullable_to_non_nullable
@@ -253,18 +322,24 @@ class _$PokemonCardImpl implements _PokemonCard {
   const _$PokemonCardImpl(
       {required this.id,
       required this.name,
-      required this.set,
-      required this.number,
       required this.type,
-      this.supertype,
-      final List<String>? subtypes,
-      this.hp,
+      this.dexNumber,
+      this.stage,
+      this.baseHp,
       final List<String>? types,
       this.imageUrl,
       this.imageLargeUrl,
+      final List<String> evolvesToIds = const [],
+      this.variant,
+      this.set,
+      this.number,
+      this.supertype,
+      final List<String>? subtypes,
+      this.hp,
       this.rarity})
-      : _subtypes = subtypes,
-        _types = types;
+      : _types = types,
+        _evolvesToIds = evolvesToIds,
+        _subtypes = subtypes;
 
   factory _$PokemonCardImpl.fromJson(Map<String, dynamic> json) =>
       _$$PokemonCardImplFromJson(json);
@@ -274,25 +349,14 @@ class _$PokemonCardImpl implements _PokemonCard {
   @override
   final String name;
   @override
-  final String set;
-  @override
-  final String number;
-  @override
   final CardType type;
   @override
-  final String? supertype;
-  final List<String>? _subtypes;
+  final int? dexNumber;
   @override
-  List<String>? get subtypes {
-    final value = _subtypes;
-    if (value == null) return null;
-    if (_subtypes is EqualUnmodifiableListView) return _subtypes;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
+  final PokemonStage? stage;
+// Canonical HP used as the default LIFE suggestion when adding to a deck.
   @override
-  final int? hp;
+  final int? baseHp;
   final List<String>? _types;
   @override
   List<String>? get types {
@@ -307,12 +371,45 @@ class _$PokemonCardImpl implements _PokemonCard {
   final String? imageUrl;
   @override
   final String? imageLargeUrl;
+// Ids of cards this Pokémon can evolve into (next stages / mega).
+  final List<String> _evolvesToIds;
+// Ids of cards this Pokémon can evolve into (next stages / mega).
+  @override
+  @JsonKey()
+  List<String> get evolvesToIds {
+    if (_evolvesToIds is EqualUnmodifiableListView) return _evolvesToIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_evolvesToIds);
+  }
+
+// Optional descriptor for variants (e.g. "Mega", "EX", "V Astro").
+  @override
+  final String? variant;
+// Legacy / TCG-import fields (kept for compatibility).
+  @override
+  final String? set;
+  @override
+  final String? number;
+  @override
+  final String? supertype;
+  final List<String>? _subtypes;
+  @override
+  List<String>? get subtypes {
+    final value = _subtypes;
+    if (value == null) return null;
+    if (_subtypes is EqualUnmodifiableListView) return _subtypes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final int? hp;
   @override
   final String? rarity;
 
   @override
   String toString() {
-    return 'PokemonCard(id: $id, name: $name, set: $set, number: $number, type: $type, supertype: $supertype, subtypes: $subtypes, hp: $hp, types: $types, imageUrl: $imageUrl, imageLargeUrl: $imageLargeUrl, rarity: $rarity)';
+    return 'PokemonCard(id: $id, name: $name, type: $type, dexNumber: $dexNumber, stage: $stage, baseHp: $baseHp, types: $types, imageUrl: $imageUrl, imageLargeUrl: $imageLargeUrl, evolvesToIds: $evolvesToIds, variant: $variant, set: $set, number: $number, supertype: $supertype, subtypes: $subtypes, hp: $hp, rarity: $rarity)';
   }
 
   @override
@@ -322,18 +419,25 @@ class _$PokemonCardImpl implements _PokemonCard {
             other is _$PokemonCardImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.set, set) || other.set == set) &&
-            (identical(other.number, number) || other.number == number) &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.supertype, supertype) ||
-                other.supertype == supertype) &&
-            const DeepCollectionEquality().equals(other._subtypes, _subtypes) &&
-            (identical(other.hp, hp) || other.hp == hp) &&
+            (identical(other.dexNumber, dexNumber) ||
+                other.dexNumber == dexNumber) &&
+            (identical(other.stage, stage) || other.stage == stage) &&
+            (identical(other.baseHp, baseHp) || other.baseHp == baseHp) &&
             const DeepCollectionEquality().equals(other._types, _types) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.imageLargeUrl, imageLargeUrl) ||
                 other.imageLargeUrl == imageLargeUrl) &&
+            const DeepCollectionEquality()
+                .equals(other._evolvesToIds, _evolvesToIds) &&
+            (identical(other.variant, variant) || other.variant == variant) &&
+            (identical(other.set, set) || other.set == set) &&
+            (identical(other.number, number) || other.number == number) &&
+            (identical(other.supertype, supertype) ||
+                other.supertype == supertype) &&
+            const DeepCollectionEquality().equals(other._subtypes, _subtypes) &&
+            (identical(other.hp, hp) || other.hp == hp) &&
             (identical(other.rarity, rarity) || other.rarity == rarity));
   }
 
@@ -343,15 +447,20 @@ class _$PokemonCardImpl implements _PokemonCard {
       runtimeType,
       id,
       name,
-      set,
-      number,
       type,
-      supertype,
-      const DeepCollectionEquality().hash(_subtypes),
-      hp,
+      dexNumber,
+      stage,
+      baseHp,
       const DeepCollectionEquality().hash(_types),
       imageUrl,
       imageLargeUrl,
+      const DeepCollectionEquality().hash(_evolvesToIds),
+      variant,
+      set,
+      number,
+      supertype,
+      const DeepCollectionEquality().hash(_subtypes),
+      hp,
       rarity);
 
   /// Create a copy of PokemonCard
@@ -374,15 +483,20 @@ abstract class _PokemonCard implements PokemonCard {
   const factory _PokemonCard(
       {required final String id,
       required final String name,
-      required final String set,
-      required final String number,
       required final CardType type,
-      final String? supertype,
-      final List<String>? subtypes,
-      final int? hp,
+      final int? dexNumber,
+      final PokemonStage? stage,
+      final int? baseHp,
       final List<String>? types,
       final String? imageUrl,
       final String? imageLargeUrl,
+      final List<String> evolvesToIds,
+      final String? variant,
+      final String? set,
+      final String? number,
+      final String? supertype,
+      final List<String>? subtypes,
+      final int? hp,
       final String? rarity}) = _$PokemonCardImpl;
 
   factory _PokemonCard.fromJson(Map<String, dynamic> json) =
@@ -393,23 +507,36 @@ abstract class _PokemonCard implements PokemonCard {
   @override
   String get name;
   @override
-  String get set;
-  @override
-  String get number;
-  @override
   CardType get type;
+  @override
+  int? get dexNumber;
+  @override
+  PokemonStage?
+      get stage; // Canonical HP used as the default LIFE suggestion when adding to a deck.
+  @override
+  int? get baseHp;
+  @override
+  List<String>? get types;
+  @override
+  String? get imageUrl;
+  @override
+  String?
+      get imageLargeUrl; // Ids of cards this Pokémon can evolve into (next stages / mega).
+  @override
+  List<String>
+      get evolvesToIds; // Optional descriptor for variants (e.g. "Mega", "EX", "V Astro").
+  @override
+  String? get variant; // Legacy / TCG-import fields (kept for compatibility).
+  @override
+  String? get set;
+  @override
+  String? get number;
   @override
   String? get supertype;
   @override
   List<String>? get subtypes;
   @override
   int? get hp;
-  @override
-  List<String>? get types;
-  @override
-  String? get imageUrl;
-  @override
-  String? get imageLargeUrl;
   @override
   String? get rarity;
 

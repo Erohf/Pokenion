@@ -12,10 +12,18 @@ class ActivePokemon with _$ActivePokemon {
     required int currentHp,
     required int maxHp,
     @Default([]) List<EnergyType> attachedEnergies,
-    StatusCondition? statusCondition,
+    // Multiple simultaneous conditions (see status rules in [applyStatus]).
+    @Default(<StatusCondition>{}) Set<StatusCondition> statuses,
+    // Cards this Pokémon evolved from, oldest first (bottom of the stack).
     @Default([]) List<PokemonCard> evolutionStack,
     @Default(false) bool hasTurboToken,
   }) = _ActivePokemon;
 
-  factory ActivePokemon.fromJson(Map<String, dynamic> json) => _$ActivePokemonFromJson(json);
+  const ActivePokemon._();
+
+  factory ActivePokemon.fromJson(Map<String, dynamic> json) =>
+      _$ActivePokemonFromJson(json);
+
+  /// HP gained (+) or lost (-) relative to this Pokémon's own max HP.
+  int get hpDelta => currentHp - maxHp;
 }

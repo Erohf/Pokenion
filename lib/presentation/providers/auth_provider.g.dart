@@ -1,25 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'deck_provider.dart';
+part of 'auth_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$deckNotifierHash() => r'5947b2c35e2d328c49bc1c2c30b56687a49f2719';
+String _$authHash() => r'16b3e4750575b922ae8d1edd6c4c37db135e693e';
 
-/// See also [DeckNotifier].
-@ProviderFor(DeckNotifier)
-final deckNotifierProvider =
-    NotifierProvider<DeckNotifier, List<Deck>>.internal(
-  DeckNotifier.new,
-  name: r'deckNotifierProvider',
+/// See also [Auth].
+@ProviderFor(Auth)
+final authProvider = NotifierProvider<Auth, AuthState>.internal(
+  Auth.new,
+  name: r'authProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$deckNotifierHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$authHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$DeckNotifier = Notifier<List<Deck>>;
+typedef _$Auth = Notifier<AuthState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

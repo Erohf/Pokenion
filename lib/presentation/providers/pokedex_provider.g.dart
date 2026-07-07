@@ -1,25 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'deck_provider.dart';
+part of 'pokedex_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$deckNotifierHash() => r'5947b2c35e2d328c49bc1c2c30b56687a49f2719';
+String _$pokedexHash() => r'370988f44cf2acc8ea5b7fe95f1284edda94ffb7';
 
-/// See also [DeckNotifier].
-@ProviderFor(DeckNotifier)
-final deckNotifierProvider =
-    NotifierProvider<DeckNotifier, List<Deck>>.internal(
-  DeckNotifier.new,
-  name: r'deckNotifierProvider',
+/// See also [pokedex].
+@ProviderFor(pokedex)
+final pokedexProvider = FutureProvider<PokedexRepository>.internal(
+  pokedex,
+  name: r'pokedexProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$deckNotifierHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$pokedexHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$DeckNotifier = Notifier<List<Deck>>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef PokedexRef = FutureProviderRef<PokedexRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

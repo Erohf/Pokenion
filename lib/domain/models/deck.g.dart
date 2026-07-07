@@ -9,15 +9,16 @@ part of 'deck.dart';
 _$DeckImpl _$$DeckImplFromJson(Map<String, dynamic> json) => _$DeckImpl(
       id: json['id'] as String,
       name: json['name'] as String,
-      description: json['description'] as String,
-      cards: (json['cards'] as List<dynamic>)
-          .map((e) => DeckCard.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      description: json['description'] as String? ?? '',
+      cards: (json['cards'] as List<dynamic>?)
+              ?.map((e) => DeckCard.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
-      format: json['format'] as String?,
+      format: json['format'] as String? ?? 'Standard',
       coverCardId: json['coverCardId'] as String?,
       totalMatches: (json['totalMatches'] as num?)?.toInt() ?? 0,
       wins: (json['wins'] as num?)?.toInt() ?? 0,
@@ -42,11 +43,13 @@ Map<String, dynamic> _$$DeckImplToJson(_$DeckImpl instance) =>
 _$DeckCardImpl _$$DeckCardImplFromJson(Map<String, dynamic> json) =>
     _$DeckCardImpl(
       card: PokemonCard.fromJson(json['card'] as Map<String, dynamic>),
-      quantity: (json['quantity'] as num).toInt(),
+      quantity: (json['quantity'] as num?)?.toInt() ?? 1,
+      hp: (json['hp'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$DeckCardImplToJson(_$DeckCardImpl instance) =>
     <String, dynamic>{
       'card': instance.card,
       'quantity': instance.quantity,
+      'hp': instance.hp,
     };

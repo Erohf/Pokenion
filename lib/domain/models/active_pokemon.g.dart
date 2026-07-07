@@ -15,8 +15,10 @@ _$ActivePokemonImpl _$$ActivePokemonImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => $enumDecode(_$EnergyTypeEnumMap, e))
               .toList() ??
           const [],
-      statusCondition: $enumDecodeNullable(
-          _$StatusConditionEnumMap, json['statusCondition']),
+      statuses: (json['statuses'] as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$StatusConditionEnumMap, e))
+              .toSet() ??
+          const <StatusCondition>{},
       evolutionStack: (json['evolutionStack'] as List<dynamic>?)
               ?.map((e) => PokemonCard.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -32,7 +34,8 @@ Map<String, dynamic> _$$ActivePokemonImplToJson(_$ActivePokemonImpl instance) =>
       'attachedEnergies': instance.attachedEnergies
           .map((e) => _$EnergyTypeEnumMap[e]!)
           .toList(),
-      'statusCondition': _$StatusConditionEnumMap[instance.statusCondition],
+      'statuses':
+          instance.statuses.map((e) => _$StatusConditionEnumMap[e]!).toList(),
       'evolutionStack': instance.evolutionStack,
       'hasTurboToken': instance.hasTurboToken,
     };
@@ -52,9 +55,9 @@ const _$EnergyTypeEnumMap = {
 };
 
 const _$StatusConditionEnumMap = {
-  StatusCondition.burned: 'burned',
-  StatusCondition.poisoned: 'poisoned',
-  StatusCondition.paralyzed: 'paralyzed',
   StatusCondition.asleep: 'asleep',
+  StatusCondition.burned: 'burned',
   StatusCondition.confused: 'confused',
+  StatusCondition.paralyzed: 'paralyzed',
+  StatusCondition.poisoned: 'poisoned',
 };
