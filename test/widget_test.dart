@@ -1,22 +1,32 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pokenion/app.dart';
+import 'package:pokenion/domain/models/status_condition.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const ProviderScope(child: PokenionApp()));
+  group('status stacking rules', () {
+    test('burn and poison stack with each other and a special', () {
+      var s = <StatusCondition>{};
+      s = applyStatus(s, StatusCondition.burned);
+      s = applyStatus(s, StatusCondition.poisoned);
+      s = applyStatus(s, StatusCondition.asleep);
+      expect(s, {
+        StatusCondition.burned,
+        StatusCondition.poisoned,
+        StatusCondition.asleep,
+      });
+    });
 
-    // Verify that our home screen title is present.
-    expect(find.text('Meus Decks'), findsOneWidget);
+    test('specials replace each other (no accumulation)', () {
+      var s = <StatusCondition>{StatusCondition.asleep};
+      s = applyStatus(s, StatusCondition.paralyzed);
+      expect(s.contains(StatusCondition.asleep), isFalse);
+      expect(s.contains(StatusCondition.paralyzed), isTrue);
+      expect(s.where((c) => c.isSpecial).length, 1);
+    });
+
+    test('same condition never doubles', () {
+      var s = <StatusCondition>{StatusCondition.poisoned};
+      s = applyStatus(s, StatusCondition.poisoned);
+      expect(s.length, 1);
+    });
   });
 }

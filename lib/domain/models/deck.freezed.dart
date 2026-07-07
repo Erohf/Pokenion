@@ -26,7 +26,8 @@ mixin _$Deck {
   List<DeckCard> get cards => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
-  String? get format => throw _privateConstructorUsedError;
+  String get format =>
+      throw _privateConstructorUsedError; // Card id used as the deck cover on the Decks screen.
   String? get coverCardId => throw _privateConstructorUsedError;
   int get totalMatches => throw _privateConstructorUsedError;
   int get wins => throw _privateConstructorUsedError;
@@ -53,7 +54,7 @@ abstract class $DeckCopyWith<$Res> {
       List<DeckCard> cards,
       DateTime createdAt,
       DateTime? updatedAt,
-      String? format,
+      String format,
       String? coverCardId,
       int totalMatches,
       int wins,
@@ -81,7 +82,7 @@ class _$DeckCopyWithImpl<$Res, $Val extends Deck>
     Object? cards = null,
     Object? createdAt = null,
     Object? updatedAt = freezed,
-    Object? format = freezed,
+    Object? format = null,
     Object? coverCardId = freezed,
     Object? totalMatches = null,
     Object? wins = null,
@@ -112,10 +113,10 @@ class _$DeckCopyWithImpl<$Res, $Val extends Deck>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      format: freezed == format
+      format: null == format
           ? _value.format
           : format // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       coverCardId: freezed == coverCardId
           ? _value.coverCardId
           : coverCardId // ignore: cast_nullable_to_non_nullable
@@ -150,7 +151,7 @@ abstract class _$$DeckImplCopyWith<$Res> implements $DeckCopyWith<$Res> {
       List<DeckCard> cards,
       DateTime createdAt,
       DateTime? updatedAt,
-      String? format,
+      String format,
       String? coverCardId,
       int totalMatches,
       int wins,
@@ -175,7 +176,7 @@ class __$$DeckImplCopyWithImpl<$Res>
     Object? cards = null,
     Object? createdAt = null,
     Object? updatedAt = freezed,
-    Object? format = freezed,
+    Object? format = null,
     Object? coverCardId = freezed,
     Object? totalMatches = null,
     Object? wins = null,
@@ -206,10 +207,10 @@ class __$$DeckImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      format: freezed == format
+      format: null == format
           ? _value.format
           : format // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       coverCardId: freezed == coverCardId
           ? _value.coverCardId
           : coverCardId // ignore: cast_nullable_to_non_nullable
@@ -232,20 +233,21 @@ class __$$DeckImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DeckImpl implements _Deck {
+class _$DeckImpl extends _Deck {
   const _$DeckImpl(
       {required this.id,
       required this.name,
-      required this.description,
-      required final List<DeckCard> cards,
+      this.description = '',
+      final List<DeckCard> cards = const [],
       required this.createdAt,
       this.updatedAt,
-      this.format,
+      this.format = 'Standard',
       this.coverCardId,
       this.totalMatches = 0,
       this.wins = 0,
       this.losses = 0})
-      : _cards = cards;
+      : _cards = cards,
+        super._();
 
   factory _$DeckImpl.fromJson(Map<String, dynamic> json) =>
       _$$DeckImplFromJson(json);
@@ -255,9 +257,11 @@ class _$DeckImpl implements _Deck {
   @override
   final String name;
   @override
+  @JsonKey()
   final String description;
   final List<DeckCard> _cards;
   @override
+  @JsonKey()
   List<DeckCard> get cards {
     if (_cards is EqualUnmodifiableListView) return _cards;
     // ignore: implicit_dynamic_type
@@ -269,7 +273,9 @@ class _$DeckImpl implements _Deck {
   @override
   final DateTime? updatedAt;
   @override
-  final String? format;
+  @JsonKey()
+  final String format;
+// Card id used as the deck cover on the Decks screen.
   @override
   final String? coverCardId;
   @override
@@ -342,19 +348,20 @@ class _$DeckImpl implements _Deck {
   }
 }
 
-abstract class _Deck implements Deck {
+abstract class _Deck extends Deck {
   const factory _Deck(
       {required final String id,
       required final String name,
-      required final String description,
-      required final List<DeckCard> cards,
+      final String description,
+      final List<DeckCard> cards,
       required final DateTime createdAt,
       final DateTime? updatedAt,
-      final String? format,
+      final String format,
       final String? coverCardId,
       final int totalMatches,
       final int wins,
       final int losses}) = _$DeckImpl;
+  const _Deck._() : super._();
 
   factory _Deck.fromJson(Map<String, dynamic> json) = _$DeckImpl.fromJson;
 
@@ -371,7 +378,7 @@ abstract class _Deck implements Deck {
   @override
   DateTime? get updatedAt;
   @override
-  String? get format;
+  String get format; // Card id used as the deck cover on the Decks screen.
   @override
   String? get coverCardId;
   @override
@@ -396,7 +403,9 @@ DeckCard _$DeckCardFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DeckCard {
   PokemonCard get card => throw _privateConstructorUsedError;
-  int get quantity => throw _privateConstructorUsedError;
+  int get quantity =>
+      throw _privateConstructorUsedError; // The LIFE chosen by the user for this card when added to the deck.
+  int? get hp => throw _privateConstructorUsedError;
 
   /// Serializes this DeckCard to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -413,7 +422,7 @@ abstract class $DeckCardCopyWith<$Res> {
   factory $DeckCardCopyWith(DeckCard value, $Res Function(DeckCard) then) =
       _$DeckCardCopyWithImpl<$Res, DeckCard>;
   @useResult
-  $Res call({PokemonCard card, int quantity});
+  $Res call({PokemonCard card, int quantity, int? hp});
 
   $PokemonCardCopyWith<$Res> get card;
 }
@@ -435,6 +444,7 @@ class _$DeckCardCopyWithImpl<$Res, $Val extends DeckCard>
   $Res call({
     Object? card = null,
     Object? quantity = null,
+    Object? hp = freezed,
   }) {
     return _then(_value.copyWith(
       card: null == card
@@ -445,6 +455,10 @@ class _$DeckCardCopyWithImpl<$Res, $Val extends DeckCard>
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
+      hp: freezed == hp
+          ? _value.hp
+          : hp // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -467,7 +481,7 @@ abstract class _$$DeckCardImplCopyWith<$Res>
       __$$DeckCardImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({PokemonCard card, int quantity});
+  $Res call({PokemonCard card, int quantity, int? hp});
 
   @override
   $PokemonCardCopyWith<$Res> get card;
@@ -488,6 +502,7 @@ class __$$DeckCardImplCopyWithImpl<$Res>
   $Res call({
     Object? card = null,
     Object? quantity = null,
+    Object? hp = freezed,
   }) {
     return _then(_$DeckCardImpl(
       card: null == card
@@ -498,14 +513,19 @@ class __$$DeckCardImplCopyWithImpl<$Res>
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
+      hp: freezed == hp
+          ? _value.hp
+          : hp // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$DeckCardImpl implements _DeckCard {
-  const _$DeckCardImpl({required this.card, required this.quantity});
+class _$DeckCardImpl extends _DeckCard {
+  const _$DeckCardImpl({required this.card, this.quantity = 1, this.hp})
+      : super._();
 
   factory _$DeckCardImpl.fromJson(Map<String, dynamic> json) =>
       _$$DeckCardImplFromJson(json);
@@ -513,11 +533,15 @@ class _$DeckCardImpl implements _DeckCard {
   @override
   final PokemonCard card;
   @override
+  @JsonKey()
   final int quantity;
+// The LIFE chosen by the user for this card when added to the deck.
+  @override
+  final int? hp;
 
   @override
   String toString() {
-    return 'DeckCard(card: $card, quantity: $quantity)';
+    return 'DeckCard(card: $card, quantity: $quantity, hp: $hp)';
   }
 
   @override
@@ -527,12 +551,13 @@ class _$DeckCardImpl implements _DeckCard {
             other is _$DeckCardImpl &&
             (identical(other.card, card) || other.card == card) &&
             (identical(other.quantity, quantity) ||
-                other.quantity == quantity));
+                other.quantity == quantity) &&
+            (identical(other.hp, hp) || other.hp == hp));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, card, quantity);
+  int get hashCode => Object.hash(runtimeType, card, quantity, hp);
 
   /// Create a copy of DeckCard
   /// with the given fields replaced by the non-null parameter values.
@@ -550,10 +575,12 @@ class _$DeckCardImpl implements _DeckCard {
   }
 }
 
-abstract class _DeckCard implements DeckCard {
+abstract class _DeckCard extends DeckCard {
   const factory _DeckCard(
       {required final PokemonCard card,
-      required final int quantity}) = _$DeckCardImpl;
+      final int quantity,
+      final int? hp}) = _$DeckCardImpl;
+  const _DeckCard._() : super._();
 
   factory _DeckCard.fromJson(Map<String, dynamic> json) =
       _$DeckCardImpl.fromJson;
@@ -561,7 +588,9 @@ abstract class _DeckCard implements DeckCard {
   @override
   PokemonCard get card;
   @override
-  int get quantity;
+  int get quantity; // The LIFE chosen by the user for this card when added to the deck.
+  @override
+  int? get hp;
 
   /// Create a copy of DeckCard
   /// with the given fields replaced by the non-null parameter values.

@@ -6,15 +6,14 @@ part of 'battle_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$battleHash() => r'e8096da52734103737a295a46551859873d3827c';
+String _$battleHash() => r'9168d6f1f4f6f398f35868a8f3d1468152046e77';
 
-/// A battle provider that is scoped to a deck.
-/// Pass the [Deck] that should be used for this battle session.
+/// Holds the current battle session. `keepAlive` so it survives navigation to
+/// other tabs; only [endGame]/[startBattle] reset it.
 ///
 /// Copied from [Battle].
 @ProviderFor(Battle)
-final battleProvider =
-    AutoDisposeNotifierProvider<Battle, PlayerState>.internal(
+final battleProvider = NotifierProvider<Battle, BattleState>.internal(
   Battle.new,
   name: r'battleProvider',
   debugGetCreateSourceHash:
@@ -23,6 +22,6 @@ final battleProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$Battle = AutoDisposeNotifier<PlayerState>;
+typedef _$Battle = Notifier<BattleState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

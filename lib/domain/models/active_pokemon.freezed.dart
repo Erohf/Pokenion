@@ -23,8 +23,10 @@ mixin _$ActivePokemon {
   PokemonCard get card => throw _privateConstructorUsedError;
   int get currentHp => throw _privateConstructorUsedError;
   int get maxHp => throw _privateConstructorUsedError;
-  List<EnergyType> get attachedEnergies => throw _privateConstructorUsedError;
-  StatusCondition? get statusCondition => throw _privateConstructorUsedError;
+  List<EnergyType> get attachedEnergies =>
+      throw _privateConstructorUsedError; // Multiple simultaneous conditions (see status rules in [applyStatus]).
+  Set<StatusCondition> get statuses =>
+      throw _privateConstructorUsedError; // Cards this Pokémon evolved from, oldest first (bottom of the stack).
   List<PokemonCard> get evolutionStack => throw _privateConstructorUsedError;
   bool get hasTurboToken => throw _privateConstructorUsedError;
 
@@ -49,7 +51,7 @@ abstract class $ActivePokemonCopyWith<$Res> {
       int currentHp,
       int maxHp,
       List<EnergyType> attachedEnergies,
-      StatusCondition? statusCondition,
+      Set<StatusCondition> statuses,
       List<PokemonCard> evolutionStack,
       bool hasTurboToken});
 
@@ -75,7 +77,7 @@ class _$ActivePokemonCopyWithImpl<$Res, $Val extends ActivePokemon>
     Object? currentHp = null,
     Object? maxHp = null,
     Object? attachedEnergies = null,
-    Object? statusCondition = freezed,
+    Object? statuses = null,
     Object? evolutionStack = null,
     Object? hasTurboToken = null,
   }) {
@@ -96,10 +98,10 @@ class _$ActivePokemonCopyWithImpl<$Res, $Val extends ActivePokemon>
           ? _value.attachedEnergies
           : attachedEnergies // ignore: cast_nullable_to_non_nullable
               as List<EnergyType>,
-      statusCondition: freezed == statusCondition
-          ? _value.statusCondition
-          : statusCondition // ignore: cast_nullable_to_non_nullable
-              as StatusCondition?,
+      statuses: null == statuses
+          ? _value.statuses
+          : statuses // ignore: cast_nullable_to_non_nullable
+              as Set<StatusCondition>,
       evolutionStack: null == evolutionStack
           ? _value.evolutionStack
           : evolutionStack // ignore: cast_nullable_to_non_nullable
@@ -135,7 +137,7 @@ abstract class _$$ActivePokemonImplCopyWith<$Res>
       int currentHp,
       int maxHp,
       List<EnergyType> attachedEnergies,
-      StatusCondition? statusCondition,
+      Set<StatusCondition> statuses,
       List<PokemonCard> evolutionStack,
       bool hasTurboToken});
 
@@ -160,7 +162,7 @@ class __$$ActivePokemonImplCopyWithImpl<$Res>
     Object? currentHp = null,
     Object? maxHp = null,
     Object? attachedEnergies = null,
-    Object? statusCondition = freezed,
+    Object? statuses = null,
     Object? evolutionStack = null,
     Object? hasTurboToken = null,
   }) {
@@ -181,10 +183,10 @@ class __$$ActivePokemonImplCopyWithImpl<$Res>
           ? _value._attachedEnergies
           : attachedEnergies // ignore: cast_nullable_to_non_nullable
               as List<EnergyType>,
-      statusCondition: freezed == statusCondition
-          ? _value.statusCondition
-          : statusCondition // ignore: cast_nullable_to_non_nullable
-              as StatusCondition?,
+      statuses: null == statuses
+          ? _value._statuses
+          : statuses // ignore: cast_nullable_to_non_nullable
+              as Set<StatusCondition>,
       evolutionStack: null == evolutionStack
           ? _value._evolutionStack
           : evolutionStack // ignore: cast_nullable_to_non_nullable
@@ -199,17 +201,19 @@ class __$$ActivePokemonImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ActivePokemonImpl implements _ActivePokemon {
+class _$ActivePokemonImpl extends _ActivePokemon {
   const _$ActivePokemonImpl(
       {required this.card,
       required this.currentHp,
       required this.maxHp,
       final List<EnergyType> attachedEnergies = const [],
-      this.statusCondition,
+      final Set<StatusCondition> statuses = const <StatusCondition>{},
       final List<PokemonCard> evolutionStack = const [],
       this.hasTurboToken = false})
       : _attachedEnergies = attachedEnergies,
-        _evolutionStack = evolutionStack;
+        _statuses = statuses,
+        _evolutionStack = evolutionStack,
+        super._();
 
   factory _$ActivePokemonImpl.fromJson(Map<String, dynamic> json) =>
       _$$ActivePokemonImplFromJson(json);
@@ -230,9 +234,20 @@ class _$ActivePokemonImpl implements _ActivePokemon {
     return EqualUnmodifiableListView(_attachedEnergies);
   }
 
+// Multiple simultaneous conditions (see status rules in [applyStatus]).
+  final Set<StatusCondition> _statuses;
+// Multiple simultaneous conditions (see status rules in [applyStatus]).
   @override
-  final StatusCondition? statusCondition;
+  @JsonKey()
+  Set<StatusCondition> get statuses {
+    if (_statuses is EqualUnmodifiableSetView) return _statuses;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_statuses);
+  }
+
+// Cards this Pokémon evolved from, oldest first (bottom of the stack).
   final List<PokemonCard> _evolutionStack;
+// Cards this Pokémon evolved from, oldest first (bottom of the stack).
   @override
   @JsonKey()
   List<PokemonCard> get evolutionStack {
@@ -247,7 +262,7 @@ class _$ActivePokemonImpl implements _ActivePokemon {
 
   @override
   String toString() {
-    return 'ActivePokemon(card: $card, currentHp: $currentHp, maxHp: $maxHp, attachedEnergies: $attachedEnergies, statusCondition: $statusCondition, evolutionStack: $evolutionStack, hasTurboToken: $hasTurboToken)';
+    return 'ActivePokemon(card: $card, currentHp: $currentHp, maxHp: $maxHp, attachedEnergies: $attachedEnergies, statuses: $statuses, evolutionStack: $evolutionStack, hasTurboToken: $hasTurboToken)';
   }
 
   @override
@@ -261,8 +276,7 @@ class _$ActivePokemonImpl implements _ActivePokemon {
             (identical(other.maxHp, maxHp) || other.maxHp == maxHp) &&
             const DeepCollectionEquality()
                 .equals(other._attachedEnergies, _attachedEnergies) &&
-            (identical(other.statusCondition, statusCondition) ||
-                other.statusCondition == statusCondition) &&
+            const DeepCollectionEquality().equals(other._statuses, _statuses) &&
             const DeepCollectionEquality()
                 .equals(other._evolutionStack, _evolutionStack) &&
             (identical(other.hasTurboToken, hasTurboToken) ||
@@ -277,7 +291,7 @@ class _$ActivePokemonImpl implements _ActivePokemon {
       currentHp,
       maxHp,
       const DeepCollectionEquality().hash(_attachedEnergies),
-      statusCondition,
+      const DeepCollectionEquality().hash(_statuses),
       const DeepCollectionEquality().hash(_evolutionStack),
       hasTurboToken);
 
@@ -297,15 +311,16 @@ class _$ActivePokemonImpl implements _ActivePokemon {
   }
 }
 
-abstract class _ActivePokemon implements ActivePokemon {
+abstract class _ActivePokemon extends ActivePokemon {
   const factory _ActivePokemon(
       {required final PokemonCard card,
       required final int currentHp,
       required final int maxHp,
       final List<EnergyType> attachedEnergies,
-      final StatusCondition? statusCondition,
+      final Set<StatusCondition> statuses,
       final List<PokemonCard> evolutionStack,
       final bool hasTurboToken}) = _$ActivePokemonImpl;
+  const _ActivePokemon._() : super._();
 
   factory _ActivePokemon.fromJson(Map<String, dynamic> json) =
       _$ActivePokemonImpl.fromJson;
@@ -317,9 +332,11 @@ abstract class _ActivePokemon implements ActivePokemon {
   @override
   int get maxHp;
   @override
-  List<EnergyType> get attachedEnergies;
+  List<EnergyType>
+      get attachedEnergies; // Multiple simultaneous conditions (see status rules in [applyStatus]).
   @override
-  StatusCondition? get statusCondition;
+  Set<StatusCondition>
+      get statuses; // Cards this Pokémon evolved from, oldest first (bottom of the stack).
   @override
   List<PokemonCard> get evolutionStack;
   @override

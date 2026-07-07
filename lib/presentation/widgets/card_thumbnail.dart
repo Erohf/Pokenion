@@ -7,6 +7,7 @@ class CardThumbnail extends StatelessWidget {
   final double width;
   final double height;
   final double borderRadius;
+  final BoxFit fit;
 
   const CardThumbnail({
     super.key,
@@ -14,6 +15,7 @@ class CardThumbnail extends StatelessWidget {
     this.width = 100,
     this.height = 140,
     this.borderRadius = 8,
+    this.fit = BoxFit.cover,
   });
 
   @override
@@ -36,7 +38,7 @@ class CardThumbnail extends StatelessWidget {
         imageUrl: imageUrl!,
         width: width,
         height: height,
-        fit: BoxFit.cover,
+        fit: fit,
         placeholder: (context, url) => Container(
           width: width,
           height: height,
