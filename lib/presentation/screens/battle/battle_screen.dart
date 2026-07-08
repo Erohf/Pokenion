@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../domain/models/active_pokemon.dart';
 import '../../../domain/models/deck.dart';
@@ -73,7 +74,7 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
     final showAds = ref.watch(settingsProvider).plan.showsAds;
 
     return Scaffold(
-      backgroundColor: AppColors.bg,
+      backgroundColor: context.palette.bg,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -119,7 +120,7 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
       // Occupied → swap active with this bench slot, or replace it.
       final action = await showModalBottomSheet<String>(
         context: context,
-        backgroundColor: AppColors.surface,
+        backgroundColor: context.palette.surface,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         builder: (ctx) => SafeArea(
@@ -133,6 +134,11 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
                 onTap: () => Navigator.pop(ctx, 'swap'),
               ),
               ListTile(
+                leading: const Icon(Icons.trending_up, color: AppColors.blue),
+                title: Text('Evoluir', style: AppTextStyles.label),
+                onTap: () => Navigator.pop(ctx, 'evolve'),
+              ),
+              ListTile(
                 leading: const Icon(Icons.autorenew, color: AppColors.blue),
                 title: Text('Trocar por outro do deck', style: AppTextStyles.label),
                 onTap: () => Navigator.pop(ctx, 'replace'),
@@ -143,10 +149,32 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
       );
       if (action == 'swap') {
         ref.read(battleProvider.notifier).swapWithBench(index);
+      } else if (action == 'evolve') {
+        await _evolveBench(index);
       } else if (action == 'replace') {
         final dc = await _pickDeckCard('Trocar Pokémon do banco', _available());
         if (dc != null) ref.read(battleProvider.notifier).replaceBench(index, dc);
       }
+    }
+  }
+
+  /// Evolve the bench Pokémon at [index]. Same rules as the active Pokémon:
+  /// the evolution must be present in the deck.
+  Future<void> _evolveBench(int index) async {
+    final deck = _deck;
+    final state = ref.read(battleProvider);
+    if (deck == null || index < 0 || index >= state.bench.length) return;
+    final benched = state.bench[index];
+    final options = deck.pokemonCards
+        .where((dc) => benched.card.evolvesToIds.contains(dc.card.id))
+        .toList();
+    if (options.isEmpty) {
+      _snack('${benched.card.name} não possui evolução neste deck.');
+      return;
+    }
+    final chosen = await _pickDeckCard('Evoluir ${benched.card.name}', options);
+    if (chosen != null) {
+      ref.read(battleProvider.notifier).evolveBench(index, chosen.card, chosen.effectiveHp);
     }
   }
 
@@ -155,7 +183,7 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
     final current = ref.read(battleProvider).active?.statuses ?? const <StatusCondition>{};
     await showModalBottomSheet(
       context: context,
-      backgroundColor: AppColors.surface,
+      backgroundColor: context.palette.surface,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       builder: (ctx) => StatefulBuilder(
@@ -170,7 +198,7 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
                 children: [
                   Center(
                     child: Container(width: 40, height: 4,
-                      decoration: BoxDecoration(color: AppColors.border, borderRadius: BorderRadius.circular(2))),
+                      decoration: BoxDecoration(color: context.palette.border, borderRadius: BorderRadius.circular(2))),
                   ),
                   const SizedBox(height: 16),
                   Row(
@@ -235,7 +263,7 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
     }
     final index = await showModalBottomSheet<int>(
       context: context,
-      backgroundColor: AppColors.surface,
+      backgroundColor: context.palette.surface,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       builder: (ctx) => SafeArea(
@@ -273,7 +301,7 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: context.palette.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Text('Encerrar jogo', style: AppTextStyles.h3),
         content: Text('Tem certeza? O progresso da batalha será perdido.',
@@ -316,7 +344,7 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
     }
     return showModalBottomSheet<DeckCard>(
       context: context,
-      backgroundColor: AppColors.surface,
+      backgroundColor: context.palette.surface,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       builder: (ctx) => SafeArea(
@@ -352,7 +380,7 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(msg),
-        backgroundColor: AppColors.surface2,
+        backgroundColor: context.palette.surface2,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
@@ -440,7 +468,7 @@ class _BattleBoard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _PillButton(text: 'End Game', color: AppColors.surfaceVariant, textColor: AppColors.textDark, onTap: onEndGame),
+              _PillButton(text: 'End Game', color: context.palette.surfaceVariant, textColor: AppColors.textDark, onTap: onEndGame),
               const SizedBox(width: 24),
               _PillButton(text: 'New Game', color: AppColors.blue, textColor: Colors.white, onTap: onNewGame),
             ],
@@ -484,9 +512,9 @@ class _ActiveCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: context.palette.surface,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: context.palette.border),
       ),
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
       child: Column(
@@ -504,7 +532,7 @@ class _ActiveCard extends StatelessWidget {
                 height: 220,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: AppColors.surfaceVariant,
+                  color: context.palette.surfaceVariant,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 padding: const EdgeInsets.all(12),
@@ -557,7 +585,7 @@ class _ActiveCard extends StatelessWidget {
           const SizedBox(height: 16),
           _PillButton(text: 'Evolve', color: AppColors.blue, textColor: Colors.white, width: 160, onTap: onEvolve),
           const SizedBox(height: 8),
-          _PillButton(text: 'Defeated', color: AppColors.surfaceVariant, textColor: AppColors.textDark, width: 120, height: 30, onTap: onDefeated),
+          _PillButton(text: 'Defeated', color: context.palette.surfaceVariant, textColor: AppColors.textDark, width: 120, height: 30, onTap: onDefeated),
         ],
       ),
     );
@@ -613,7 +641,7 @@ class _HpControlState extends State<_HpControl> {
                 height: 40,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: AppColors.surfaceVariant,
+                  color: context.palette.surfaceVariant,
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: _editing
@@ -658,7 +686,7 @@ class _HpControlState extends State<_HpControl> {
         onTap: onTap,
         child: Container(
           width: 40, height: 40,
-          decoration: const BoxDecoration(color: AppColors.surfaceVariant, shape: BoxShape.circle),
+          decoration: BoxDecoration(color: context.palette.surfaceVariant, shape: BoxShape.circle),
           child: Icon(icon, color: AppColors.blue, size: 20),
         ),
       );
@@ -670,9 +698,9 @@ class _HpControlState extends State<_HpControl> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: AppColors.surface2,
+              color: context.palette.surface2,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: AppColors.border),
+              border: Border.all(color: context.palette.border),
             ),
             child: Text(label, style: AppTextStyles.labelBold),
           ),
@@ -697,9 +725,9 @@ class _BenchRow extends StatelessWidget {
             width: 56,
             height: 72,
             decoration: BoxDecoration(
-              color: AppColors.surface,
+              color: context.palette.surface,
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: AppColors.border, width: has ? 1.5 : 1),
+              border: Border.all(color: context.palette.border, width: has ? 1.5 : 1),
             ),
             padding: const EdgeInsets.all(4),
             child: has
@@ -785,7 +813,7 @@ class _PokemonPickTile extends StatelessWidget {
               width: 84, height: 84,
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: AppColors.surface2,
+                color: context.palette.surface2,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: AppColors.blue, width: 1.2),
               ),
@@ -800,7 +828,7 @@ class _PokemonPickTile extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(name,
-                style: AppTextStyles.caption.copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.w600),
+                style: AppTextStyles.caption.copyWith(color: context.palette.textPrimary, fontWeight: FontWeight.w600),
                 maxLines: 1, overflow: TextOverflow.ellipsis),
             Text(subtitle, style: AppTextStyles.caption),
           ],
@@ -825,9 +853,9 @@ class _StatusRow extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
-            color: selected ? cfg.color.withValues(alpha: 0.15) : AppColors.surface2,
+            color: selected ? cfg.color.withValues(alpha: 0.15) : context.palette.surface2,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: selected ? cfg.color : AppColors.border, width: selected ? 1.5 : 1),
+            border: Border.all(color: selected ? cfg.color : context.palette.border, width: selected ? 1.5 : 1),
           ),
           child: Row(
             children: [
@@ -835,7 +863,7 @@ class _StatusRow extends StatelessWidget {
               const SizedBox(width: 12),
               Text(cfg.label,
                   style: AppTextStyles.label.copyWith(
-                      color: selected ? cfg.color : AppColors.textPrimary,
+                      color: selected ? cfg.color : context.palette.textPrimary,
                       fontWeight: selected ? FontWeight.bold : FontWeight.w500)),
               const Spacer(),
               if (selected) Icon(Icons.check_circle, color: cfg.color, size: 18),

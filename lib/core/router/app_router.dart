@@ -8,6 +8,7 @@ import '../../presentation/screens/deck_detail/deck_detail_screen.dart';
 import '../../presentation/screens/battle/battle_screen.dart';
 import '../../presentation/screens/profile/profile_screen.dart';
 import '../../presentation/screens/plans/plans_screen.dart';
+import '../../presentation/screens/events/events_screen.dart';
 
 part 'app_router.g.dart';
 
@@ -32,6 +33,10 @@ GoRouter appRouter(AppRouterRef ref) {
       GoRoute(path: '/login', builder: (c, s) => const LoginScreen()),
       GoRoute(path: '/', builder: (c, s) => const HomeScreen()),
       GoRoute(
+        path: '/deck/new',
+        builder: (c, s) => DeckDetailScreen(deckId: null, initialName: s.extra as String?),
+      ),
+      GoRoute(
         path: '/deck/:id',
         builder: (c, s) => DeckDetailScreen(deckId: s.pathParameters['id']!),
       ),
@@ -40,6 +45,7 @@ GoRouter appRouter(AppRouterRef ref) {
         builder: (c, s) => BattleScreen(deckId: s.pathParameters['id']!),
       ),
       GoRoute(path: '/profile', builder: (c, s) => const ProfileScreen()),
+      GoRoute(path: '/events', builder: (c, s) => const EventsScreen()),
       GoRoute(path: '/profile/name', builder: (c, s) => const ChangeNameScreen()),
       GoRoute(path: '/profile/themes', builder: (c, s) => const ThemesScreen()),
       GoRoute(path: '/profile/about', builder: (c, s) => const AboutScreen()),

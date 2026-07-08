@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_palette.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../domain/models/deck.dart';
 import '../providers/deck_provider.dart';
@@ -22,6 +23,7 @@ class _DeckSelectionSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final decks = ref.watch(deckNotifierProvider).where((d) => d.isBattleReady).toList();
+    final p = context.palette;
 
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: 1),
@@ -32,9 +34,9 @@ class _DeckSelectionSheet extends ConsumerWidget {
         child: Transform.translate(offset: Offset(0, (1 - t) * 40), child: child),
       ),
       child: Container(
-        decoration: const BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        decoration: BoxDecoration(
+          color: p.surface,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
         child: SafeArea(
@@ -48,7 +50,7 @@ class _DeckSelectionSheet extends ConsumerWidget {
                   width: 40,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: AppColors.border,
+                    color: p.border,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -97,6 +99,7 @@ class _DeckRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final p = context.palette;
     final cover = deck.coverCardId != null && deck.coverCardId!.isNotEmpty
         ? deck.pokemonCards.where((c) => c.card.id == deck.coverCardId).firstOrNull
         : deck.pokemonCards.firstOrNull;
@@ -105,7 +108,7 @@ class _DeckRow extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: AppColors.surface2,
+          color: p.surface2,
           borderRadius: BorderRadius.circular(14),
         ),
         child: Row(
@@ -115,7 +118,7 @@ class _DeckRow extends StatelessWidget {
               height: 44,
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: AppColors.surface,
+                color: p.surface,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: cover?.card.imageUrl == null
@@ -134,7 +137,7 @@ class _DeckRow extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis),
             ),
-            const Icon(Icons.chevron_right, color: AppColors.textSecondary),
+            Icon(Icons.chevron_right, color: p.textSecondary),
           ],
         ),
       ),

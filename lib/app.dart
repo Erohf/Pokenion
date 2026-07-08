@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/theme/app_colors.dart';
+import 'core/theme/app_palette.dart';
 import 'core/router/app_router.dart';
 import 'presentation/providers/settings_provider.dart';
 
@@ -24,20 +25,22 @@ class _PokenionAppState extends ConsumerState<PokenionApp> {
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,
-        scaffoldBackgroundColor: const Color(0xFFF5F5F5),
+        scaffoldBackgroundColor: AppPalette.light.bg,
         colorScheme: ColorScheme.fromSeed(
           seedColor: AppColors.blue,
           brightness: Brightness.light,
         ),
+        extensions: const [AppPalette.light],
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: AppColors.bg,
+        scaffoldBackgroundColor: AppPalette.dark.bg,
         colorScheme: ColorScheme.fromSeed(
           seedColor: AppColors.blue,
           brightness: Brightness.dark,
         ),
+        extensions: const [AppPalette.dark],
       ),
     );
   }

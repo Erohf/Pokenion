@@ -4,23 +4,25 @@ import 'app_colors.dart';
 
 /// Typography for the app. Uses Google Fonts (Space Grotesk / Inter / Poppins)
 /// so no font binaries need to be bundled.
+///
+/// Heading/label styles intentionally omit `color` so they inherit the theme's
+/// onSurface color (white in dark, near-black in light) and adapt to light/dark
+/// automatically. Muted styles keep an explicit mid-gray that stays legible on
+/// both backgrounds.
 class AppTextStyles {
   static TextStyle get h1 => GoogleFonts.spaceGrotesk(
         fontSize: 28,
         fontWeight: FontWeight.bold,
-        color: AppColors.textPrimary,
       );
 
   static TextStyle get h2 => GoogleFonts.spaceGrotesk(
         fontSize: 22,
         fontWeight: FontWeight.bold,
-        color: AppColors.textPrimary,
       );
 
   static TextStyle get h3 => GoogleFonts.spaceGrotesk(
         fontSize: 18,
         fontWeight: FontWeight.w600,
-        color: AppColors.textPrimary,
       );
 
   static TextStyle get body => GoogleFonts.inter(
@@ -43,13 +45,11 @@ class AppTextStyles {
   static TextStyle get label => GoogleFonts.poppins(
         fontSize: 13,
         fontWeight: FontWeight.w600,
-        color: AppColors.textPrimary,
       );
 
   static TextStyle get labelBold => GoogleFonts.poppins(
         fontSize: 13,
         fontWeight: FontWeight.bold,
-        color: AppColors.textPrimary,
       );
 
   static TextStyle get caption => GoogleFonts.inter(
@@ -71,10 +71,10 @@ class AppTextStyles {
         letterSpacing: 2.0,
       );
 
+  // Used on colored (blue) buttons — callers set the color (usually white).
   static TextStyle get buttonText => GoogleFonts.poppins(
         fontSize: 13,
         fontWeight: FontWeight.bold,
-        color: AppColors.textPrimary,
       );
 
   static TextStyle get turboTag => GoogleFonts.poppins(

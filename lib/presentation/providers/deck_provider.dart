@@ -47,6 +47,15 @@ class DeckNotifier extends _$DeckNotifier {
     return deck.id;
   }
 
+  /// Persist a fully-built [deck] (used when saving a brand-new deck from the
+  /// editor). Enforces [maxDecks]. Returns [DeckOpResult.limitReached] if full.
+  Future<DeckOpResult> addExistingDeck(Deck deck, {required int maxDecks}) async {
+    if (state.length >= maxDecks) return DeckOpResult.limitReached;
+    state = [...state, deck.copyWith(updatedAt: DateTime.now())];
+    await _save();
+    return DeckOpResult.ok;
+  }
+
   Future<void> renameDeck(String id, String newName) async {
     state = [
       for (final d in state)

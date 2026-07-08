@@ -68,11 +68,20 @@ class Auth extends _$Auth {
     User? firebaseUser;
 
     if (kIsWeb) {
-      final googleProvider = GoogleAuthProvider();
-      googleProvider.addScope('email');
-      googleProvider.addScope('profile');
-      final userCredential = await auth.signInWithPopup(googleProvider);
-      firebaseUser = userCredential.user;
+      try {
+        final googleProvider = GoogleAuthProvider();
+        googleProvider.addScope('email');
+        googleProvider.addScope('profile');
+        final userCredential = await auth.signInWithPopup(googleProvider);
+        firebaseUser = userCredential.user;
+      } on FirebaseAuthException catch (_) {
+        // Usuário fechou o popup ou cancelou (popup-closed-by-user /
+        // cancelled-popup-request), ou houve erro de configuração.
+        return;
+      } catch (_) {
+        // Qualquer outra falha do popup (ex.: bloqueado pelo navegador).
+        return;
+      }
     } else {
       try {
         final googleSignIn = GoogleSignIn.instance;
@@ -91,17 +100,41 @@ class Auth extends _$Auth {
     }
 
     if (firebaseUser != null) {
-      final newState = AuthState(
+      final syncRepo = ref.read(syncRepositoryProvider);
+
+      // Resolve the profile (name + photo):
+      // - If this Google account already has a profile saved in the cloud,
+      //   it overrides the current (visitor) profile.
+      // - Otherwise keep the current local (visitor) name/photo when present,
+      //   falling back to the Google account's own display name / photo, and
+      //   upload it so the account now "owns" that data.
+      final localName = state.name;
+      final localPhoto = state.photoPath;
+      final cloudProfile = await syncRepo.downloadProfile();
+
+      final String finalName;
+      final String? finalPhoto;
+      if (cloudProfile != null) {
+        finalName = cloudProfile.name.isNotEmpty
+            ? cloudProfile.name
+            : (firebaseUser.displayName ?? 'Treinador');
+        finalPhoto = cloudProfile.photoPath;
+      } else {
+        finalName =
+            localName.isNotEmpty ? localName : (firebaseUser.displayName ?? 'Treinador');
+        finalPhoto = localPhoto ?? firebaseUser.photoURL;
+        await syncRepo.uploadProfile(name: finalName, photoPath: finalPhoto);
+      }
+
+      await _persist(AuthState(
         status: AuthStatus.google,
-        name: firebaseUser.displayName ?? 'Treinador',
+        name: finalName,
         email: firebaseUser.email ?? '',
-        photoPath: firebaseUser.photoURL,
-      );
-      await _persist(newState);
+        photoPath: finalPhoto,
+      ));
 
       // Sync decks after login
       final localDecks = ref.read(deckNotifierProvider);
-      final syncRepo = ref.read(syncRepositoryProvider);
       final syncedDecks = await syncRepo.syncOnLogin(localDecks);
       ref.read(deckNotifierProvider.notifier).setDecks(syncedDecks);
 
@@ -126,11 +159,26 @@ class Auth extends _$Auth {
     await _persist(AuthState(status: AuthStatus.visitor, name: name.trim()));
   }
 
-  Future<void> updateName(String name) async =>
-      _persist(state.copyWith(name: name.trim()));
+  Future<void> updateName(String name) async {
+    final next = state.copyWith(name: name.trim());
+    await _persist(next);
+    await _syncProfileIfGoogle(next);
+  }
 
-  Future<void> updatePhoto(String? path) async =>
-      _persist(state.copyWith(photoPath: path));
+  Future<void> updatePhoto(String? path) async {
+    final next = state.copyWith(photoPath: path);
+    await _persist(next);
+    await _syncProfileIfGoogle(next);
+  }
+
+  /// Persists profile changes (name/photo) to the cloud for Google users, so
+  /// they follow the account across devices.
+  Future<void> _syncProfileIfGoogle(AuthState s) async {
+    if (s.status != AuthStatus.google) return;
+    await ref
+        .read(syncRepositoryProvider)
+        .uploadProfile(name: s.name, photoPath: s.photoPath);
+  }
 
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();

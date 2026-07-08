@@ -96,6 +96,22 @@ class Battle extends _$Battle {
     );
   }
 
+  /// Evolve the bench Pokémon at [index]. Same rules as [evolve].
+  void evolveBench(int index, PokemonCard evolution, int evolutionMaxHp) {
+    if (index < 0 || index >= state.bench.length) return;
+    final bench = [...state.bench];
+    final b = bench[index];
+    final newCurrent = (evolutionMaxHp + b.hpDelta).clamp(0, evolutionMaxHp);
+    bench[index] = b.copyWith(
+      card: evolution,
+      maxHp: evolutionMaxHp,
+      currentHp: newCurrent,
+      statuses: const {},
+      evolutionStack: [...b.evolutionStack, b.card],
+    );
+    state = state.copyWith(bench: bench);
+  }
+
   // ── Defeat ───────────────────────────────────────────────────────────────
   /// Mark the active as defeated and promote bench[index] to active.
   /// The defeated Pokémon is NOT sent to the bench automatically.

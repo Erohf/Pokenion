@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../providers/settings_provider.dart';
 import '../../widgets/ad_banner.dart';
@@ -16,12 +17,12 @@ class PlansScreen extends ConsumerWidget {
     final showAds = settings.plan.showsAds;
 
     return Scaffold(
-      backgroundColor: AppColors.bg,
+      backgroundColor: context.palette.bg,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+          icon: Icon(Icons.arrow_back, color: context.palette.textPrimary),
           onPressed: () => context.pop(),
         ),
         title: Text('Planos', style: AppTextStyles.h3),
@@ -37,9 +38,9 @@ class PlansScreen extends ConsumerWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: AppColors.surface,
+                      color: context.palette.surface,
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: AppColors.border),
+                      border: Border.all(color: context.palette.border),
                     ),
                     child: Column(
                       children: [
@@ -49,14 +50,14 @@ class PlansScreen extends ConsumerWidget {
                           selected: settings.plan == PlanType.freemium,
                           onTap: () => ref.read(settingsProvider.notifier).setPlan(PlanType.freemium),
                         ),
-                        const Divider(height: 1, color: AppColors.border),
+                        Divider(height: 1, color: context.palette.border),
                         _PlanRow(
                           title: PlanType.premium.label,
                           subtitle: 'Desbloqueie temas, aumente o número de coleções e muito mais.',
                           selected: settings.plan == PlanType.premium,
                           onTap: () => context.push('/plans/premium'),
                         ),
-                        const Divider(height: 1, color: AppColors.border),
+                        Divider(height: 1, color: context.palette.border),
                         _PlanRow(
                           title: PlanType.noAds.label,
                           subtitle: 'Remova os ads permanentemente.',
@@ -120,12 +121,12 @@ class PlanDetailScreen extends ConsumerWidget {
           ];
 
     return Scaffold(
-      backgroundColor: AppColors.bg,
+      backgroundColor: context.palette.bg,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+          icon: Icon(Icons.arrow_back, color: context.palette.textPrimary),
           onPressed: () => context.pop(),
         ),
         title: Text('Planos', style: AppTextStyles.h3),
@@ -136,9 +137,9 @@ class PlanDetailScreen extends ConsumerWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: AppColors.surface,
+                color: context.palette.surface,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppColors.border),
+                border: Border.all(color: context.palette.border),
               ),
               padding: const EdgeInsets.all(20),
               child: Column(
@@ -154,7 +155,7 @@ class PlanDetailScreen extends ConsumerWidget {
                         const Icon(Icons.check, color: AppColors.blue),
                       ],
                     ),
-                    if (f != features.last) const Divider(height: 20, color: AppColors.border),
+                    if (f != features.last) Divider(height: 20, color: context.palette.border),
                   ],
                 ],
               ),
