@@ -93,6 +93,34 @@ class SyncRepository {
     }
   }
 
+  /// Uploads the user's profile (display name and photo) to Firestore.
+  /// [photoPath] may be an avatar preset key, a `b64:` image, or an http URL.
+  Future<void> uploadProfile({
+    required String name,
+    String? photoPath,
+  }) async {
+    final uid = _userId;
+    if (uid == null) return;
+    await _firestore.collection('users').doc(uid).set({
+      'name': name,
+      'photoPath': photoPath,
+    }, SetOptions(merge: true));
+  }
+
+  /// Downloads the user's stored profile. Returns null when the cloud has no
+  /// profile saved yet (i.e. no `name` field).
+  Future<({String name, String? photoPath})?> downloadProfile() async {
+    final uid = _userId;
+    if (uid == null) return null;
+    final doc = await _firestore.collection('users').doc(uid).get();
+    final data = doc.data();
+    if (data == null || !data.containsKey('name')) return null;
+    return (
+      name: data['name'] as String? ?? '',
+      photoPath: data['photoPath'] as String?,
+    );
+  }
+
   /// Uploads user settings to Firestore.
   Future<void> uploadSettings({
     required int planIndex,

@@ -29,14 +29,20 @@ const _photoPrefix = 'b64:';
 
 IconData _avatarIcon(String? key) => _avatarPresets[key] ?? Icons.person;
 
-/// Returns a decoded image provider when [key] holds a real photo, else null.
+/// Returns an image provider when [key] holds a real photo (camera/gallery
+/// `b64:` image or a remote http URL such as a Google account photo). Returns
+/// null for avatar preset keys, which are rendered as icons instead.
 ImageProvider? _photoProvider(String? key) {
-  if (key == null || !key.startsWith(_photoPrefix)) return null;
-  try {
-    return MemoryImage(base64Decode(key.substring(_photoPrefix.length)));
-  } catch (_) {
-    return null;
+  if (key == null) return null;
+  if (key.startsWith('http')) return NetworkImage(key);
+  if (key.startsWith(_photoPrefix)) {
+    try {
+      return MemoryImage(base64Decode(key.substring(_photoPrefix.length)));
+    } catch (_) {
+      return null;
+    }
   }
+  return null;
 }
 
 class ProfileScreen extends ConsumerWidget {
@@ -105,14 +111,21 @@ class ProfileScreen extends ConsumerWidget {
                 _DangerButton(
                   label: 'Sair da conta',
                   icon: Icons.logout,
-                  onPressed: () => _confirmLogout(context, ref),
+                  onPressed: () => _confirmLogout(context, ref, visitor: false),
                 )
-              else
+              else ...[
                 _PrimaryButton(
-                  label: 'Vincular conta Google',
+                  label: 'Sincronizar com conta Google',
                   icon: Icons.link,
                   onPressed: () => ref.read(authProvider.notifier).signInWithGoogle(),
                 ),
+                const SizedBox(height: 12),
+                _DangerButton(
+                  label: 'Sair (modo visitante)',
+                  icon: Icons.logout,
+                  onPressed: () => _confirmLogout(context, ref, visitor: true),
+                ),
+              ],
             ],
           ),
         ),
@@ -219,14 +232,21 @@ class ProfileScreen extends ConsumerWidget {
     }
   }
 
-  Future<void> _confirmLogout(BuildContext context, WidgetRef ref) async {
+  Future<void> _confirmLogout(BuildContext context, WidgetRef ref,
+      {required bool visitor}) async {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: context.palette.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Text('Sair da conta', style: AppTextStyles.h3),
-        content: Text('Deseja realmente sair? Você voltará à tela de login.',
+        title: Text(visitor ? 'Sair do modo visitante' : 'Sair da conta',
+            style: AppTextStyles.h3),
+        content: Text(
+            visitor
+                ? 'Você está no modo visitante e seus dados não estão vinculados a nenhuma conta. '
+                    'Ao sair, TODOS os seus dados (decks, perfil e preferências) serão perdidos permanentemente. '
+                    'Para não perdê-los, sincronize com uma conta Google antes.'
+                : 'Deseja realmente sair? Você voltará à tela de login.',
             style: AppTextStyles.body),
         actions: [
           TextButton(
