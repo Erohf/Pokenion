@@ -13,6 +13,9 @@ class AppPalette extends ThemeExtension<AppPalette> {
   final Color surface2;
   final Color surfaceVariant; // light-ish panel used on the battle card / AD
   final Color border;
+  // "Modern pixel" tokens: chunky 2px outlines and hard (no-blur) shadows.
+  final Color borderStrong;
+  final Color shadow;
   final Color textPrimary;
   final Color textSecondary;
   final Color textDim;
@@ -25,6 +28,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
     required this.surface2,
     required this.surfaceVariant,
     required this.border,
+    required this.borderStrong,
+    required this.shadow,
     required this.textPrimary,
     required this.textSecondary,
     required this.textDim,
@@ -38,6 +43,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
     surface2: AppColors.surface2,
     surfaceVariant: AppColors.surfaceVariant,
     border: AppColors.border,
+    borderStrong: Color(0xFF3E3E5C),
+    shadow: Color(0xB3000000),
     textPrimary: AppColors.textPrimary,
     textSecondary: AppColors.textSecondary,
     textDim: AppColors.textDim,
@@ -51,6 +58,9 @@ class AppPalette extends ThemeExtension<AppPalette> {
     surface2: Color(0xFFF0F0F2),
     surfaceVariant: Color(0xFFECECEE),
     border: Color(0xFFE4E5E7),
+    // Dark navy outlines give the "sticker" pixel look on light backgrounds.
+    borderStrong: Color(0xFF2B2D42),
+    shadow: Color(0x4D2B2D42),
     textPrimary: Color(0xFF1B1B22),
     textSecondary: Color(0xFF6B6F76),
     textDim: Color(0xFFA2A6AD),
@@ -65,6 +75,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
     Color? surface2,
     Color? surfaceVariant,
     Color? border,
+    Color? borderStrong,
+    Color? shadow,
     Color? textPrimary,
     Color? textSecondary,
     Color? textDim,
@@ -77,6 +89,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
         surface2: surface2 ?? this.surface2,
         surfaceVariant: surfaceVariant ?? this.surfaceVariant,
         border: border ?? this.border,
+        borderStrong: borderStrong ?? this.borderStrong,
+        shadow: shadow ?? this.shadow,
         textPrimary: textPrimary ?? this.textPrimary,
         textSecondary: textSecondary ?? this.textSecondary,
         textDim: textDim ?? this.textDim,
@@ -93,6 +107,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
       surface2: Color.lerp(surface2, other.surface2, t)!,
       surfaceVariant: Color.lerp(surfaceVariant, other.surfaceVariant, t)!,
       border: Color.lerp(border, other.border, t)!,
+      borderStrong: Color.lerp(borderStrong, other.borderStrong, t)!,
+      shadow: Color.lerp(shadow, other.shadow, t)!,
       textPrimary: Color.lerp(textPrimary, other.textPrimary, t)!,
       textSecondary: Color.lerp(textSecondary, other.textSecondary, t)!,
       textDim: Color.lerp(textDim, other.textDim, t)!,

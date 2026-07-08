@@ -41,8 +41,10 @@ class CardThumbnail extends StatelessWidget {
         width: width,
         height: height,
         fit: fit,
-        // Sprites are 96px sources; cap decode size so large grids stay cheap.
+        // Sprites are 96px sources; cap decode size so large grids stay cheap,
+        // and upscale nearest-neighbor so pixels stay crisp instead of blurry.
         memCacheWidth: 192,
+        filterQuality: FilterQuality.none,
         fadeInDuration: const Duration(milliseconds: 120),
         placeholder: (context, url) => Container(
           width: width,

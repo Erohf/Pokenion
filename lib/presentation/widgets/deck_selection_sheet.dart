@@ -1,4 +1,3 @@
-import 'dart:ui' show ImageFilter;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -9,17 +8,18 @@ import '../../core/theme/app_palette.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../domain/models/deck.dart';
 import '../providers/deck_provider.dart';
+import 'pixel.dart';
 
-/// Deck picker that bursts out of the VS button: the panel scales up from the
-/// bottom-center with a springy overshoot over a blurred backdrop, and the
-/// deck rows cascade in. Picking a deck plays the battle-start fanfare.
+/// Deck picker that pops out of the VS cap: a pixel-framed panel scales up
+/// from the bottom-center with a springy overshoot and the deck rows cascade
+/// in. Picking a deck plays the battle-start jingle.
 Future<void> showDeckSelectionSheet(BuildContext context) {
   return showGeneralDialog(
     context: context,
     barrierDismissible: true,
     barrierLabel: 'decks',
-    barrierColor: Colors.black.withValues(alpha: 0.35),
-    transitionDuration: const Duration(milliseconds: 420),
+    barrierColor: Colors.black.withValues(alpha: 0.45),
+    transitionDuration: const Duration(milliseconds: 380),
     pageBuilder: (_, __, ___) => const _DeckSelectionPanel(),
     transitionBuilder: (context, anim, _, child) {
       final curved = CurvedAnimation(
@@ -27,19 +27,13 @@ Future<void> showDeckSelectionSheet(BuildContext context) {
         curve: Curves.easeOutBack,
         reverseCurve: Curves.easeInCubic,
       );
-      return BackdropFilter(
-        filter: ImageFilter.blur(
-          sigmaX: 5 * anim.value,
-          sigmaY: 5 * anim.value,
-        ),
-        child: FadeTransition(
-          opacity: anim,
-          child: ScaleTransition(
-            // Grow out of the VS button (bottom center of the screen).
-            alignment: const Alignment(0, 0.92),
-            scale: Tween(begin: 0.05, end: 1.0).animate(curved),
-            child: child,
-          ),
+      return FadeTransition(
+        opacity: anim,
+        child: ScaleTransition(
+          // Grow out of the VS cap (bottom center of the screen).
+          alignment: const Alignment(0, 0.92),
+          scale: Tween(begin: 0.06, end: 1.0).animate(curved),
+          child: child,
         ),
       );
     },
@@ -60,66 +54,58 @@ class _DeckSelectionPanel extends ConsumerWidget {
         alignment: const Alignment(0, 0.55),
         child: Material(
           color: Colors.transparent,
-          child: Container(
-            width: 320,
-            margin: const EdgeInsets.only(bottom: 96),
-            padding: const EdgeInsets.fromLTRB(18, 18, 18, 14),
-            decoration: BoxDecoration(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 96),
+            child: PixelBox(
+              width: 320,
               color: p.surface,
-              borderRadius: BorderRadius.circular(26),
-              border: Border.all(color: AppColors.blue.withValues(alpha: 0.35)),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.blue.withValues(alpha: 0.22),
-                  blurRadius: 30,
-                  spreadRadius: 2,
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    const Icon(Icons.flash_on, color: AppColors.blue, size: 20),
-                    const SizedBox(width: 6),
-                    Text('Escolha seu deck', style: AppTextStyles.h3),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                if (decks.isEmpty)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: Text(
-                      'Nenhum deck pronto para batalha. Um deck precisa de ao '
-                      'menos um Pokémon Básico ou EX.',
-                      style: AppTextStyles.body,
-                    ),
-                  )
-                else
-                  ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height * 0.45,
-                    ),
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: decks.length,
-                      separatorBuilder: (_, __) => const SizedBox(height: 10),
-                      itemBuilder: (context, i) => _CascadeIn(
-                        delayMs: 60 + i * 55,
-                        child: _DeckRow(
-                          deck: decks[i],
-                          onTap: () {
-                            sfx(Sfx.battleStart);
-                            Navigator.pop(context);
-                            context.go('/deck/${decks[i].id}/battle');
-                          },
+              radius: 16,
+              padding: const EdgeInsets.fromLTRB(18, 18, 18, 14),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.flash_on, color: AppColors.yellow, size: 20),
+                      const SizedBox(width: 6),
+                      Text('Escolha seu deck', style: AppTextStyles.h3),
+                    ],
+                  ),
+                  const SizedBox(height: 14),
+                  if (decks.isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Text(
+                        'Nenhum deck pronto para batalha. Um deck precisa de ao '
+                        'menos um Pokémon Básico ou EX.',
+                        style: AppTextStyles.body,
+                      ),
+                    )
+                  else
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: MediaQuery.of(context).size.height * 0.45,
+                      ),
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: decks.length,
+                        separatorBuilder: (_, __) => const SizedBox(height: 12),
+                        itemBuilder: (context, i) => _CascadeIn(
+                          delayMs: 50 + i * 55,
+                          child: _DeckRow(
+                            deck: decks[i],
+                            onTap: () {
+                              sfx(Sfx.battleStart);
+                              Navigator.pop(context);
+                              context.go('/deck/${decks[i].id}/battle');
+                            },
+                          ),
                         ),
                       ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -142,7 +128,7 @@ class _CascadeInState extends State<_CascadeIn>
     with SingleTickerProviderStateMixin {
   late final AnimationController _c = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 300),
+    duration: const Duration(milliseconds: 280),
   );
 
   @override
@@ -186,55 +172,49 @@ class _DeckRow extends StatelessWidget {
         : deck.pokemonCards.firstOrNull;
     final count = deck.pokemonCards.fold<int>(0, (s, c) => s + c.quantity);
 
-    return Material(
+    return PixelButton(
+      onTap: onTap,
       color: p.surface2,
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(16),
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            children: [
-              Container(
-                width: 46,
-                height: 46,
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  color: p.surface,
-                  borderRadius: BorderRadius.circular(12),
-                  border:
-                      Border.all(color: AppColors.blue.withValues(alpha: 0.4)),
-                ),
-                child: cover?.card.imageUrl == null
-                    ? const Icon(Icons.catching_pokemon, color: AppColors.blue)
-                    : CachedNetworkImage(
-                        imageUrl: cover!.card.imageUrl!,
-                        fit: BoxFit.contain,
-                        memCacheWidth: 96,
-                        errorWidget: (_, __, ___) => const Icon(
-                            Icons.catching_pokemon,
-                            color: AppColors.blue),
-                      ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(deck.name,
-                        style: AppTextStyles.label.copyWith(fontSize: 15),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis),
-                    Text('$count Pokémon', style: AppTextStyles.caption),
-                  ],
-                ),
-              ),
-              const Icon(Icons.play_arrow_rounded,
-                  color: AppColors.blue, size: 26),
-            ],
+      sound: null, // battle jingle plays from the caller
+      padding: const EdgeInsets.all(10),
+      child: Row(
+        children: [
+          Container(
+            width: 46,
+            height: 46,
+            padding: const EdgeInsets.all(3),
+            decoration: BoxDecoration(
+              color: p.surface,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: p.borderStrong, width: 2),
+            ),
+            child: cover?.card.imageUrl == null
+                ? const Icon(Icons.catching_pokemon, color: AppColors.blue)
+                : CachedNetworkImage(
+                    imageUrl: cover!.card.imageUrl!,
+                    fit: BoxFit.contain,
+                    memCacheWidth: 96,
+                    filterQuality: FilterQuality.none,
+                    errorWidget: (_, __, ___) =>
+                        const Icon(Icons.catching_pokemon, color: AppColors.blue),
+                  ),
           ),
-        ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(deck.name,
+                    style: AppTextStyles.label
+                        .copyWith(fontSize: 15, color: p.textPrimary),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis),
+                Text('$count Pokémon', style: AppTextStyles.caption),
+              ],
+            ),
+          ),
+          const Icon(Icons.play_arrow_rounded, color: AppColors.blue, size: 26),
+        ],
       ),
     );
   }

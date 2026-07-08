@@ -173,19 +173,20 @@ class _GenChip extends StatelessWidget {
         onTap: onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 160),
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 14),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: selected ? AppColors.blue : p.surface2,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: selected ? AppColors.blue : p.border,
+              color: selected ? p.borderStrong : p.border,
+              width: 2,
             ),
           ),
           child: Text(
             label,
-            style: AppTextStyles.label.copyWith(
-              fontSize: 12,
+            style: AppTextStyles.pixelTag.copyWith(
+              fontSize: 10,
               color: selected ? Colors.white : p.textSecondary,
             ),
           ),
@@ -225,6 +226,7 @@ class _PokemonRow extends StatelessWidget {
                       imageUrl: card.imageUrl!,
                       fit: BoxFit.contain,
                       memCacheWidth: 96,
+                      filterQuality: FilterQuality.none,
                       fadeInDuration: const Duration(milliseconds: 120),
                       placeholder: (_, __) => Icon(Icons.catching_pokemon,
                           color: p.border, size: 28),
@@ -251,16 +253,18 @@ class _PokemonRow extends StatelessWidget {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
               decoration: BoxDecoration(
                 color: _stageColor.withValues(alpha: 0.14),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(
+                    color: _stageColor.withValues(alpha: 0.55), width: 1.5),
               ),
               child: Text(
-                card.stage?.label ?? '',
-                style: AppTextStyles.caption.copyWith(
+                card.stage?.label.toUpperCase() ?? '',
+                style: AppTextStyles.pixelTag.copyWith(
+                  fontSize: 8.5,
                   color: _stageColor,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),

@@ -10,8 +10,10 @@ import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/settings_provider.dart';
+import '../../../core/audio/sfx.dart';
 import '../../widgets/ad_banner.dart';
 import '../../widgets/battle_menu.dart';
+import '../../widgets/pixel.dart';
 
 /// Preset avatars. Stored in Auth.photoPath as a preset key. Real photos taken
 /// from the camera/gallery are stored as a `b64:<base64>` string instead, so the
@@ -217,15 +219,12 @@ class ProfileScreen extends ConsumerWidget {
       await ref.read(authProvider.notifier).updatePhoto('$_photoPrefix${base64Encode(bytes)}');
     } catch (e) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(source == ImageSource.camera
-                ? 'Não foi possível acessar a câmera.'
-                : 'Não foi possível acessar a galeria.'),
-            backgroundColor: AppColors.red,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          ),
+        showPixelSnack(
+          context,
+          source == ImageSource.camera
+              ? 'Não foi possível acessar a câmera.'
+              : 'Não foi possível acessar a galeria.',
+          accent: AppColors.red,
         );
       }
       debugPrint('image_picker error: $e');
@@ -238,7 +237,10 @@ class ProfileScreen extends ConsumerWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: context.palette.surface,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14),
+          side: BorderSide(color: context.palette.borderStrong, width: 2),
+        ),
         title: Text(visitor ? 'Sair do modo visitante' : 'Sair da conta',
             style: AppTextStyles.h3),
         content: Text(
@@ -286,13 +288,28 @@ class _Header extends StatelessWidget {
               children: [
                 Builder(builder: (context) {
                   final photo = _photoProvider(auth.photoPath);
-                  return CircleAvatar(
-                    radius: 40,
-                    backgroundColor: AppColors.blue.withValues(alpha: 0.14),
-                    backgroundImage: photo,
-                    child: photo == null
-                        ? Icon(_avatarIcon(auth.photoPath), size: 44, color: AppColors.blue)
-                        : null,
+                  return Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                          color: context.palette.borderStrong, width: 3),
+                      boxShadow: [
+                        BoxShadow(
+                          color: context.palette.shadow,
+                          offset: const Offset(3, 3),
+                          blurRadius: 0,
+                        ),
+                      ],
+                    ),
+                    child: CircleAvatar(
+                      radius: 38,
+                      backgroundColor: AppColors.blue.withValues(alpha: 0.14),
+                      backgroundImage: photo,
+                      child: photo == null
+                          ? Icon(_avatarIcon(auth.photoPath),
+                              size: 42, color: AppColors.blue)
+                          : null,
+                    ),
                   );
                 }),
                 Positioned(
@@ -471,14 +488,9 @@ class AboutScreen extends StatelessWidget {
                   title: 'Procurar atualizações',
                   subtitle: 'Deixe seu app sempre atualizado!',
                   trailing: const Icon(Icons.refresh, color: AppColors.blue),
-                  onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: const Text('Você já possui a versão mais recente.'),
-                      backgroundColor: AppColors.green,
-                      behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
-                  ),
+                  onTap: () => showPixelSnack(
+                      context, 'Você já possui a versão mais recente.',
+                      accent: AppColors.green),
                 ),
               ],
             ),
@@ -523,14 +535,10 @@ class _Card extends StatelessWidget {
   const _Card({required this.child, this.padding = const EdgeInsets.all(16)});
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return PixelBox(
       width: double.infinity,
       padding: padding,
-      decoration: BoxDecoration(
-        color: context.palette.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: context.palette.border),
-      ),
+      radius: 14,
       child: child,
     );
   }
@@ -635,17 +643,20 @@ class _PrimaryButton extends StatelessWidget {
   const _PrimaryButton({required this.label, required this.icon, required this.onPressed});
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
+    return PixelButton(
+      onTap: onPressed,
+      color: AppColors.blue,
       width: double.infinity,
-      child: ElevatedButton.icon(
-        onPressed: onPressed,
-        icon: Icon(icon, color: Colors.white),
-        label: Text(label, style: AppTextStyles.buttonText.copyWith(color: Colors.white)),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.blue,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        ),
+      height: 50,
+      sound: Sfx.confirm,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: Colors.white, size: 20),
+          const SizedBox(width: 8),
+          Text(label,
+              style: AppTextStyles.buttonText.copyWith(color: Colors.white)),
+        ],
       ),
     );
   }
@@ -658,17 +669,21 @@ class _DangerButton extends StatelessWidget {
   const _DangerButton({required this.label, required this.icon, required this.onPressed});
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
+    return PixelButton(
+      onTap: onPressed,
+      color: context.palette.surface,
+      borderColor: AppColors.red,
       width: double.infinity,
-      child: OutlinedButton.icon(
-        onPressed: onPressed,
-        icon: const Icon(Icons.logout, color: AppColors.red),
-        label: Text(label, style: AppTextStyles.buttonText.copyWith(color: AppColors.red)),
-        style: OutlinedButton.styleFrom(
-          side: const BorderSide(color: AppColors.red),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        ),
+      height: 50,
+      sound: Sfx.back,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: AppColors.red, size: 20),
+          const SizedBox(width: 8),
+          Text(label,
+              style: AppTextStyles.buttonText.copyWith(color: AppColors.red)),
+        ],
       ),
     );
   }
@@ -719,13 +734,5 @@ class _BottomBar extends StatelessWidget {
   }
 }
 
-void _snack(BuildContext context, String message, Color color) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(message),
-      backgroundColor: color,
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    ),
-  );
-}
+void _snack(BuildContext context, String message, Color color) =>
+    showPixelSnack(context, message, accent: color);

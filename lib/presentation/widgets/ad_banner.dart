@@ -21,7 +21,12 @@ class AdBanner extends StatelessWidget {
       width: double.infinity,
       margin: margin,
       alignment: Alignment.center,
-      color: p.adBg,
+      decoration: BoxDecoration(
+        color: p.adBg,
+        border: Border(
+          bottom: BorderSide(color: p.borderStrong, width: 2),
+        ),
+      ),
       child: Text('AD', style: AppTextStyles.h1.copyWith(color: p.adText)),
     );
   }

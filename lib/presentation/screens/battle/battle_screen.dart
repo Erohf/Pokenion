@@ -15,6 +15,7 @@ import '../../providers/deck_provider.dart';
 import '../../providers/settings_provider.dart';
 import '../../widgets/ad_banner.dart';
 import '../../widgets/battle_menu.dart';
+import '../../widgets/pixel.dart';
 
 typedef StatusCfg = ({IconData icon, String label, Color color});
 
@@ -311,7 +312,10 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: context.palette.surface,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14),
+          side: BorderSide(color: context.palette.borderStrong, width: 2),
+        ),
         title: Text('Encerrar jogo', style: AppTextStyles.h3),
         content: Text('Tem certeza? O progresso da batalha será perdido.',
             style: AppTextStyles.body),
@@ -385,16 +389,7 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
     );
   }
 
-  void _snack(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(msg),
-        backgroundColor: context.palette.surface2,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
-  }
+  void _snack(String msg) => showPixelSnack(context, msg);
 }
 
 // ── Active selection ─────────────────────────────────────────────────────────
@@ -522,8 +517,15 @@ class _ActiveCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: context.palette.surface,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: context.palette.border),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: context.palette.borderStrong, width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: context.palette.shadow,
+            offset: const Offset(4, 4),
+            blurRadius: 0,
+          ),
+        ],
       ),
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
       child: Column(
@@ -542,7 +544,9 @@ class _ActiveCard extends StatelessWidget {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: context.palette.surfaceVariant,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(12),
+                  border:
+                      Border.all(color: context.palette.borderStrong, width: 2),
                 ),
                 padding: const EdgeInsets.all(12),
                 // Scale+fade whenever the Pokémon changes (swap/evolve/defeat)
@@ -563,6 +567,7 @@ class _ActiveCard extends StatelessWidget {
                         : CachedNetworkImage(
                             imageUrl: active.card.imageUrl!,
                             fit: BoxFit.contain,
+                            filterQuality: FilterQuality.none,
                             errorWidget: (_, __, ___) => const Icon(
                                 Icons.catching_pokemon,
                                 size: 90,
@@ -574,33 +579,41 @@ class _ActiveCard extends StatelessWidget {
               Positioned(
                 left: 8, top: 8,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: AppColors.blue.withValues(alpha: 0.9),
-                    borderRadius: BorderRadius.circular(8),
+                    color: AppColors.blue,
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(
+                        color: context.palette.borderStrong, width: 2),
                   ),
                   child: Text(active.card.name,
-                      style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+                      style: AppTextStyles.pixelTag
+                          .copyWith(color: Colors.white, fontSize: 10)),
                 ),
               ),
               Positioned(
                 right: 8, top: 8,
                 child: Column(
                   children: [
-                    GestureDetector(
+                    PixelIconButton(
+                      icon: Icons.medical_services_outlined,
+                      color: AppColors.blue,
+                      size: 42,
+                      iconSize: 19,
                       onTap: onStatus,
-                      child: Container(
-                        width: 44, height: 44,
-                        decoration: const BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
-                        child: const Icon(Icons.medical_services_outlined, color: Colors.white, size: 20),
-                      ),
                     ),
                     for (final s in active.statuses) ...[
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 8),
                       Container(
-                        width: 40, height: 40,
-                        decoration: BoxDecoration(color: statusConfig[s]!.color, shape: BoxShape.circle),
-                        child: Icon(statusConfig[s]!.icon, color: Colors.white, size: 18),
+                        width: 36, height: 36,
+                        decoration: BoxDecoration(
+                          color: statusConfig[s]!.color,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                              color: context.palette.borderStrong, width: 2),
+                        ),
+                        child: Icon(statusConfig[s]!.icon,
+                            color: Colors.white, size: 17),
                       ),
                     ],
                   ],
@@ -663,12 +676,14 @@ class _HpControlState extends State<_HpControl> {
                 setState(() => _editing = true);
               },
               child: Container(
-                width: 96,
-                height: 40,
+                width: 100,
+                height: 42,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: context.palette.surfaceVariant,
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: BorderRadius.circular(10),
+                  border:
+                      Border.all(color: context.palette.borderStrong, width: 2),
                 ),
                 child: _editing
                     ? TextField(
@@ -723,28 +738,25 @@ class _HpControlState extends State<_HpControl> {
     );
   }
 
-  Widget _round(IconData icon, VoidCallback onTap) => GestureDetector(
+  Widget _round(IconData icon, VoidCallback onTap) => PixelIconButton(
+        icon: icon,
         onTap: onTap,
-        child: Container(
-          width: 40, height: 40,
-          decoration: BoxDecoration(color: context.palette.surfaceVariant, shape: BoxShape.circle),
-          child: Icon(icon, color: AppColors.blue, size: 20),
-        ),
+        color: context.palette.surfaceVariant,
+        iconColor: AppColors.blue,
+        size: 42,
+        iconSize: 20,
       );
 
   Widget _quick(String label, VoidCallback onTap) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4),
-        child: GestureDetector(
+        child: PixelButton(
           onTap: onTap,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: context.palette.surface2,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: context.palette.border),
-            ),
-            child: Text(label, style: AppTextStyles.labelBold),
-          ),
+          color: context.palette.surface2,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          radius: 8,
+          child: Text(label,
+              style: AppTextStyles.pixelTag
+                  .copyWith(color: context.palette.textPrimary)),
         ),
       );
 }
@@ -756,40 +768,43 @@ class _BenchRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final p = context.palette;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(5, (i) {
         final has = i < bench.length;
-        return GestureDetector(
+        return PixelButton(
           onTap: () => onTap(i),
-          child: Container(
-            width: 56,
-            height: 72,
-            decoration: BoxDecoration(
-              color: context.palette.surface,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: context.palette.border, width: has ? 1.5 : 1),
-            ),
-            padding: const EdgeInsets.all(4),
-            child: has
-                ? Column(
-                    children: [
-                      Expanded(
-                        child: bench[i].card.imageUrl == null
-                            ? const Icon(Icons.catching_pokemon, color: AppColors.blue)
-                            : CachedNetworkImage(
-                                imageUrl: bench[i].card.imageUrl!,
-                                fit: BoxFit.contain,
-                                errorWidget: (_, __, ___) =>
-                                    const Icon(Icons.catching_pokemon, color: AppColors.blue),
-                              ),
-                      ),
-                      Text('${bench[i].currentHp}',
-                          style: AppTextStyles.caption.copyWith(fontSize: 9)),
-                    ],
-                  )
-                : const Icon(Icons.add, color: AppColors.textDim, size: 20),
-          ),
+          color: has ? p.surface : p.surface2,
+          borderColor: has ? p.borderStrong : p.border,
+          width: 56,
+          height: 74,
+          radius: 10,
+          padding: const EdgeInsets.all(4),
+          child: has
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: bench[i].card.imageUrl == null
+                          ? const Icon(Icons.catching_pokemon,
+                              color: AppColors.blue)
+                          : CachedNetworkImage(
+                              imageUrl: bench[i].card.imageUrl!,
+                              fit: BoxFit.contain,
+                              filterQuality: FilterQuality.none,
+                              memCacheWidth: 96,
+                              errorWidget: (_, __, ___) => const Icon(
+                                  Icons.catching_pokemon,
+                                  color: AppColors.blue),
+                            ),
+                    ),
+                    Text('${bench[i].currentHp}',
+                        style:
+                            AppTextStyles.pixelTag.copyWith(fontSize: 9, color: p.textSecondary)),
+                  ],
+                )
+              : Icon(Icons.add, color: p.textDim, size: 20),
         );
       }),
     );
@@ -815,16 +830,13 @@ class _PillButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return PixelButton(
       onTap: onTap,
-      child: Container(
-        width: width,
-        height: height,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(28)),
-        child: Text(text, style: AppTextStyles.buttonText.copyWith(color: textColor)),
-      ),
+      color: color,
+      width: width,
+      height: height,
+      padding: const EdgeInsets.symmetric(horizontal: 18),
+      child: Text(text, style: AppTextStyles.buttonText.copyWith(color: textColor)),
     );
   }
 }
@@ -855,14 +867,24 @@ class _PokemonPickTile extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: context.palette.surface2,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.blue, width: 1.2),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                    color: context.palette.borderStrong, width: 2),
+                boxShadow: [
+                  BoxShadow(
+                    color: context.palette.shadow,
+                    offset: const Offset(3, 3),
+                    blurRadius: 0,
+                  ),
+                ],
               ),
               child: imageUrl == null
                   ? const Icon(Icons.catching_pokemon, color: AppColors.blue)
                   : CachedNetworkImage(
                       imageUrl: imageUrl!,
                       fit: BoxFit.contain,
+                      filterQuality: FilterQuality.none,
+                      memCacheWidth: 160,
                       errorWidget: (_, __, ___) =>
                           const Icon(Icons.catching_pokemon, color: AppColors.blue),
                     ),

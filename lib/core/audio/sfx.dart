@@ -36,7 +36,7 @@ class SfxPlayer {
     _next = (_next + 1) % _poolSize;
     try {
       await player.stop();
-      await player.play(AssetSource('audio/${sfx.file}'), volume: 0.9);
+      await player.play(AssetSource('audio/${sfx.file}'), volume: 0.65);
     } catch (e) {
       debugPrint('sfx error: $e');
     }

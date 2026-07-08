@@ -5,8 +5,10 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../providers/settings_provider.dart';
+import '../../../core/audio/sfx.dart';
 import '../../widgets/ad_banner.dart';
 import '../../widgets/battle_menu.dart';
+import '../../widgets/pixel.dart';
 
 class PlansScreen extends ConsumerWidget {
   const PlansScreen({super.key});
@@ -36,12 +38,9 @@ class PlansScreen extends ConsumerWidget {
               child: ListView(
                 padding: const EdgeInsets.all(16),
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: context.palette.surface,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: context.palette.border),
-                    ),
+                  PixelBox(
+                    radius: 14,
+                    padding: EdgeInsets.zero,
                     child: Column(
                       children: [
                         _PlanRow(
@@ -135,12 +134,8 @@ class PlanDetailScreen extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: context.palette.surface,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: context.palette.border),
-              ),
+            PixelBox(
+              radius: 14,
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
@@ -161,27 +156,20 @@ class PlanDetailScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 20),
-            SizedBox(
+            PixelButton(
+              onTap: () {
+                ref.read(settingsProvider.notifier).setPlan(premium ? PlanType.premium : PlanType.noAds);
+                showPixelSnack(context, '$title ativado!',
+                    accent: AppColors.green);
+                context.pop();
+              },
+              color: AppColors.blue,
+              width: double.infinity,
               height: 54,
-              child: ElevatedButton(
-                onPressed: () {
-                  ref.read(settingsProvider.notifier).setPlan(premium ? PlanType.premium : PlanType.noAds);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('$title ativado!'),
-                      backgroundColor: AppColors.green,
-                      behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
-                  );
-                  context.pop();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.blue,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-                ),
-                child: Text('Assinar', style: AppTextStyles.buttonText.copyWith(fontSize: 16, color: Colors.white)),
-              ),
+              sound: Sfx.confirm,
+              child: Text('Assinar',
+                  style: AppTextStyles.buttonText
+                      .copyWith(fontSize: 17, color: Colors.white)),
             ),
           ],
         ),
