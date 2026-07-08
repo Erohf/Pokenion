@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "186082612658",
+    "project_id": "pokenion",
+    "storage_bucket": "pokenion.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186082612658:android:1d4b13e42c29f5a1fc80ab",
+        "android_client_info": {
+          "package_name": "com.erohf.pokenion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186082612658-k729i664tvo782l7osdgmp8i7a967l19.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBrrBYKknIqdAIyt2JdXE8O0hWUrynPbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186082612658-k729i664tvo782l7osdgmp8i7a967l19.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

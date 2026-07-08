@@ -28,7 +28,7 @@ Map<String, dynamic> _$$MatchImplToJson(_$MatchImpl instance) =>
       'startTime': instance.startTime.toIso8601String(),
       'endTime': instance.endTime?.toIso8601String(),
       'result': _$MatchResultEnumMap[instance.result],
-      'actions': instance.actions,
+      'actions': instance.actions.map((e) => e.toJson()).toList(),
       'opponentDeckName': instance.opponentDeckName,
       'notes': instance.notes,
     };

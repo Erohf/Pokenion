@@ -6,7 +6,7 @@ part of 'settings_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$settingsHash() => r'bba80a9cf37c2e0de674999dfadfab7a6a37f44a';
+String _$settingsHash() => r'1039e5d15249872b00d8dc44c3d2a6e8387492d6';
 
 /// App-wide preferences: theme, subscription plan and one-off flags.
 ///

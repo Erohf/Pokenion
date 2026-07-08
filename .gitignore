@@ -52,3 +52,8 @@ app.*.map.json
 .claude/
 IMPLEMENTATION_PLAN.md
 prototipos_telas/
+
+# Credentials & local developer configs
+*.keystore
+*.jks
+**/local.properties
