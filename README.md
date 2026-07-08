@@ -43,12 +43,12 @@ O projeto foi construído seguindo os princípios de **Clean Architecture** sepa
     *   [Firebase Core](https://pub.dev/packages/firebase_core) e [Firebase Auth](https://pub.dev/packages/firebase_auth) para autenticação.
     *   [Cloud Firestore](https://pub.dev/packages/cloud_firestore) para persistência em tempo real e sincronização de decks.
     *   [Google Sign-In](https://pub.dev/packages/google_sign_in) para login simplificado social.
-*   **Recursos do Dispositivo Móvel**:
-    *   [Camera](https://pub.dev/packages/camera) para captura de imagens.
-    *   [Geolocator](https://pub.dev/packages/geolocator) para registrar a posição GPS do usuário.
-    *   [Google ML Kit Text Recognition](https://pub.dev/packages/google_mlkit_text_recognition) para inteligência de OCR.
-    *   [Flutter Local Notifications](https://pub.dev/packages/flutter_local_notifications) para avisos do sistema.
-    *   [Permission Handler](https://pub.dev/packages/permission_handler) para gerenciamento elegante de permissões nativas.
+*   **Recursos do Dispositivo Móvel** (Status de Integração):
+    *   [Camera](https://pub.dev/packages/camera) (Implementado) para captura de imagens.
+    *   [Geolocator](https://pub.dev/packages/geolocator) (Implementado) para capturar posicionamento GPS.
+    *   [Google ML Kit Text Recognition](https://pub.dev/packages/google_mlkit_text_recognition) (Planejado para OCR de cartas) para inteligência de OCR local.
+    *   [Flutter Local Notifications](https://pub.dev/packages/flutter_local_notifications) (Estrutura configurada, lógica a implementar) para alertas e avisos nativos.
+    *   [Permission Handler](https://pub.dev/packages/permission_handler) para gerenciamento dinâmico de permissões do sistema.
 
 ---
 
