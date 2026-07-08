@@ -28,7 +28,7 @@ _$ActivePokemonImpl _$$ActivePokemonImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$ActivePokemonImplToJson(_$ActivePokemonImpl instance) =>
     <String, dynamic>{
-      'card': instance.card,
+      'card': instance.card.toJson(),
       'currentHp': instance.currentHp,
       'maxHp': instance.maxHp,
       'attachedEnergies': instance.attachedEnergies
@@ -36,7 +36,7 @@ Map<String, dynamic> _$$ActivePokemonImplToJson(_$ActivePokemonImpl instance) =>
           .toList(),
       'statuses':
           instance.statuses.map((e) => _$StatusConditionEnumMap[e]!).toList(),
-      'evolutionStack': instance.evolutionStack,
+      'evolutionStack': instance.evolutionStack.map((e) => e.toJson()).toList(),
       'hasTurboToken': instance.hasTurboToken,
     };
 

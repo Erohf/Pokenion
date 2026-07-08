@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/local/local_store.dart';
+import '../../data/repositories/sync_repository.dart';
+import 'auth_provider.dart';
 
 part 'settings_provider.g.dart';
 
@@ -43,14 +45,33 @@ class Settings extends _$Settings {
     state = state.copyWith(themeMode: mode);
   }
 
+  Future<void> _syncSettingsToCloud() async {
+    final auth = ref.read(authProvider);
+    if (auth.status == AuthStatus.google) {
+      await ref.read(syncRepositoryProvider).uploadSettings(
+        planIndex: state.plan.index,
+        visitorWarningDismissed: state.visitorWarningDismissed,
+      );
+    }
+  }
+
   Future<void> setPlan(PlanType plan) async {
     await LocalStore.instance.write(_kPlan, plan.index);
     state = state.copyWith(plan: plan);
+    await _syncSettingsToCloud();
   }
 
   Future<void> dismissVisitorWarning() async {
     await LocalStore.instance.write(_kVisitorWarn, true);
     state = state.copyWith(visitorWarningDismissed: true);
+    await _syncSettingsToCloud();
+  }
+
+  void setSettings(PlanType plan, bool visitorWarningDismissed) {
+    state = state.copyWith(
+      plan: plan,
+      visitorWarningDismissed: visitorWarningDismissed,
+    );
   }
 }
 

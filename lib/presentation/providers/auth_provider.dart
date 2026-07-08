@@ -1,6 +1,12 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/local/local_store.dart';
+import '../../data/repositories/sync_repository.dart';
+import 'deck_provider.dart';
+import 'settings_provider.dart';
 
 part 'auth_provider.g.dart';
 part 'auth_provider.freezed.dart';
@@ -56,13 +62,64 @@ class Auth extends _$Auth {
     state = s;
   }
 
-  /// Mock Google sign-in. Replace with real google_sign_in flow later.
+  /// Google sign-in using Firebase Auth.
   Future<void> signInWithGoogle() async {
-    await _persist(state.copyWith(
-      status: AuthStatus.google,
-      name: state.name.isEmpty ? 'Treinador' : state.name,
-      email: state.email ?? 'treinador@gmail.com',
-    ));
+    final auth = FirebaseAuth.instance;
+    User? firebaseUser;
+
+    if (kIsWeb) {
+      final googleProvider = GoogleAuthProvider();
+      googleProvider.addScope('email');
+      googleProvider.addScope('profile');
+      final userCredential = await auth.signInWithPopup(googleProvider);
+      firebaseUser = userCredential.user;
+    } else {
+      try {
+        final googleSignIn = GoogleSignIn.instance;
+        await googleSignIn.initialize();
+        final googleUser = await googleSignIn.authenticate();
+        final googleAuth = googleUser.authentication;
+        final credential = GoogleAuthProvider.credential(
+          idToken: googleAuth.idToken,
+        );
+        final userCredential = await auth.signInWithCredential(credential);
+        firebaseUser = userCredential.user;
+      } catch (e) {
+        // Usuário cancelou ou ocorreu um erro de configuração
+        return;
+      }
+    }
+
+    if (firebaseUser != null) {
+      final newState = AuthState(
+        status: AuthStatus.google,
+        name: firebaseUser.displayName ?? 'Treinador',
+        email: firebaseUser.email ?? '',
+        photoPath: firebaseUser.photoURL,
+      );
+      await _persist(newState);
+
+      // Sync decks after login
+      final localDecks = ref.read(deckNotifierProvider);
+      final syncRepo = ref.read(syncRepositoryProvider);
+      final syncedDecks = await syncRepo.syncOnLogin(localDecks);
+      ref.read(deckNotifierProvider.notifier).setDecks(syncedDecks);
+
+      // Sync settings after login
+      final settings = ref.read(settingsProvider);
+      final cloudSettings = await syncRepo.syncSettingsOnLogin(
+        localPlan: settings.plan.index,
+        localVisitorWarn: settings.visitorWarningDismissed,
+      );
+      if (cloudSettings != null) {
+        final planIndex = cloudSettings['plan'] as int;
+        final visitorWarn = cloudSettings['visitorWarningDismissed'] as bool? ?? false;
+        ref.read(settingsProvider.notifier).setSettings(
+          PlanType.values[planIndex],
+          visitorWarn,
+        );
+      }
+    }
   }
 
   Future<void> continueAsVisitor(String name) async {
@@ -75,5 +132,14 @@ class Auth extends _$Auth {
   Future<void> updatePhoto(String? path) async =>
       _persist(state.copyWith(photoPath: path));
 
-  Future<void> signOut() async => _persist(const AuthState());
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
+    try {
+      if (!kIsWeb) {
+        await GoogleSignIn.instance.signOut();
+      }
+    } catch (_) {}
+    await _persist(const AuthState());
+    await ref.read(deckNotifierProvider.notifier).clearDecks();
+  }
 }

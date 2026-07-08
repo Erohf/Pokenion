@@ -1,8 +1,10 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 import '../../data/local/local_store.dart';
+import '../../data/repositories/sync_repository.dart';
 import '../../domain/models/deck.dart';
 import '../../domain/models/card.dart';
+import 'auth_provider.dart';
 
 part 'deck_provider.g.dart';
 
@@ -16,7 +18,13 @@ class DeckNotifier extends _$DeckNotifier {
   @override
   List<Deck> build() => LocalStore.instance.readDecks();
 
-  Future<void> _save() => LocalStore.instance.saveAllDecks(state);
+  Future<void> _save() async {
+    await LocalStore.instance.saveAllDecks(state);
+    final auth = ref.read(authProvider);
+    if (auth.status == AuthStatus.google) {
+      await ref.read(syncRepositoryProvider).uploadDecks(state);
+    }
+  }
 
   Deck? byId(String id) {
     for (final d in state) {
@@ -50,6 +58,10 @@ class DeckNotifier extends _$DeckNotifier {
   Future<void> removeDeck(String id) async {
     state = state.where((d) => d.id != id).toList();
     await _save();
+    final auth = ref.read(authProvider);
+    if (auth.status == AuthStatus.google) {
+      await ref.read(syncRepositoryProvider).deleteDeck(id);
+    }
   }
 
   Future<void> updateDeck(Deck deck) async {
@@ -90,5 +102,14 @@ class DeckNotifier extends _$DeckNotifier {
     final deck = byId(deckId);
     if (deck == null) return;
     await updateDeck(deck.copyWith(coverCardId: cardId));
+  }
+
+  void setDecks(List<Deck> decks) {
+    state = decks;
+  }
+
+  Future<void> clearDecks() async {
+    state = [];
+    await LocalStore.instance.saveAllDecks([]);
   }
 }

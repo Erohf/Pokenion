@@ -30,7 +30,7 @@ Map<String, dynamic> _$$DeckImplToJson(_$DeckImpl instance) =>
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
-      'cards': instance.cards,
+      'cards': instance.cards.map((e) => e.toJson()).toList(),
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
       'format': instance.format,
@@ -49,7 +49,7 @@ _$DeckCardImpl _$$DeckCardImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$DeckCardImplToJson(_$DeckCardImpl instance) =>
     <String, dynamic>{
-      'card': instance.card,
+      'card': instance.card.toJson(),
       'quantity': instance.quantity,
       'hp': instance.hp,
     };
