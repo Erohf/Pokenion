@@ -6,7 +6,7 @@ part of 'battle_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$battleHash() => r'9168d6f1f4f6f398f35868a8f3d1468152046e77';
+String _$battleHash() => r'210f908e0a846232d06c573f6324a49c53bc23b4';
 
 /// Holds the current battle session. `keepAlive` so it survives navigation to
 /// other tabs; only [endGame]/[startBattle] reset it.
