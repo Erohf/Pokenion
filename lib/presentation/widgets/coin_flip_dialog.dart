@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../core/audio/sfx.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_palette.dart';
 import '../../core/theme/app_text_styles.dart';
@@ -47,6 +48,7 @@ class _CoinFlipDialogState extends State<_CoinFlipDialog>
   }
 
   void _start() {
+    sfx(Sfx.coin);
     final n = (int.tryParse(_controller.text) ?? 1).clamp(1, 100);
     _heads = 0;
     _tails = 0;

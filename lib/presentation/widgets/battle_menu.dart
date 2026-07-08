@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../core/audio/sfx.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_palette.dart';
 import '../providers/battle_provider.dart';
@@ -21,20 +22,22 @@ class BattleMenu extends ConsumerWidget {
 
     void onCenter() {
       if (inBattleScreen) {
+        sfx(Sfx.tap);
         showCoinFlipDialog(context);
       } else if (battle.inProgress && battle.deckId != null) {
+        sfx(Sfx.tap);
         context.go('/deck/${battle.deckId}/battle');
       } else {
+        sfx(Sfx.tap);
         showDeckSelectionSheet(context);
       }
     }
-
-    final centerIsCoin = inBattleScreen;
 
     return SizedBox(
       width: 328,
       height: 112,
       child: Stack(
+        clipBehavior: Clip.none,
         children: [
           Positioned(
             left: 0,
@@ -45,6 +48,13 @@ class BattleMenu extends ConsumerWidget {
               decoration: BoxDecoration(
                 color: context.palette.surfaceVariant,
                 borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.18),
+                    blurRadius: 18,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
               ),
             ),
           ),
@@ -53,7 +63,10 @@ class BattleMenu extends ConsumerWidget {
             bottom: 24,
             child: _MenuButton(
               icon: Icons.bookmark_outline,
-              onPressed: () => context.go('/'),
+              onPressed: () {
+                sfx(Sfx.tap);
+                context.go('/');
+              },
             ),
           ),
           Positioned(
@@ -61,7 +74,10 @@ class BattleMenu extends ConsumerWidget {
             bottom: 24,
             child: _MenuButton(
               icon: Icons.person_outline,
-              onPressed: () => context.go('/profile'),
+              onPressed: () {
+                sfx(Sfx.tap);
+                context.go('/profile');
+              },
             ),
           ),
           Positioned(
@@ -69,43 +85,9 @@ class BattleMenu extends ConsumerWidget {
             left: 0,
             right: 0,
             child: Center(
-              child: GestureDetector(
+              child: VsButton(
+                coinMode: inBattleScreen,
                 onTap: onCenter,
-                child: Container(
-                  width: 64,
-                  height: 64,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Container(
-                      width: 48,
-                      height: 48,
-                      decoration: const BoxDecoration(
-                        color: AppColors.blue,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: centerIsCoin
-                            ? const Icon(Icons.monetization_on_outlined,
-                                color: Colors.white, size: 26)
-                            : const Text('VS',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18)),
-                      ),
-                    ),
-                  ),
-                ),
               ),
             ),
           ),
@@ -115,6 +97,148 @@ class BattleMenu extends ConsumerWidget {
   }
 }
 
+/// The center action button: a glowing gradient orb with a lightning bolt
+/// behind slanted "VS" lettering (per the prototype), or a coin icon during
+/// battle. Scales down while pressed and idles with a soft glow pulse.
+class VsButton extends StatefulWidget {
+  final bool coinMode;
+  final VoidCallback onTap;
+  const VsButton({super.key, required this.coinMode, required this.onTap});
+
+  @override
+  State<VsButton> createState() => _VsButtonState();
+}
+
+class _VsButtonState extends State<VsButton>
+    with SingleTickerProviderStateMixin {
+  bool _pressed = false;
+  late final AnimationController _pulse = AnimationController(
+    vsync: this,
+    duration: const Duration(seconds: 3),
+  )..repeat(reverse: true);
+
+  @override
+  void dispose() {
+    _pulse.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _pressed = true),
+      onTapCancel: () => setState(() => _pressed = false),
+      onTapUp: (_) {
+        setState(() => _pressed = false);
+        widget.onTap();
+      },
+      child: AnimatedScale(
+        scale: _pressed ? 0.88 : 1.0,
+        duration: const Duration(milliseconds: 110),
+        curve: Curves.easeOut,
+        child: AnimatedBuilder(
+          animation: _pulse,
+          builder: (context, child) {
+            final glow = 0.25 + 0.20 * _pulse.value;
+            return Container(
+              width: 68,
+              height: 68,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isDark ? const Color(0xFF23233A) : Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.blue.withValues(alpha: glow),
+                    blurRadius: 22 + 8 * _pulse.value,
+                    spreadRadius: 1,
+                  ),
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.25),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: child,
+            );
+          },
+          child: Center(
+            child: Container(
+              width: 54,
+              height: 54,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [AppColors.blueLight, AppColors.blue, AppColors.blueDark],
+                ),
+              ),
+              child: widget.coinMode
+                  ? const Icon(Icons.monetization_on_outlined,
+                      color: Colors.white, size: 26)
+                  : const _VsEmblem(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Lightning bolt + slanted "VS" lettering, like the prototype emblem.
+class _VsEmblem extends StatelessWidget {
+  const _VsEmblem();
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        CustomPaint(size: const Size(30, 34), painter: _BoltPainter()),
+        Transform.rotate(
+          angle: -0.12,
+          child: const Text(
+            'VS',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w900,
+              fontSize: 19,
+              letterSpacing: 0.5,
+              shadows: [
+                Shadow(color: Color(0x662A5FCC), offset: Offset(0, 2), blurRadius: 2),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _BoltPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width, h = size.height;
+    final path = Path()
+      ..moveTo(w * 0.62, 0)
+      ..lineTo(w * 0.18, h * 0.56)
+      ..lineTo(w * 0.46, h * 0.56)
+      ..lineTo(w * 0.38, h)
+      ..lineTo(w * 0.86, h * 0.42)
+      ..lineTo(w * 0.55, h * 0.42)
+      ..close();
+    canvas.drawPath(
+      path,
+      Paint()..color = Colors.white.withValues(alpha: 0.30),
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _BoltPainter oldDelegate) => false;
+}
+
 class _MenuButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback onPressed;
@@ -122,16 +246,17 @@ class _MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 48,
-      height: 48,
-      decoration: BoxDecoration(
-        color: AppColors.blue,
+    return Material(
+      color: AppColors.blue,
+      borderRadius: BorderRadius.circular(42),
+      child: InkWell(
         borderRadius: BorderRadius.circular(42),
-      ),
-      child: IconButton(
-        icon: Icon(icon, color: Colors.white),
-        onPressed: onPressed,
+        onTap: onPressed,
+        child: SizedBox(
+          width: 48,
+          height: 48,
+          child: Icon(icon, color: Colors.white),
+        ),
       ),
     );
   }

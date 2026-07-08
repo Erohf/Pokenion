@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/audio/sfx.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/app_text_styles.dart';
@@ -84,7 +85,10 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
               child: state.active == null
                   ? _ActiveSelection(
                       options: _available(),
-                      onPick: (dc) => ref.read(battleProvider.notifier).chooseActive(dc),
+                      onPick: (dc) {
+                        sfx(Sfx.confirm);
+                        ref.read(battleProvider.notifier).chooseActive(dc);
+                      },
                     )
                   : SingleChildScrollView(
                       padding: const EdgeInsets.only(bottom: 24),
@@ -174,6 +178,7 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
     }
     final chosen = await _pickDeckCard('Evoluir ${benched.card.name}', options);
     if (chosen != null) {
+      sfx(Sfx.evolve);
       ref.read(battleProvider.notifier).evolveBench(index, chosen.card, chosen.effectiveHp);
     }
   }
@@ -250,6 +255,7 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
     }
     final chosen = await _pickDeckCard('Evoluir ${active.card.name}', options);
     if (chosen != null) {
+      sfx(Sfx.evolve);
       ref.read(battleProvider.notifier).evolve(chosen.card, chosen.effectiveHp);
     }
   }
@@ -293,7 +299,10 @@ class _BattleScreenState extends ConsumerState<BattleScreen> {
         ),
       ),
     );
-    if (index != null) ref.read(battleProvider.notifier).markDefeated(index);
+    if (index != null) {
+      sfx(Sfx.back);
+      ref.read(battleProvider.notifier).markDefeated(index);
+    }
   }
 
   // ── Session ──────────────────────────────────────────────────────────────
@@ -536,14 +545,31 @@ class _ActiveCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 padding: const EdgeInsets.all(12),
-                child: active.card.imageUrl == null
-                    ? const Icon(Icons.catching_pokemon, size: 90, color: AppColors.blue)
-                    : CachedNetworkImage(
-                        imageUrl: active.card.imageUrl!,
-                        fit: BoxFit.contain,
-                        errorWidget: (_, __, ___) =>
-                            const Icon(Icons.catching_pokemon, size: 90, color: AppColors.blue),
-                      ),
+                // Scale+fade whenever the Pokémon changes (swap/evolve/defeat)
+                // so the new one "materializes" instead of popping in.
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 420),
+                  switchInCurve: Curves.easeOutBack,
+                  switchOutCurve: Curves.easeIn,
+                  transitionBuilder: (child, anim) => FadeTransition(
+                    opacity: anim,
+                    child: ScaleTransition(scale: anim, child: child),
+                  ),
+                  child: KeyedSubtree(
+                    key: ValueKey(active.card.id),
+                    child: active.card.imageUrl == null
+                        ? const Icon(Icons.catching_pokemon,
+                            size: 90, color: AppColors.blue)
+                        : CachedNetworkImage(
+                            imageUrl: active.card.imageUrl!,
+                            fit: BoxFit.contain,
+                            errorWidget: (_, __, ___) => const Icon(
+                                Icons.catching_pokemon,
+                                size: 90,
+                                color: AppColors.blue),
+                          ),
+                  ),
+                ),
               ),
               Positioned(
                 left: 8, top: 8,
@@ -658,8 +684,23 @@ class _HpControlState extends State<_HpControl> {
                           widget.onChanged(int.tryParse(v) ?? widget.currentHp);
                         },
                       )
-                    : Text('${widget.currentHp}',
-                        style: AppTextStyles.hpValue.copyWith(color: _hpColor)),
+                    : AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 200),
+                        transitionBuilder: (child, anim) => FadeTransition(
+                          opacity: anim,
+                          child: SlideTransition(
+                            position: Tween(
+                                    begin: const Offset(0, 0.5),
+                                    end: Offset.zero)
+                                .animate(anim),
+                            child: child,
+                          ),
+                        ),
+                        child: Text('${widget.currentHp}',
+                            key: ValueKey(widget.currentHp),
+                            style:
+                                AppTextStyles.hpValue.copyWith(color: _hpColor)),
+                      ),
               ),
             ),
             const SizedBox(width: 10),

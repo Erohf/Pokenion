@@ -1,0 +1,8086 @@
+{
+ "cards": [
+  {
+   "id": "gen1-1",
+   "dexNumber": 1,
+   "name": "Bulbasaur",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+   "evolvesToIds": [
+    "gen1-2"
+   ]
+  },
+  {
+   "id": "gen1-2",
+   "dexNumber": 2,
+   "name": "Ivysaur",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
+   "evolvesToIds": [
+    "gen1-3"
+   ]
+  },
+  {
+   "id": "gen1-3",
+   "dexNumber": 3,
+   "name": "Venusaur",
+   "stage": "stage2",
+   "baseHp": 150,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+   "evolvesToIds": [
+    "gen1-3-mega"
+   ]
+  },
+  {
+   "id": "gen1-3-ex",
+   "dexNumber": 3,
+   "name": "Venusaur EX",
+   "stage": "ex",
+   "baseHp": 190,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+   "evolvesToIds": [
+    "gen1-3-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen1-3-mega",
+   "dexNumber": 3,
+   "name": "Mega Venusaur",
+   "stage": "mega",
+   "baseHp": 210,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10033.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-4",
+   "dexNumber": 4,
+   "name": "Charmander",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+   "evolvesToIds": [
+    "gen1-5"
+   ]
+  },
+  {
+   "id": "gen1-5",
+   "dexNumber": 5,
+   "name": "Charmeleon",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
+   "evolvesToIds": [
+    "gen1-6"
+   ]
+  },
+  {
+   "id": "gen1-6",
+   "dexNumber": 6,
+   "name": "Charizard",
+   "stage": "stage2",
+   "baseHp": 150,
+   "types": [
+    "fire",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+   "evolvesToIds": [
+    "gen1-6-mega-x",
+    "gen1-6-mega-y"
+   ]
+  },
+  {
+   "id": "gen1-6-ex",
+   "dexNumber": 6,
+   "name": "Charizard EX",
+   "stage": "ex",
+   "baseHp": 190,
+   "types": [
+    "fire",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+   "evolvesToIds": [
+    "gen1-6-mega-x",
+    "gen1-6-mega-y"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen1-6-mega-x",
+   "dexNumber": 6,
+   "name": "Mega Charizard X",
+   "stage": "mega",
+   "baseHp": 210,
+   "types": [
+    "fire",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10034.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-6-mega-y",
+   "dexNumber": 6,
+   "name": "Mega Charizard Y",
+   "stage": "mega",
+   "baseHp": 210,
+   "types": [
+    "fire",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10035.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-7",
+   "dexNumber": 7,
+   "name": "Squirtle",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
+   "evolvesToIds": [
+    "gen1-8"
+   ]
+  },
+  {
+   "id": "gen1-8",
+   "dexNumber": 8,
+   "name": "Wartortle",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png",
+   "evolvesToIds": [
+    "gen1-9"
+   ]
+  },
+  {
+   "id": "gen1-9",
+   "dexNumber": 9,
+   "name": "Blastoise",
+   "stage": "stage2",
+   "baseHp": 150,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png",
+   "evolvesToIds": [
+    "gen1-9-mega"
+   ]
+  },
+  {
+   "id": "gen1-9-ex",
+   "dexNumber": 9,
+   "name": "Blastoise EX",
+   "stage": "ex",
+   "baseHp": 190,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png",
+   "evolvesToIds": [
+    "gen1-9-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen1-9-mega",
+   "dexNumber": 9,
+   "name": "Mega Blastoise",
+   "stage": "mega",
+   "baseHp": 210,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10036.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-10",
+   "dexNumber": 10,
+   "name": "Caterpie",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png",
+   "evolvesToIds": [
+    "gen1-11"
+   ]
+  },
+  {
+   "id": "gen1-11",
+   "dexNumber": 11,
+   "name": "Metapod",
+   "stage": "stage1",
+   "baseHp": 100,
+   "types": [
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/11.png",
+   "evolvesToIds": [
+    "gen1-12"
+   ]
+  },
+  {
+   "id": "gen1-12",
+   "dexNumber": 12,
+   "name": "Butterfree",
+   "stage": "stage2",
+   "baseHp": 120,
+   "types": [
+    "bug",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/12.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-13",
+   "dexNumber": 13,
+   "name": "Weedle",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "bug",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/13.png",
+   "evolvesToIds": [
+    "gen1-14"
+   ]
+  },
+  {
+   "id": "gen1-14",
+   "dexNumber": 14,
+   "name": "Kakuna",
+   "stage": "stage1",
+   "baseHp": 80,
+   "types": [
+    "bug",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/14.png",
+   "evolvesToIds": [
+    "gen1-15"
+   ]
+  },
+  {
+   "id": "gen1-15",
+   "dexNumber": 15,
+   "name": "Beedrill",
+   "stage": "stage2",
+   "baseHp": 120,
+   "types": [
+    "bug",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png",
+   "evolvesToIds": [
+    "gen1-15-mega"
+   ]
+  },
+  {
+   "id": "gen1-15-mega",
+   "dexNumber": 15,
+   "name": "Mega Beedrill",
+   "stage": "mega",
+   "baseHp": 180,
+   "types": [
+    "bug",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10090.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-16",
+   "dexNumber": 16,
+   "name": "Pidgey",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/16.png",
+   "evolvesToIds": [
+    "gen1-17"
+   ]
+  },
+  {
+   "id": "gen1-17",
+   "dexNumber": 17,
+   "name": "Pidgeotto",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/17.png",
+   "evolvesToIds": [
+    "gen1-18"
+   ]
+  },
+  {
+   "id": "gen1-18",
+   "dexNumber": 18,
+   "name": "Pidgeot",
+   "stage": "stage2",
+   "baseHp": 150,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/18.png",
+   "evolvesToIds": [
+    "gen1-18-mega"
+   ]
+  },
+  {
+   "id": "gen1-18-mega",
+   "dexNumber": 18,
+   "name": "Mega Pidgeot",
+   "stage": "mega",
+   "baseHp": 210,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10073.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-19",
+   "dexNumber": 19,
+   "name": "Rattata",
+   "stage": "basic",
+   "baseHp": 70,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/19.png",
+   "evolvesToIds": [
+    "gen1-20"
+   ]
+  },
+  {
+   "id": "gen1-20",
+   "dexNumber": 20,
+   "name": "Raticate",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/20.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-21",
+   "dexNumber": 21,
+   "name": "Spearow",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/21.png",
+   "evolvesToIds": [
+    "gen1-22"
+   ]
+  },
+  {
+   "id": "gen1-22",
+   "dexNumber": 22,
+   "name": "Fearow",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/22.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-23",
+   "dexNumber": 23,
+   "name": "Ekans",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/23.png",
+   "evolvesToIds": [
+    "gen1-24"
+   ]
+  },
+  {
+   "id": "gen1-24",
+   "dexNumber": 24,
+   "name": "Arbok",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/24.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-25",
+   "dexNumber": 25,
+   "name": "Pikachu",
+   "stage": "stage1",
+   "baseHp": 80,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+   "evolvesToIds": [
+    "gen1-26"
+   ]
+  },
+  {
+   "id": "gen1-25-ex",
+   "dexNumber": 25,
+   "name": "Pikachu EX",
+   "stage": "ex",
+   "baseHp": 120,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen1-26",
+   "dexNumber": 26,
+   "name": "Raichu",
+   "stage": "stage2",
+   "baseHp": 120,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/26.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-27",
+   "dexNumber": 27,
+   "name": "Sandshrew",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/27.png",
+   "evolvesToIds": [
+    "gen1-28"
+   ]
+  },
+  {
+   "id": "gen1-28",
+   "dexNumber": 28,
+   "name": "Sandslash",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/28.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-29",
+   "dexNumber": 29,
+   "name": "Nidoran♀",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/29.png",
+   "evolvesToIds": [
+    "gen1-30"
+   ]
+  },
+  {
+   "id": "gen1-30",
+   "dexNumber": 30,
+   "name": "Nidorina",
+   "stage": "stage1",
+   "baseHp": 130,
+   "types": [
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/30.png",
+   "evolvesToIds": [
+    "gen1-31"
+   ]
+  },
+  {
+   "id": "gen1-31",
+   "dexNumber": 31,
+   "name": "Nidoqueen",
+   "stage": "stage2",
+   "baseHp": 160,
+   "types": [
+    "poison",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/31.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-32",
+   "dexNumber": 32,
+   "name": "Nidoran♂",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/32.png",
+   "evolvesToIds": [
+    "gen1-33"
+   ]
+  },
+  {
+   "id": "gen1-33",
+   "dexNumber": 33,
+   "name": "Nidorino",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/33.png",
+   "evolvesToIds": [
+    "gen1-34"
+   ]
+  },
+  {
+   "id": "gen1-34",
+   "dexNumber": 34,
+   "name": "Nidoking",
+   "stage": "stage2",
+   "baseHp": 150,
+   "types": [
+    "poison",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/34.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-35",
+   "dexNumber": 35,
+   "name": "Clefairy",
+   "stage": "stage1",
+   "baseHp": 130,
+   "types": [
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png",
+   "evolvesToIds": [
+    "gen1-36"
+   ]
+  },
+  {
+   "id": "gen1-36",
+   "dexNumber": 36,
+   "name": "Clefable",
+   "stage": "stage2",
+   "baseHp": 180,
+   "types": [
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/36.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-37",
+   "dexNumber": 37,
+   "name": "Vulpix",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/37.png",
+   "evolvesToIds": [
+    "gen1-38"
+   ]
+  },
+  {
+   "id": "gen1-38",
+   "dexNumber": 38,
+   "name": "Ninetales",
+   "stage": "stage1",
+   "baseHp": 130,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/38.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-39",
+   "dexNumber": 39,
+   "name": "Jigglypuff",
+   "stage": "stage1",
+   "baseHp": 210,
+   "types": [
+    "normal",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png",
+   "evolvesToIds": [
+    "gen1-40"
+   ]
+  },
+  {
+   "id": "gen1-40",
+   "dexNumber": 40,
+   "name": "Wigglytuff",
+   "stage": "stage2",
+   "baseHp": 240,
+   "types": [
+    "normal",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/40.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-41",
+   "dexNumber": 41,
+   "name": "Zubat",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "poison",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/41.png",
+   "evolvesToIds": [
+    "gen1-42"
+   ]
+  },
+  {
+   "id": "gen1-42",
+   "dexNumber": 42,
+   "name": "Golbat",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "poison",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/42.png",
+   "evolvesToIds": [
+    "gen2-169"
+   ]
+  },
+  {
+   "id": "gen1-43",
+   "dexNumber": 43,
+   "name": "Oddish",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/43.png",
+   "evolvesToIds": [
+    "gen1-44"
+   ]
+  },
+  {
+   "id": "gen1-44",
+   "dexNumber": 44,
+   "name": "Gloom",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/44.png",
+   "evolvesToIds": [
+    "gen1-45",
+    "gen2-182"
+   ]
+  },
+  {
+   "id": "gen1-45",
+   "dexNumber": 45,
+   "name": "Vileplume",
+   "stage": "stage2",
+   "baseHp": 150,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-46",
+   "dexNumber": 46,
+   "name": "Paras",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "bug",
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/46.png",
+   "evolvesToIds": [
+    "gen1-47"
+   ]
+  },
+  {
+   "id": "gen1-47",
+   "dexNumber": 47,
+   "name": "Parasect",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "bug",
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-48",
+   "dexNumber": 48,
+   "name": "Venonat",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "bug",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/48.png",
+   "evolvesToIds": [
+    "gen1-49"
+   ]
+  },
+  {
+   "id": "gen1-49",
+   "dexNumber": 49,
+   "name": "Venomoth",
+   "stage": "stage1",
+   "baseHp": 130,
+   "types": [
+    "bug",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/49.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-50",
+   "dexNumber": 50,
+   "name": "Diglett",
+   "stage": "basic",
+   "baseHp": 70,
+   "types": [
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/50.png",
+   "evolvesToIds": [
+    "gen1-51"
+   ]
+  },
+  {
+   "id": "gen1-51",
+   "dexNumber": 51,
+   "name": "Dugtrio",
+   "stage": "stage1",
+   "baseHp": 80,
+   "types": [
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/51.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-52",
+   "dexNumber": 52,
+   "name": "Meowth",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png",
+   "evolvesToIds": [
+    "gen1-53"
+   ]
+  },
+  {
+   "id": "gen1-53",
+   "dexNumber": 53,
+   "name": "Persian",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/53.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-54",
+   "dexNumber": 54,
+   "name": "Psyduck",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/54.png",
+   "evolvesToIds": [
+    "gen1-55"
+   ]
+  },
+  {
+   "id": "gen1-55",
+   "dexNumber": 55,
+   "name": "Golduck",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/55.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-56",
+   "dexNumber": 56,
+   "name": "Mankey",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/56.png",
+   "evolvesToIds": [
+    "gen1-57"
+   ]
+  },
+  {
+   "id": "gen1-57",
+   "dexNumber": 57,
+   "name": "Primeape",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/57.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-58",
+   "dexNumber": 58,
+   "name": "Growlithe",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/58.png",
+   "evolvesToIds": [
+    "gen1-59"
+   ]
+  },
+  {
+   "id": "gen1-59",
+   "dexNumber": 59,
+   "name": "Arcanine",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/59.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-60",
+   "dexNumber": 60,
+   "name": "Poliwag",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/60.png",
+   "evolvesToIds": [
+    "gen1-61"
+   ]
+  },
+  {
+   "id": "gen1-61",
+   "dexNumber": 61,
+   "name": "Poliwhirl",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/61.png",
+   "evolvesToIds": [
+    "gen1-62",
+    "gen2-186"
+   ]
+  },
+  {
+   "id": "gen1-62",
+   "dexNumber": 62,
+   "name": "Poliwrath",
+   "stage": "stage2",
+   "baseHp": 160,
+   "types": [
+    "water",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/62.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-63",
+   "dexNumber": 63,
+   "name": "Abra",
+   "stage": "basic",
+   "baseHp": 70,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/63.png",
+   "evolvesToIds": [
+    "gen1-64"
+   ]
+  },
+  {
+   "id": "gen1-64",
+   "dexNumber": 64,
+   "name": "Kadabra",
+   "stage": "stage1",
+   "baseHp": 80,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/64.png",
+   "evolvesToIds": [
+    "gen1-65"
+   ]
+  },
+  {
+   "id": "gen1-65",
+   "dexNumber": 65,
+   "name": "Alakazam",
+   "stage": "stage2",
+   "baseHp": 120,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/65.png",
+   "evolvesToIds": [
+    "gen1-65-mega"
+   ]
+  },
+  {
+   "id": "gen1-65-ex",
+   "dexNumber": 65,
+   "name": "Alakazam EX",
+   "stage": "ex",
+   "baseHp": 160,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/65.png",
+   "evolvesToIds": [
+    "gen1-65-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen1-65-mega",
+   "dexNumber": 65,
+   "name": "Mega Alakazam",
+   "stage": "mega",
+   "baseHp": 180,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10037.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-66",
+   "dexNumber": 66,
+   "name": "Machop",
+   "stage": "basic",
+   "baseHp": 130,
+   "types": [
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/66.png",
+   "evolvesToIds": [
+    "gen1-67"
+   ]
+  },
+  {
+   "id": "gen1-67",
+   "dexNumber": 67,
+   "name": "Machoke",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/67.png",
+   "evolvesToIds": [
+    "gen1-68"
+   ]
+  },
+  {
+   "id": "gen1-68",
+   "dexNumber": 68,
+   "name": "Machamp",
+   "stage": "stage2",
+   "baseHp": 160,
+   "types": [
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/68.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-69",
+   "dexNumber": 69,
+   "name": "Bellsprout",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/69.png",
+   "evolvesToIds": [
+    "gen1-70"
+   ]
+  },
+  {
+   "id": "gen1-70",
+   "dexNumber": 70,
+   "name": "Weepinbell",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/70.png",
+   "evolvesToIds": [
+    "gen1-71"
+   ]
+  },
+  {
+   "id": "gen1-71",
+   "dexNumber": 71,
+   "name": "Victreebel",
+   "stage": "stage2",
+   "baseHp": 150,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/71.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-72",
+   "dexNumber": 72,
+   "name": "Tentacool",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "water",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/72.png",
+   "evolvesToIds": [
+    "gen1-73"
+   ]
+  },
+  {
+   "id": "gen1-73",
+   "dexNumber": 73,
+   "name": "Tentacruel",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "water",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/73.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-74",
+   "dexNumber": 74,
+   "name": "Geodude",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "rock",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/74.png",
+   "evolvesToIds": [
+    "gen1-75"
+   ]
+  },
+  {
+   "id": "gen1-75",
+   "dexNumber": 75,
+   "name": "Graveler",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "rock",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/75.png",
+   "evolvesToIds": [
+    "gen1-76"
+   ]
+  },
+  {
+   "id": "gen1-76",
+   "dexNumber": 76,
+   "name": "Golem",
+   "stage": "stage2",
+   "baseHp": 150,
+   "types": [
+    "rock",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/76.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-77",
+   "dexNumber": 77,
+   "name": "Ponyta",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/77.png",
+   "evolvesToIds": [
+    "gen1-78"
+   ]
+  },
+  {
+   "id": "gen1-78",
+   "dexNumber": 78,
+   "name": "Rapidash",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/78.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-79",
+   "dexNumber": 79,
+   "name": "Slowpoke",
+   "stage": "basic",
+   "baseHp": 160,
+   "types": [
+    "water",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/79.png",
+   "evolvesToIds": [
+    "gen1-80",
+    "gen2-199"
+   ]
+  },
+  {
+   "id": "gen1-80",
+   "dexNumber": 80,
+   "name": "Slowbro",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "water",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/80.png",
+   "evolvesToIds": [
+    "gen1-80-mega"
+   ]
+  },
+  {
+   "id": "gen1-80-mega",
+   "dexNumber": 80,
+   "name": "Mega Slowbro",
+   "stage": "mega",
+   "baseHp": 240,
+   "types": [
+    "water",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10071.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-81",
+   "dexNumber": 81,
+   "name": "Magnemite",
+   "stage": "basic",
+   "baseHp": 70,
+   "types": [
+    "electric",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/81.png",
+   "evolvesToIds": [
+    "gen1-82"
+   ]
+  },
+  {
+   "id": "gen1-82",
+   "dexNumber": 82,
+   "name": "Magneton",
+   "stage": "stage1",
+   "baseHp": 100,
+   "types": [
+    "electric",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/82.png",
+   "evolvesToIds": [
+    "gen4-462"
+   ]
+  },
+  {
+   "id": "gen1-83",
+   "dexNumber": 83,
+   "name": "Farfetch’d",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/83.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-84",
+   "dexNumber": 84,
+   "name": "Doduo",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/84.png",
+   "evolvesToIds": [
+    "gen1-85"
+   ]
+  },
+  {
+   "id": "gen1-85",
+   "dexNumber": 85,
+   "name": "Dodrio",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/85.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-86",
+   "dexNumber": 86,
+   "name": "Seel",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/86.png",
+   "evolvesToIds": [
+    "gen1-87"
+   ]
+  },
+  {
+   "id": "gen1-87",
+   "dexNumber": 87,
+   "name": "Dewgong",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "water",
+    "ice"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/87.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-88",
+   "dexNumber": 88,
+   "name": "Grimer",
+   "stage": "basic",
+   "baseHp": 150,
+   "types": [
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/88.png",
+   "evolvesToIds": [
+    "gen1-89"
+   ]
+  },
+  {
+   "id": "gen1-89",
+   "dexNumber": 89,
+   "name": "Muk",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/89.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-90",
+   "dexNumber": 90,
+   "name": "Shellder",
+   "stage": "basic",
+   "baseHp": 70,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/90.png",
+   "evolvesToIds": [
+    "gen1-91"
+   ]
+  },
+  {
+   "id": "gen1-91",
+   "dexNumber": 91,
+   "name": "Cloyster",
+   "stage": "stage1",
+   "baseHp": 100,
+   "types": [
+    "water",
+    "ice"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/91.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-92",
+   "dexNumber": 92,
+   "name": "Gastly",
+   "stage": "basic",
+   "baseHp": 70,
+   "types": [
+    "ghost",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/92.png",
+   "evolvesToIds": [
+    "gen1-93"
+   ]
+  },
+  {
+   "id": "gen1-93",
+   "dexNumber": 93,
+   "name": "Haunter",
+   "stage": "stage1",
+   "baseHp": 80,
+   "types": [
+    "ghost",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/93.png",
+   "evolvesToIds": [
+    "gen1-94"
+   ]
+  },
+  {
+   "id": "gen1-94",
+   "dexNumber": 94,
+   "name": "Gengar",
+   "stage": "stage2",
+   "baseHp": 120,
+   "types": [
+    "ghost",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png",
+   "evolvesToIds": [
+    "gen1-94-mega"
+   ]
+  },
+  {
+   "id": "gen1-94-ex",
+   "dexNumber": 94,
+   "name": "Gengar EX",
+   "stage": "ex",
+   "baseHp": 160,
+   "types": [
+    "ghost",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png",
+   "evolvesToIds": [
+    "gen1-94-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen1-94-mega",
+   "dexNumber": 94,
+   "name": "Mega Gengar",
+   "stage": "mega",
+   "baseHp": 180,
+   "types": [
+    "ghost",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10038.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-95",
+   "dexNumber": 95,
+   "name": "Onix",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "rock",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/95.png",
+   "evolvesToIds": [
+    "gen2-208"
+   ]
+  },
+  {
+   "id": "gen1-96",
+   "dexNumber": 96,
+   "name": "Drowzee",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/96.png",
+   "evolvesToIds": [
+    "gen1-97"
+   ]
+  },
+  {
+   "id": "gen1-97",
+   "dexNumber": 97,
+   "name": "Hypno",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/97.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-98",
+   "dexNumber": 98,
+   "name": "Krabby",
+   "stage": "basic",
+   "baseHp": 70,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/98.png",
+   "evolvesToIds": [
+    "gen1-99"
+   ]
+  },
+  {
+   "id": "gen1-99",
+   "dexNumber": 99,
+   "name": "Kingler",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/99.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-100",
+   "dexNumber": 100,
+   "name": "Voltorb",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/100.png",
+   "evolvesToIds": [
+    "gen1-101"
+   ]
+  },
+  {
+   "id": "gen1-101",
+   "dexNumber": 101,
+   "name": "Electrode",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/101.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-102",
+   "dexNumber": 102,
+   "name": "Exeggcute",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "grass",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/102.png",
+   "evolvesToIds": [
+    "gen1-103"
+   ]
+  },
+  {
+   "id": "gen1-103",
+   "dexNumber": 103,
+   "name": "Exeggutor",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "grass",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/103.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-104",
+   "dexNumber": 104,
+   "name": "Cubone",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/104.png",
+   "evolvesToIds": [
+    "gen1-105"
+   ]
+  },
+  {
+   "id": "gen1-105",
+   "dexNumber": 105,
+   "name": "Marowak",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/105.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-106",
+   "dexNumber": 106,
+   "name": "Hitmonlee",
+   "stage": "stage1",
+   "baseHp": 100,
+   "types": [
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/106.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-107",
+   "dexNumber": 107,
+   "name": "Hitmonchan",
+   "stage": "stage1",
+   "baseHp": 100,
+   "types": [
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/107.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-108",
+   "dexNumber": 108,
+   "name": "Lickitung",
+   "stage": "basic",
+   "baseHp": 160,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/108.png",
+   "evolvesToIds": [
+    "gen4-463"
+   ]
+  },
+  {
+   "id": "gen1-109",
+   "dexNumber": 109,
+   "name": "Koffing",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/109.png",
+   "evolvesToIds": [
+    "gen1-110"
+   ]
+  },
+  {
+   "id": "gen1-110",
+   "dexNumber": 110,
+   "name": "Weezing",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/110.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-111",
+   "dexNumber": 111,
+   "name": "Rhyhorn",
+   "stage": "basic",
+   "baseHp": 150,
+   "types": [
+    "ground",
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/111.png",
+   "evolvesToIds": [
+    "gen1-112"
+   ]
+  },
+  {
+   "id": "gen1-112",
+   "dexNumber": 112,
+   "name": "Rhydon",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "ground",
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png",
+   "evolvesToIds": [
+    "gen4-464"
+   ]
+  },
+  {
+   "id": "gen1-113",
+   "dexNumber": 113,
+   "name": "Chansey",
+   "stage": "stage1",
+   "baseHp": 420,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/113.png",
+   "evolvesToIds": [
+    "gen2-242"
+   ]
+  },
+  {
+   "id": "gen1-114",
+   "dexNumber": 114,
+   "name": "Tangela",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/114.png",
+   "evolvesToIds": [
+    "gen4-465"
+   ]
+  },
+  {
+   "id": "gen1-115",
+   "dexNumber": 115,
+   "name": "Kangaskhan",
+   "stage": "basic",
+   "baseHp": 180,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/115.png",
+   "evolvesToIds": [
+    "gen1-115-mega"
+   ]
+  },
+  {
+   "id": "gen1-115-mega",
+   "dexNumber": 115,
+   "name": "Mega Kangaskhan",
+   "stage": "mega",
+   "baseHp": 240,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10039.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-116",
+   "dexNumber": 116,
+   "name": "Horsea",
+   "stage": "basic",
+   "baseHp": 70,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/116.png",
+   "evolvesToIds": [
+    "gen1-117"
+   ]
+  },
+  {
+   "id": "gen1-117",
+   "dexNumber": 117,
+   "name": "Seadra",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/117.png",
+   "evolvesToIds": [
+    "gen2-230"
+   ]
+  },
+  {
+   "id": "gen1-118",
+   "dexNumber": 118,
+   "name": "Goldeen",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/118.png",
+   "evolvesToIds": [
+    "gen1-119"
+   ]
+  },
+  {
+   "id": "gen1-119",
+   "dexNumber": 119,
+   "name": "Seaking",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/119.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-120",
+   "dexNumber": 120,
+   "name": "Staryu",
+   "stage": "basic",
+   "baseHp": 70,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/120.png",
+   "evolvesToIds": [
+    "gen1-121"
+   ]
+  },
+  {
+   "id": "gen1-121",
+   "dexNumber": 121,
+   "name": "Starmie",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "water",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/121.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-122",
+   "dexNumber": 122,
+   "name": "Mr. Mime",
+   "stage": "stage1",
+   "baseHp": 80,
+   "types": [
+    "psychic",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/122.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-123",
+   "dexNumber": 123,
+   "name": "Scyther",
+   "stage": "basic",
+   "baseHp": 130,
+   "types": [
+    "bug",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/123.png",
+   "evolvesToIds": [
+    "gen2-212"
+   ]
+  },
+  {
+   "id": "gen1-124",
+   "dexNumber": 124,
+   "name": "Jynx",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "ice",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/124.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-125",
+   "dexNumber": 125,
+   "name": "Electabuzz",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/125.png",
+   "evolvesToIds": [
+    "gen4-466"
+   ]
+  },
+  {
+   "id": "gen1-126",
+   "dexNumber": 126,
+   "name": "Magmar",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/126.png",
+   "evolvesToIds": [
+    "gen4-467"
+   ]
+  },
+  {
+   "id": "gen1-127",
+   "dexNumber": 127,
+   "name": "Pinsir",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/127.png",
+   "evolvesToIds": [
+    "gen1-127-mega"
+   ]
+  },
+  {
+   "id": "gen1-127-mega",
+   "dexNumber": 127,
+   "name": "Mega Pinsir",
+   "stage": "mega",
+   "baseHp": 180,
+   "types": [
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10040.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-128",
+   "dexNumber": 128,
+   "name": "Tauros",
+   "stage": "basic",
+   "baseHp": 150,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/128.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-129",
+   "dexNumber": 129,
+   "name": "Magikarp",
+   "stage": "basic",
+   "baseHp": 70,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/129.png",
+   "evolvesToIds": [
+    "gen1-130"
+   ]
+  },
+  {
+   "id": "gen1-130",
+   "dexNumber": 130,
+   "name": "Gyarados",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "water",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/130.png",
+   "evolvesToIds": [
+    "gen1-130-mega"
+   ]
+  },
+  {
+   "id": "gen1-130-ex",
+   "dexNumber": 130,
+   "name": "Gyarados EX",
+   "stage": "ex",
+   "baseHp": 220,
+   "types": [
+    "water",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/130.png",
+   "evolvesToIds": [
+    "gen1-130-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen1-130-mega",
+   "dexNumber": 130,
+   "name": "Mega Gyarados",
+   "stage": "mega",
+   "baseHp": 240,
+   "types": [
+    "water",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10041.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-131",
+   "dexNumber": 131,
+   "name": "Lapras",
+   "stage": "basic",
+   "baseHp": 230,
+   "types": [
+    "water",
+    "ice"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/131.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-132",
+   "dexNumber": 132,
+   "name": "Ditto",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-133",
+   "dexNumber": 133,
+   "name": "Eevee",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png",
+   "evolvesToIds": [
+    "gen1-134",
+    "gen1-135",
+    "gen1-136",
+    "gen2-196",
+    "gen2-197",
+    "gen4-470",
+    "gen4-471"
+   ]
+  },
+  {
+   "id": "gen1-134",
+   "dexNumber": 134,
+   "name": "Vaporeon",
+   "stage": "stage1",
+   "baseHp": 230,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/134.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-135",
+   "dexNumber": 135,
+   "name": "Jolteon",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/135.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-136",
+   "dexNumber": 136,
+   "name": "Flareon",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/136.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-137",
+   "dexNumber": 137,
+   "name": "Porygon",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/137.png",
+   "evolvesToIds": [
+    "gen2-233"
+   ]
+  },
+  {
+   "id": "gen1-138",
+   "dexNumber": 138,
+   "name": "Omanyte",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "rock",
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/138.png",
+   "evolvesToIds": [
+    "gen1-139"
+   ]
+  },
+  {
+   "id": "gen1-139",
+   "dexNumber": 139,
+   "name": "Omastar",
+   "stage": "stage1",
+   "baseHp": 130,
+   "types": [
+    "rock",
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/139.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-140",
+   "dexNumber": 140,
+   "name": "Kabuto",
+   "stage": "basic",
+   "baseHp": 70,
+   "types": [
+    "rock",
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/140.png",
+   "evolvesToIds": [
+    "gen1-141"
+   ]
+  },
+  {
+   "id": "gen1-141",
+   "dexNumber": 141,
+   "name": "Kabutops",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "rock",
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/141.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-142",
+   "dexNumber": 142,
+   "name": "Aerodactyl",
+   "stage": "basic",
+   "baseHp": 150,
+   "types": [
+    "rock",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/142.png",
+   "evolvesToIds": [
+    "gen1-142-mega"
+   ]
+  },
+  {
+   "id": "gen1-142-mega",
+   "dexNumber": 142,
+   "name": "Mega Aerodactyl",
+   "stage": "mega",
+   "baseHp": 210,
+   "types": [
+    "rock",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10042.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-143",
+   "dexNumber": 143,
+   "name": "Snorlax",
+   "stage": "stage1",
+   "baseHp": 280,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-143-ex",
+   "dexNumber": 143,
+   "name": "Snorlax EX",
+   "stage": "ex",
+   "baseHp": 320,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen1-144",
+   "dexNumber": 144,
+   "name": "Articuno",
+   "stage": "basic",
+   "baseHp": 160,
+   "types": [
+    "ice",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/144.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-145",
+   "dexNumber": 145,
+   "name": "Zapdos",
+   "stage": "basic",
+   "baseHp": 160,
+   "types": [
+    "electric",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/145.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-146",
+   "dexNumber": 146,
+   "name": "Moltres",
+   "stage": "basic",
+   "baseHp": 160,
+   "types": [
+    "fire",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/146.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-147",
+   "dexNumber": 147,
+   "name": "Dratini",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/147.png",
+   "evolvesToIds": [
+    "gen1-148"
+   ]
+  },
+  {
+   "id": "gen1-148",
+   "dexNumber": 148,
+   "name": "Dragonair",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/148.png",
+   "evolvesToIds": [
+    "gen1-149"
+   ]
+  },
+  {
+   "id": "gen1-149",
+   "dexNumber": 149,
+   "name": "Dragonite",
+   "stage": "stage2",
+   "baseHp": 160,
+   "types": [
+    "dragon",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen1-149-ex",
+   "dexNumber": 149,
+   "name": "Dragonite EX",
+   "stage": "ex",
+   "baseHp": 200,
+   "types": [
+    "dragon",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen1-150",
+   "dexNumber": 150,
+   "name": "Mewtwo",
+   "stage": "basic",
+   "baseHp": 200,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png",
+   "evolvesToIds": [
+    "gen1-150-mega-x",
+    "gen1-150-mega-y"
+   ]
+  },
+  {
+   "id": "gen1-150-ex",
+   "dexNumber": 150,
+   "name": "Mewtwo EX",
+   "stage": "ex",
+   "baseHp": 240,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png",
+   "evolvesToIds": [
+    "gen1-150-mega-x",
+    "gen1-150-mega-y"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen1-150-mega-x",
+   "dexNumber": 150,
+   "name": "Mega Mewtwo X",
+   "stage": "mega",
+   "baseHp": 260,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10043.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-150-mega-y",
+   "dexNumber": 150,
+   "name": "Mega Mewtwo Y",
+   "stage": "mega",
+   "baseHp": 260,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10044.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen1-151",
+   "dexNumber": 151,
+   "name": "Mew",
+   "stage": "basic",
+   "baseHp": 180,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/151.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-152",
+   "dexNumber": 152,
+   "name": "Chikorita",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/152.png",
+   "evolvesToIds": [
+    "gen2-153"
+   ]
+  },
+  {
+   "id": "gen2-153",
+   "dexNumber": 153,
+   "name": "Bayleef",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/153.png",
+   "evolvesToIds": [
+    "gen2-154"
+   ]
+  },
+  {
+   "id": "gen2-154",
+   "dexNumber": 154,
+   "name": "Meganium",
+   "stage": "stage2",
+   "baseHp": 190,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/154.png",
+   "evolvesToIds": [
+    "gen2-154-mega"
+   ]
+  },
+  {
+   "id": "gen2-154-ex",
+   "dexNumber": 154,
+   "name": "Meganium EX",
+   "stage": "ex",
+   "baseHp": 230,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/154.png",
+   "evolvesToIds": [
+    "gen2-154-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen2-154-mega",
+   "dexNumber": 154,
+   "name": "Mega Meganium",
+   "stage": "mega",
+   "baseHp": 210,
+   "types": [
+    "grass",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10282.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen2-155",
+   "dexNumber": 155,
+   "name": "Cyndaquil",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/155.png",
+   "evolvesToIds": [
+    "gen2-156"
+   ]
+  },
+  {
+   "id": "gen2-156",
+   "dexNumber": 156,
+   "name": "Quilava",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/156.png",
+   "evolvesToIds": [
+    "gen2-157"
+   ]
+  },
+  {
+   "id": "gen2-157",
+   "dexNumber": 157,
+   "name": "Typhlosion",
+   "stage": "stage2",
+   "baseHp": 190,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/157.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-157-ex",
+   "dexNumber": 157,
+   "name": "Typhlosion EX",
+   "stage": "ex",
+   "baseHp": 230,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/157.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen2-158",
+   "dexNumber": 158,
+   "name": "Totodile",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/158.png",
+   "evolvesToIds": [
+    "gen2-159"
+   ]
+  },
+  {
+   "id": "gen2-159",
+   "dexNumber": 159,
+   "name": "Croconaw",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/159.png",
+   "evolvesToIds": [
+    "gen2-160"
+   ]
+  },
+  {
+   "id": "gen2-160",
+   "dexNumber": 160,
+   "name": "Feraligatr",
+   "stage": "stage2",
+   "baseHp": 200,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/160.png",
+   "evolvesToIds": [
+    "gen2-160-mega"
+   ]
+  },
+  {
+   "id": "gen2-160-ex",
+   "dexNumber": 160,
+   "name": "Feraligatr EX",
+   "stage": "ex",
+   "baseHp": 240,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/160.png",
+   "evolvesToIds": [
+    "gen2-160-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen2-160-mega",
+   "dexNumber": 160,
+   "name": "Mega Feraligatr",
+   "stage": "mega",
+   "baseHp": 220,
+   "types": [
+    "water",
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10283.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen2-161",
+   "dexNumber": 161,
+   "name": "Sentret",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/161.png",
+   "evolvesToIds": [
+    "gen2-162"
+   ]
+  },
+  {
+   "id": "gen2-162",
+   "dexNumber": 162,
+   "name": "Furret",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/162.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-163",
+   "dexNumber": 163,
+   "name": "Hoothoot",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/163.png",
+   "evolvesToIds": [
+    "gen2-164"
+   ]
+  },
+  {
+   "id": "gen2-164",
+   "dexNumber": 164,
+   "name": "Noctowl",
+   "stage": "stage1",
+   "baseHp": 200,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/164.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-165",
+   "dexNumber": 165,
+   "name": "Ledyba",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "bug",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/165.png",
+   "evolvesToIds": [
+    "gen2-166"
+   ]
+  },
+  {
+   "id": "gen2-166",
+   "dexNumber": 166,
+   "name": "Ledian",
+   "stage": "stage1",
+   "baseHp": 130,
+   "types": [
+    "bug",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/166.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-167",
+   "dexNumber": 167,
+   "name": "Spinarak",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "bug",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/167.png",
+   "evolvesToIds": [
+    "gen2-168"
+   ]
+  },
+  {
+   "id": "gen2-168",
+   "dexNumber": 168,
+   "name": "Ariados",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "bug",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/168.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-169",
+   "dexNumber": 169,
+   "name": "Crobat",
+   "stage": "stage2",
+   "baseHp": 200,
+   "types": [
+    "poison",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/169.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-170",
+   "dexNumber": 170,
+   "name": "Chinchou",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "water",
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/170.png",
+   "evolvesToIds": [
+    "gen2-171"
+   ]
+  },
+  {
+   "id": "gen2-171",
+   "dexNumber": 171,
+   "name": "Lanturn",
+   "stage": "stage1",
+   "baseHp": 240,
+   "types": [
+    "water",
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/171.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-172",
+   "dexNumber": 172,
+   "name": "Pichu",
+   "stage": "basic",
+   "baseHp": 60,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/172.png",
+   "evolvesToIds": [
+    "gen1-25"
+   ]
+  },
+  {
+   "id": "gen2-173",
+   "dexNumber": 173,
+   "name": "Cleffa",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/173.png",
+   "evolvesToIds": [
+    "gen1-35"
+   ]
+  },
+  {
+   "id": "gen2-174",
+   "dexNumber": 174,
+   "name": "Igglybuff",
+   "stage": "basic",
+   "baseHp": 160,
+   "types": [
+    "normal",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/174.png",
+   "evolvesToIds": [
+    "gen1-39"
+   ]
+  },
+  {
+   "id": "gen2-175",
+   "dexNumber": 175,
+   "name": "Togepi",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/175.png",
+   "evolvesToIds": [
+    "gen2-176"
+   ]
+  },
+  {
+   "id": "gen2-176",
+   "dexNumber": 176,
+   "name": "Togetic",
+   "stage": "stage1",
+   "baseHp": 130,
+   "types": [
+    "fairy",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/176.png",
+   "evolvesToIds": [
+    "gen4-468"
+   ]
+  },
+  {
+   "id": "gen2-177",
+   "dexNumber": 177,
+   "name": "Natu",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "psychic",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/177.png",
+   "evolvesToIds": [
+    "gen2-178"
+   ]
+  },
+  {
+   "id": "gen2-178",
+   "dexNumber": 178,
+   "name": "Xatu",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "psychic",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/178.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-179",
+   "dexNumber": 179,
+   "name": "Mareep",
+   "stage": "basic",
+   "baseHp": 110,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/179.png",
+   "evolvesToIds": [
+    "gen2-180"
+   ]
+  },
+  {
+   "id": "gen2-180",
+   "dexNumber": 180,
+   "name": "Flaaffy",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/180.png",
+   "evolvesToIds": [
+    "gen2-181"
+   ]
+  },
+  {
+   "id": "gen2-181",
+   "dexNumber": 181,
+   "name": "Ampharos",
+   "stage": "stage2",
+   "baseHp": 200,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/181.png",
+   "evolvesToIds": [
+    "gen2-181-mega"
+   ]
+  },
+  {
+   "id": "gen2-181-mega",
+   "dexNumber": 181,
+   "name": "Mega Ampharos",
+   "stage": "mega",
+   "baseHp": 220,
+   "types": [
+    "electric",
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10045.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen2-182",
+   "dexNumber": 182,
+   "name": "Bellossom",
+   "stage": "stage2",
+   "baseHp": 180,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/182.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-183",
+   "dexNumber": 183,
+   "name": "Marill",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "water",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/183.png",
+   "evolvesToIds": [
+    "gen2-184"
+   ]
+  },
+  {
+   "id": "gen2-184",
+   "dexNumber": 184,
+   "name": "Azumarill",
+   "stage": "stage2",
+   "baseHp": 220,
+   "types": [
+    "water",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/184.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-185",
+   "dexNumber": 185,
+   "name": "Sudowoodo",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/185.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-186",
+   "dexNumber": 186,
+   "name": "Politoed",
+   "stage": "stage2",
+   "baseHp": 200,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/186.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-187",
+   "dexNumber": 187,
+   "name": "Hoppip",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "grass",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/187.png",
+   "evolvesToIds": [
+    "gen2-188"
+   ]
+  },
+  {
+   "id": "gen2-188",
+   "dexNumber": 188,
+   "name": "Skiploom",
+   "stage": "stage1",
+   "baseHp": 130,
+   "types": [
+    "grass",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/188.png",
+   "evolvesToIds": [
+    "gen2-189"
+   ]
+  },
+  {
+   "id": "gen2-189",
+   "dexNumber": 189,
+   "name": "Jumpluff",
+   "stage": "stage2",
+   "baseHp": 180,
+   "types": [
+    "grass",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/189.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-190",
+   "dexNumber": 190,
+   "name": "Aipom",
+   "stage": "basic",
+   "baseHp": 110,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/190.png",
+   "evolvesToIds": [
+    "gen4-424"
+   ]
+  },
+  {
+   "id": "gen2-191",
+   "dexNumber": 191,
+   "name": "Sunkern",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/191.png",
+   "evolvesToIds": [
+    "gen2-192"
+   ]
+  },
+  {
+   "id": "gen2-192",
+   "dexNumber": 192,
+   "name": "Sunflora",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/192.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-193",
+   "dexNumber": 193,
+   "name": "Yanma",
+   "stage": "basic",
+   "baseHp": 130,
+   "types": [
+    "bug",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/193.png",
+   "evolvesToIds": [
+    "gen4-469"
+   ]
+  },
+  {
+   "id": "gen2-194",
+   "dexNumber": 194,
+   "name": "Wooper",
+   "stage": "basic",
+   "baseHp": 110,
+   "types": [
+    "water",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/194.png",
+   "evolvesToIds": [
+    "gen2-195"
+   ]
+  },
+  {
+   "id": "gen2-195",
+   "dexNumber": 195,
+   "name": "Quagsire",
+   "stage": "stage1",
+   "baseHp": 190,
+   "types": [
+    "water",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/195.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-196",
+   "dexNumber": 196,
+   "name": "Espeon",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/196.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-197",
+   "dexNumber": 197,
+   "name": "Umbreon",
+   "stage": "stage1",
+   "baseHp": 190,
+   "types": [
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/197.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-198",
+   "dexNumber": 198,
+   "name": "Murkrow",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "dark",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/198.png",
+   "evolvesToIds": [
+    "gen4-430"
+   ]
+  },
+  {
+   "id": "gen2-199",
+   "dexNumber": 199,
+   "name": "Slowking",
+   "stage": "stage1",
+   "baseHp": 190,
+   "types": [
+    "water",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/199.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-200",
+   "dexNumber": 200,
+   "name": "Misdreavus",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/200.png",
+   "evolvesToIds": [
+    "gen4-429"
+   ]
+  },
+  {
+   "id": "gen2-201",
+   "dexNumber": 201,
+   "name": "Unown",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/201.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-202",
+   "dexNumber": 202,
+   "name": "Wobbuffet",
+   "stage": "stage1",
+   "baseHp": 340,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/202.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-203",
+   "dexNumber": 203,
+   "name": "Girafarig",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "normal",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/203.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-204",
+   "dexNumber": 204,
+   "name": "Pineco",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/204.png",
+   "evolvesToIds": [
+    "gen2-205"
+   ]
+  },
+  {
+   "id": "gen2-205",
+   "dexNumber": 205,
+   "name": "Forretress",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "bug",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/205.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-206",
+   "dexNumber": 206,
+   "name": "Dunsparce",
+   "stage": "basic",
+   "baseHp": 180,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/206.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-207",
+   "dexNumber": 207,
+   "name": "Gligar",
+   "stage": "basic",
+   "baseHp": 130,
+   "types": [
+    "ground",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/207.png",
+   "evolvesToIds": [
+    "gen4-472"
+   ]
+  },
+  {
+   "id": "gen2-208",
+   "dexNumber": 208,
+   "name": "Steelix",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "steel",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/208.png",
+   "evolvesToIds": [
+    "gen2-208-mega"
+   ]
+  },
+  {
+   "id": "gen2-208-mega",
+   "dexNumber": 208,
+   "name": "Mega Steelix",
+   "stage": "mega",
+   "baseHp": 200,
+   "types": [
+    "steel",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10072.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen2-209",
+   "dexNumber": 209,
+   "name": "Snubbull",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/209.png",
+   "evolvesToIds": [
+    "gen2-210"
+   ]
+  },
+  {
+   "id": "gen2-210",
+   "dexNumber": 210,
+   "name": "Granbull",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/210.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-211",
+   "dexNumber": 211,
+   "name": "Qwilfish",
+   "stage": "basic",
+   "baseHp": 130,
+   "types": [
+    "water",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/211.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-212",
+   "dexNumber": 212,
+   "name": "Scizor",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "bug",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/212.png",
+   "evolvesToIds": [
+    "gen2-212-mega"
+   ]
+  },
+  {
+   "id": "gen2-212-ex",
+   "dexNumber": 212,
+   "name": "Scizor EX",
+   "stage": "ex",
+   "baseHp": 200,
+   "types": [
+    "bug",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/212.png",
+   "evolvesToIds": [
+    "gen2-212-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen2-212-mega",
+   "dexNumber": 212,
+   "name": "Mega Scizor",
+   "stage": "mega",
+   "baseHp": 200,
+   "types": [
+    "bug",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10046.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen2-213",
+   "dexNumber": 213,
+   "name": "Shuckle",
+   "stage": "basic",
+   "baseHp": 60,
+   "types": [
+    "bug",
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/213.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-214",
+   "dexNumber": 214,
+   "name": "Heracross",
+   "stage": "basic",
+   "baseHp": 150,
+   "types": [
+    "bug",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/214.png",
+   "evolvesToIds": [
+    "gen2-214-mega"
+   ]
+  },
+  {
+   "id": "gen2-214-mega",
+   "dexNumber": 214,
+   "name": "Mega Heracross",
+   "stage": "mega",
+   "baseHp": 210,
+   "types": [
+    "bug",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10047.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen2-215",
+   "dexNumber": 215,
+   "name": "Sneasel",
+   "stage": "basic",
+   "baseHp": 110,
+   "types": [
+    "dark",
+    "ice"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/215.png",
+   "evolvesToIds": [
+    "gen4-461"
+   ]
+  },
+  {
+   "id": "gen2-216",
+   "dexNumber": 216,
+   "name": "Teddiursa",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/216.png",
+   "evolvesToIds": [
+    "gen2-217"
+   ]
+  },
+  {
+   "id": "gen2-217",
+   "dexNumber": 217,
+   "name": "Ursaring",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/217.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-218",
+   "dexNumber": 218,
+   "name": "Slugma",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/218.png",
+   "evolvesToIds": [
+    "gen2-219"
+   ]
+  },
+  {
+   "id": "gen2-219",
+   "dexNumber": 219,
+   "name": "Magcargo",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "fire",
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/219.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-220",
+   "dexNumber": 220,
+   "name": "Swinub",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "ice",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/220.png",
+   "evolvesToIds": [
+    "gen2-221"
+   ]
+  },
+  {
+   "id": "gen2-221",
+   "dexNumber": 221,
+   "name": "Piloswine",
+   "stage": "stage1",
+   "baseHp": 200,
+   "types": [
+    "ice",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/221.png",
+   "evolvesToIds": [
+    "gen4-473"
+   ]
+  },
+  {
+   "id": "gen2-222",
+   "dexNumber": 222,
+   "name": "Corsola",
+   "stage": "basic",
+   "baseHp": 130,
+   "types": [
+    "water",
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/222.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-223",
+   "dexNumber": 223,
+   "name": "Remoraid",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/223.png",
+   "evolvesToIds": [
+    "gen2-224"
+   ]
+  },
+  {
+   "id": "gen2-224",
+   "dexNumber": 224,
+   "name": "Octillery",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/224.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-225",
+   "dexNumber": 225,
+   "name": "Delibird",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "ice",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/225.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-226",
+   "dexNumber": 226,
+   "name": "Mantine",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "water",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/226.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-227",
+   "dexNumber": 227,
+   "name": "Skarmory",
+   "stage": "basic",
+   "baseHp": 130,
+   "types": [
+    "steel",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/227.png",
+   "evolvesToIds": [
+    "gen2-227-mega"
+   ]
+  },
+  {
+   "id": "gen2-227-mega",
+   "dexNumber": 227,
+   "name": "Mega Skarmory",
+   "stage": "mega",
+   "baseHp": 190,
+   "types": [
+    "steel",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10284.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen2-228",
+   "dexNumber": 228,
+   "name": "Houndour",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "dark",
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/228.png",
+   "evolvesToIds": [
+    "gen2-229"
+   ]
+  },
+  {
+   "id": "gen2-229",
+   "dexNumber": 229,
+   "name": "Houndoom",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "dark",
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/229.png",
+   "evolvesToIds": [
+    "gen2-229-mega"
+   ]
+  },
+  {
+   "id": "gen2-229-mega",
+   "dexNumber": 229,
+   "name": "Mega Houndoom",
+   "stage": "mega",
+   "baseHp": 200,
+   "types": [
+    "dark",
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10048.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen2-230",
+   "dexNumber": 230,
+   "name": "Kingdra",
+   "stage": "stage2",
+   "baseHp": 180,
+   "types": [
+    "water",
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/230.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-231",
+   "dexNumber": 231,
+   "name": "Phanpy",
+   "stage": "basic",
+   "baseHp": 160,
+   "types": [
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/231.png",
+   "evolvesToIds": [
+    "gen2-232"
+   ]
+  },
+  {
+   "id": "gen2-232",
+   "dexNumber": 232,
+   "name": "Donphan",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/232.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-233",
+   "dexNumber": 233,
+   "name": "Porygon2",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/233.png",
+   "evolvesToIds": [
+    "gen4-474"
+   ]
+  },
+  {
+   "id": "gen2-234",
+   "dexNumber": 234,
+   "name": "Stantler",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/234.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-235",
+   "dexNumber": 235,
+   "name": "Smeargle",
+   "stage": "basic",
+   "baseHp": 110,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/235.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-236",
+   "dexNumber": 236,
+   "name": "Tyrogue",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/236.png",
+   "evolvesToIds": [
+    "gen1-106",
+    "gen1-107",
+    "gen2-237"
+   ]
+  },
+  {
+   "id": "gen2-237",
+   "dexNumber": 237,
+   "name": "Hitmontop",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/237.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-238",
+   "dexNumber": 238,
+   "name": "Smoochum",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "ice",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/238.png",
+   "evolvesToIds": [
+    "gen1-124"
+   ]
+  },
+  {
+   "id": "gen2-239",
+   "dexNumber": 239,
+   "name": "Elekid",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/239.png",
+   "evolvesToIds": [
+    "gen1-125"
+   ]
+  },
+  {
+   "id": "gen2-240",
+   "dexNumber": 240,
+   "name": "Magby",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/240.png",
+   "evolvesToIds": [
+    "gen1-126"
+   ]
+  },
+  {
+   "id": "gen2-241",
+   "dexNumber": 241,
+   "name": "Miltank",
+   "stage": "basic",
+   "baseHp": 170,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/241.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-242",
+   "dexNumber": 242,
+   "name": "Blissey",
+   "stage": "stage2",
+   "baseHp": 340,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/242.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-243",
+   "dexNumber": 243,
+   "name": "Raikou",
+   "stage": "basic",
+   "baseHp": 160,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/243.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-244",
+   "dexNumber": 244,
+   "name": "Entei",
+   "stage": "basic",
+   "baseHp": 200,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/244.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-245",
+   "dexNumber": 245,
+   "name": "Suicune",
+   "stage": "basic",
+   "baseHp": 180,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/245.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-246",
+   "dexNumber": 246,
+   "name": "Larvitar",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "rock",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/246.png",
+   "evolvesToIds": [
+    "gen2-247"
+   ]
+  },
+  {
+   "id": "gen2-247",
+   "dexNumber": 247,
+   "name": "Pupitar",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "rock",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/247.png",
+   "evolvesToIds": [
+    "gen2-248"
+   ]
+  },
+  {
+   "id": "gen2-248",
+   "dexNumber": 248,
+   "name": "Tyranitar",
+   "stage": "stage2",
+   "baseHp": 220,
+   "types": [
+    "rock",
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/248.png",
+   "evolvesToIds": [
+    "gen2-248-mega"
+   ]
+  },
+  {
+   "id": "gen2-248-ex",
+   "dexNumber": 248,
+   "name": "Tyranitar EX",
+   "stage": "ex",
+   "baseHp": 260,
+   "types": [
+    "rock",
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/248.png",
+   "evolvesToIds": [
+    "gen2-248-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen2-248-mega",
+   "dexNumber": 248,
+   "name": "Mega Tyranitar",
+   "stage": "mega",
+   "baseHp": 240,
+   "types": [
+    "rock",
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10049.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen2-249",
+   "dexNumber": 249,
+   "name": "Lugia",
+   "stage": "basic",
+   "baseHp": 190,
+   "types": [
+    "psychic",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/249.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-249-ex",
+   "dexNumber": 249,
+   "name": "Lugia EX",
+   "stage": "ex",
+   "baseHp": 230,
+   "types": [
+    "psychic",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/249.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen2-250",
+   "dexNumber": 250,
+   "name": "Ho-Oh",
+   "stage": "basic",
+   "baseHp": 190,
+   "types": [
+    "fire",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/250.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-250-ex",
+   "dexNumber": 250,
+   "name": "Ho-Oh EX",
+   "stage": "ex",
+   "baseHp": 230,
+   "types": [
+    "fire",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/250.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen2-251",
+   "dexNumber": 251,
+   "name": "Celebi",
+   "stage": "basic",
+   "baseHp": 180,
+   "types": [
+    "psychic",
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/251.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen2-251-ex",
+   "dexNumber": 251,
+   "name": "Celebi EX",
+   "stage": "ex",
+   "baseHp": 220,
+   "types": [
+    "psychic",
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/251.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen3-252",
+   "dexNumber": 252,
+   "name": "Treecko",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/252.png",
+   "evolvesToIds": [
+    "gen3-253"
+   ]
+  },
+  {
+   "id": "gen3-253",
+   "dexNumber": 253,
+   "name": "Grovyle",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/253.png",
+   "evolvesToIds": [
+    "gen3-254"
+   ]
+  },
+  {
+   "id": "gen3-254",
+   "dexNumber": 254,
+   "name": "Sceptile",
+   "stage": "stage2",
+   "baseHp": 180,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/254.png",
+   "evolvesToIds": [
+    "gen3-254-mega"
+   ]
+  },
+  {
+   "id": "gen3-254-ex",
+   "dexNumber": 254,
+   "name": "Sceptile EX",
+   "stage": "ex",
+   "baseHp": 220,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/254.png",
+   "evolvesToIds": [
+    "gen3-254-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen3-254-mega",
+   "dexNumber": 254,
+   "name": "Mega Sceptile",
+   "stage": "mega",
+   "baseHp": 200,
+   "types": [
+    "grass",
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10065.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-255",
+   "dexNumber": 255,
+   "name": "Torchic",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/255.png",
+   "evolvesToIds": [
+    "gen3-256"
+   ]
+  },
+  {
+   "id": "gen3-256",
+   "dexNumber": 256,
+   "name": "Combusken",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "fire",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/256.png",
+   "evolvesToIds": [
+    "gen3-257"
+   ]
+  },
+  {
+   "id": "gen3-257",
+   "dexNumber": 257,
+   "name": "Blaziken",
+   "stage": "stage2",
+   "baseHp": 190,
+   "types": [
+    "fire",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/257.png",
+   "evolvesToIds": [
+    "gen3-257-mega"
+   ]
+  },
+  {
+   "id": "gen3-257-ex",
+   "dexNumber": 257,
+   "name": "Blaziken EX",
+   "stage": "ex",
+   "baseHp": 230,
+   "types": [
+    "fire",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/257.png",
+   "evolvesToIds": [
+    "gen3-257-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen3-257-mega",
+   "dexNumber": 257,
+   "name": "Mega Blaziken",
+   "stage": "mega",
+   "baseHp": 210,
+   "types": [
+    "fire",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10050.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-258",
+   "dexNumber": 258,
+   "name": "Mudkip",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/258.png",
+   "evolvesToIds": [
+    "gen3-259"
+   ]
+  },
+  {
+   "id": "gen3-259",
+   "dexNumber": 259,
+   "name": "Marshtomp",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "water",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/259.png",
+   "evolvesToIds": [
+    "gen3-260"
+   ]
+  },
+  {
+   "id": "gen3-260",
+   "dexNumber": 260,
+   "name": "Swampert",
+   "stage": "stage2",
+   "baseHp": 220,
+   "types": [
+    "water",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/260.png",
+   "evolvesToIds": [
+    "gen3-260-mega"
+   ]
+  },
+  {
+   "id": "gen3-260-ex",
+   "dexNumber": 260,
+   "name": "Swampert EX",
+   "stage": "ex",
+   "baseHp": 260,
+   "types": [
+    "water",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/260.png",
+   "evolvesToIds": [
+    "gen3-260-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen3-260-mega",
+   "dexNumber": 260,
+   "name": "Mega Swampert",
+   "stage": "mega",
+   "baseHp": 240,
+   "types": [
+    "water",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10064.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-261",
+   "dexNumber": 261,
+   "name": "Poochyena",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/261.png",
+   "evolvesToIds": [
+    "gen3-262"
+   ]
+  },
+  {
+   "id": "gen3-262",
+   "dexNumber": 262,
+   "name": "Mightyena",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/262.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-263",
+   "dexNumber": 263,
+   "name": "Zigzagoon",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/263.png",
+   "evolvesToIds": [
+    "gen3-264"
+   ]
+  },
+  {
+   "id": "gen3-264",
+   "dexNumber": 264,
+   "name": "Linoone",
+   "stage": "stage1",
+   "baseHp": 170,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/264.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-265",
+   "dexNumber": 265,
+   "name": "Wurmple",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/265.png",
+   "evolvesToIds": [
+    "gen3-266",
+    "gen3-268"
+   ]
+  },
+  {
+   "id": "gen3-266",
+   "dexNumber": 266,
+   "name": "Silcoon",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/266.png",
+   "evolvesToIds": [
+    "gen3-267"
+   ]
+  },
+  {
+   "id": "gen3-267",
+   "dexNumber": 267,
+   "name": "Beautifly",
+   "stage": "stage2",
+   "baseHp": 160,
+   "types": [
+    "bug",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/267.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-268",
+   "dexNumber": 268,
+   "name": "Cascoon",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/268.png",
+   "evolvesToIds": [
+    "gen3-269"
+   ]
+  },
+  {
+   "id": "gen3-269",
+   "dexNumber": 269,
+   "name": "Dustox",
+   "stage": "stage2",
+   "baseHp": 160,
+   "types": [
+    "bug",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/269.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-270",
+   "dexNumber": 270,
+   "name": "Lotad",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "water",
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/270.png",
+   "evolvesToIds": [
+    "gen3-271"
+   ]
+  },
+  {
+   "id": "gen3-271",
+   "dexNumber": 271,
+   "name": "Lombre",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "water",
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/271.png",
+   "evolvesToIds": [
+    "gen3-272"
+   ]
+  },
+  {
+   "id": "gen3-272",
+   "dexNumber": 272,
+   "name": "Ludicolo",
+   "stage": "stage2",
+   "baseHp": 190,
+   "types": [
+    "water",
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/272.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-273",
+   "dexNumber": 273,
+   "name": "Seedot",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/273.png",
+   "evolvesToIds": [
+    "gen3-274"
+   ]
+  },
+  {
+   "id": "gen3-274",
+   "dexNumber": 274,
+   "name": "Nuzleaf",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "grass",
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/274.png",
+   "evolvesToIds": [
+    "gen3-275"
+   ]
+  },
+  {
+   "id": "gen3-275",
+   "dexNumber": 275,
+   "name": "Shiftry",
+   "stage": "stage2",
+   "baseHp": 200,
+   "types": [
+    "grass",
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/275.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-276",
+   "dexNumber": 276,
+   "name": "Taillow",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/276.png",
+   "evolvesToIds": [
+    "gen3-277"
+   ]
+  },
+  {
+   "id": "gen3-277",
+   "dexNumber": 277,
+   "name": "Swellow",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/277.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-278",
+   "dexNumber": 278,
+   "name": "Wingull",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "water",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/278.png",
+   "evolvesToIds": [
+    "gen3-279"
+   ]
+  },
+  {
+   "id": "gen3-279",
+   "dexNumber": 279,
+   "name": "Pelipper",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "water",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/279.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-280",
+   "dexNumber": 280,
+   "name": "Ralts",
+   "stage": "basic",
+   "baseHp": 70,
+   "types": [
+    "psychic",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/280.png",
+   "evolvesToIds": [
+    "gen3-281"
+   ]
+  },
+  {
+   "id": "gen3-281",
+   "dexNumber": 281,
+   "name": "Kirlia",
+   "stage": "stage1",
+   "baseHp": 110,
+   "types": [
+    "psychic",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/281.png",
+   "evolvesToIds": [
+    "gen3-282",
+    "gen4-475"
+   ]
+  },
+  {
+   "id": "gen3-282",
+   "dexNumber": 282,
+   "name": "Gardevoir",
+   "stage": "stage2",
+   "baseHp": 170,
+   "types": [
+    "psychic",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/282.png",
+   "evolvesToIds": [
+    "gen3-282-mega"
+   ]
+  },
+  {
+   "id": "gen3-282-ex",
+   "dexNumber": 282,
+   "name": "Gardevoir EX",
+   "stage": "ex",
+   "baseHp": 210,
+   "types": [
+    "psychic",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/282.png",
+   "evolvesToIds": [
+    "gen3-282-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen3-282-mega",
+   "dexNumber": 282,
+   "name": "Mega Gardevoir",
+   "stage": "mega",
+   "baseHp": 190,
+   "types": [
+    "psychic",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10051.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-283",
+   "dexNumber": 283,
+   "name": "Surskit",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "bug",
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/283.png",
+   "evolvesToIds": [
+    "gen3-284"
+   ]
+  },
+  {
+   "id": "gen3-284",
+   "dexNumber": 284,
+   "name": "Masquerain",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "bug",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/284.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-285",
+   "dexNumber": 285,
+   "name": "Shroomish",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/285.png",
+   "evolvesToIds": [
+    "gen3-286"
+   ]
+  },
+  {
+   "id": "gen3-286",
+   "dexNumber": 286,
+   "name": "Breloom",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "grass",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/286.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-287",
+   "dexNumber": 287,
+   "name": "Slakoth",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/287.png",
+   "evolvesToIds": [
+    "gen3-288"
+   ]
+  },
+  {
+   "id": "gen3-288",
+   "dexNumber": 288,
+   "name": "Vigoroth",
+   "stage": "stage1",
+   "baseHp": 170,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/288.png",
+   "evolvesToIds": [
+    "gen3-289"
+   ]
+  },
+  {
+   "id": "gen3-289",
+   "dexNumber": 289,
+   "name": "Slaking",
+   "stage": "stage2",
+   "baseHp": 300,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/289.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-290",
+   "dexNumber": 290,
+   "name": "Nincada",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "bug",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/290.png",
+   "evolvesToIds": [
+    "gen3-291",
+    "gen3-292"
+   ]
+  },
+  {
+   "id": "gen3-291",
+   "dexNumber": 291,
+   "name": "Ninjask",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "bug",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/291.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-292",
+   "dexNumber": 292,
+   "name": "Shedinja",
+   "stage": "stage1",
+   "baseHp": 50,
+   "types": [
+    "bug",
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/292.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-293",
+   "dexNumber": 293,
+   "name": "Whismur",
+   "stage": "basic",
+   "baseHp": 130,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/293.png",
+   "evolvesToIds": [
+    "gen3-294"
+   ]
+  },
+  {
+   "id": "gen3-294",
+   "dexNumber": 294,
+   "name": "Loudred",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/294.png",
+   "evolvesToIds": [
+    "gen3-295"
+   ]
+  },
+  {
+   "id": "gen3-295",
+   "dexNumber": 295,
+   "name": "Exploud",
+   "stage": "stage2",
+   "baseHp": 230,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/295.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-296",
+   "dexNumber": 296,
+   "name": "Makuhita",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/296.png",
+   "evolvesToIds": [
+    "gen3-297"
+   ]
+  },
+  {
+   "id": "gen3-297",
+   "dexNumber": 297,
+   "name": "Hariyama",
+   "stage": "stage1",
+   "baseHp": 270,
+   "types": [
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/297.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-298",
+   "dexNumber": 298,
+   "name": "Azurill",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "normal",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/298.png",
+   "evolvesToIds": [
+    "gen2-183"
+   ]
+  },
+  {
+   "id": "gen3-299",
+   "dexNumber": 299,
+   "name": "Nosepass",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/299.png",
+   "evolvesToIds": [
+    "gen4-476"
+   ]
+  },
+  {
+   "id": "gen3-300",
+   "dexNumber": 300,
+   "name": "Skitty",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/300.png",
+   "evolvesToIds": [
+    "gen3-301"
+   ]
+  },
+  {
+   "id": "gen3-301",
+   "dexNumber": 301,
+   "name": "Delcatty",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/301.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-302",
+   "dexNumber": 302,
+   "name": "Sableye",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "dark",
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/302.png",
+   "evolvesToIds": [
+    "gen3-302-mega"
+   ]
+  },
+  {
+   "id": "gen3-302-mega",
+   "dexNumber": 302,
+   "name": "Mega Sableye",
+   "stage": "mega",
+   "baseHp": 160,
+   "types": [
+    "dark",
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10066.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-303",
+   "dexNumber": 303,
+   "name": "Mawile",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "steel",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/303.png",
+   "evolvesToIds": [
+    "gen3-303-mega"
+   ]
+  },
+  {
+   "id": "gen3-303-mega",
+   "dexNumber": 303,
+   "name": "Mega Mawile",
+   "stage": "mega",
+   "baseHp": 160,
+   "types": [
+    "steel",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10052.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-304",
+   "dexNumber": 304,
+   "name": "Aron",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "steel",
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/304.png",
+   "evolvesToIds": [
+    "gen3-305"
+   ]
+  },
+  {
+   "id": "gen3-305",
+   "dexNumber": 305,
+   "name": "Lairon",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "steel",
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/305.png",
+   "evolvesToIds": [
+    "gen3-306"
+   ]
+  },
+  {
+   "id": "gen3-306",
+   "dexNumber": 306,
+   "name": "Aggron",
+   "stage": "stage2",
+   "baseHp": 180,
+   "types": [
+    "steel",
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/306.png",
+   "evolvesToIds": [
+    "gen3-306-mega"
+   ]
+  },
+  {
+   "id": "gen3-306-mega",
+   "dexNumber": 306,
+   "name": "Mega Aggron",
+   "stage": "mega",
+   "baseHp": 200,
+   "types": [
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10053.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-307",
+   "dexNumber": 307,
+   "name": "Meditite",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "fighting",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/307.png",
+   "evolvesToIds": [
+    "gen3-308"
+   ]
+  },
+  {
+   "id": "gen3-308",
+   "dexNumber": 308,
+   "name": "Medicham",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "fighting",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/308.png",
+   "evolvesToIds": [
+    "gen3-308-mega"
+   ]
+  },
+  {
+   "id": "gen3-308-mega",
+   "dexNumber": 308,
+   "name": "Mega Medicham",
+   "stage": "mega",
+   "baseHp": 180,
+   "types": [
+    "fighting",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10054.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-309",
+   "dexNumber": 309,
+   "name": "Electrike",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/309.png",
+   "evolvesToIds": [
+    "gen3-310"
+   ]
+  },
+  {
+   "id": "gen3-310",
+   "dexNumber": 310,
+   "name": "Manectric",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/310.png",
+   "evolvesToIds": [
+    "gen3-310-mega"
+   ]
+  },
+  {
+   "id": "gen3-310-mega",
+   "dexNumber": 310,
+   "name": "Mega Manectric",
+   "stage": "mega",
+   "baseHp": 200,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10055.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-311",
+   "dexNumber": 311,
+   "name": "Plusle",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/311.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-312",
+   "dexNumber": 312,
+   "name": "Minun",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/312.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-313",
+   "dexNumber": 313,
+   "name": "Volbeat",
+   "stage": "basic",
+   "baseHp": 130,
+   "types": [
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/313.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-314",
+   "dexNumber": 314,
+   "name": "Illumise",
+   "stage": "basic",
+   "baseHp": 130,
+   "types": [
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/314.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-315",
+   "dexNumber": 315,
+   "name": "Roselia",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/315.png",
+   "evolvesToIds": [
+    "gen4-407"
+   ]
+  },
+  {
+   "id": "gen3-316",
+   "dexNumber": 316,
+   "name": "Gulpin",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/316.png",
+   "evolvesToIds": [
+    "gen3-317"
+   ]
+  },
+  {
+   "id": "gen3-317",
+   "dexNumber": 317,
+   "name": "Swalot",
+   "stage": "stage1",
+   "baseHp": 200,
+   "types": [
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/317.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-318",
+   "dexNumber": 318,
+   "name": "Carvanha",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "water",
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/318.png",
+   "evolvesToIds": [
+    "gen3-319"
+   ]
+  },
+  {
+   "id": "gen3-319",
+   "dexNumber": 319,
+   "name": "Sharpedo",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "water",
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/319.png",
+   "evolvesToIds": [
+    "gen3-319-mega"
+   ]
+  },
+  {
+   "id": "gen3-319-mega",
+   "dexNumber": 319,
+   "name": "Mega Sharpedo",
+   "stage": "mega",
+   "baseHp": 200,
+   "types": [
+    "water",
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10070.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-320",
+   "dexNumber": 320,
+   "name": "Wailmer",
+   "stage": "basic",
+   "baseHp": 220,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/320.png",
+   "evolvesToIds": [
+    "gen3-321"
+   ]
+  },
+  {
+   "id": "gen3-321",
+   "dexNumber": 321,
+   "name": "Wailord",
+   "stage": "stage1",
+   "baseHp": 300,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/321.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-322",
+   "dexNumber": 322,
+   "name": "Numel",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "fire",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/322.png",
+   "evolvesToIds": [
+    "gen3-323"
+   ]
+  },
+  {
+   "id": "gen3-323",
+   "dexNumber": 323,
+   "name": "Camerupt",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "fire",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/323.png",
+   "evolvesToIds": [
+    "gen3-323-mega"
+   ]
+  },
+  {
+   "id": "gen3-323-mega",
+   "dexNumber": 323,
+   "name": "Mega Camerupt",
+   "stage": "mega",
+   "baseHp": 200,
+   "types": [
+    "fire",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10087.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-324",
+   "dexNumber": 324,
+   "name": "Torkoal",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/324.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-325",
+   "dexNumber": 325,
+   "name": "Spoink",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/325.png",
+   "evolvesToIds": [
+    "gen3-326"
+   ]
+  },
+  {
+   "id": "gen3-326",
+   "dexNumber": 326,
+   "name": "Grumpig",
+   "stage": "stage1",
+   "baseHp": 170,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/326.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-327",
+   "dexNumber": 327,
+   "name": "Spinda",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/327.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-328",
+   "dexNumber": 328,
+   "name": "Trapinch",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/328.png",
+   "evolvesToIds": [
+    "gen3-329"
+   ]
+  },
+  {
+   "id": "gen3-329",
+   "dexNumber": 329,
+   "name": "Vibrava",
+   "stage": "stage1",
+   "baseHp": 120,
+   "types": [
+    "ground",
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/329.png",
+   "evolvesToIds": [
+    "gen3-330"
+   ]
+  },
+  {
+   "id": "gen3-330",
+   "dexNumber": 330,
+   "name": "Flygon",
+   "stage": "stage2",
+   "baseHp": 190,
+   "types": [
+    "ground",
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/330.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-331",
+   "dexNumber": 331,
+   "name": "Cacnea",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/331.png",
+   "evolvesToIds": [
+    "gen3-332"
+   ]
+  },
+  {
+   "id": "gen3-332",
+   "dexNumber": 332,
+   "name": "Cacturne",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "grass",
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/332.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-333",
+   "dexNumber": 333,
+   "name": "Swablu",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/333.png",
+   "evolvesToIds": [
+    "gen3-334"
+   ]
+  },
+  {
+   "id": "gen3-334",
+   "dexNumber": 334,
+   "name": "Altaria",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "dragon",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/334.png",
+   "evolvesToIds": [
+    "gen3-334-mega"
+   ]
+  },
+  {
+   "id": "gen3-334-mega",
+   "dexNumber": 334,
+   "name": "Mega Altaria",
+   "stage": "mega",
+   "baseHp": 200,
+   "types": [
+    "dragon",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10067.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-335",
+   "dexNumber": 335,
+   "name": "Zangoose",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/335.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-336",
+   "dexNumber": 336,
+   "name": "Seviper",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/336.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-337",
+   "dexNumber": 337,
+   "name": "Lunatone",
+   "stage": "basic",
+   "baseHp": 160,
+   "types": [
+    "rock",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/337.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-338",
+   "dexNumber": 338,
+   "name": "Solrock",
+   "stage": "basic",
+   "baseHp": 160,
+   "types": [
+    "rock",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/338.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-339",
+   "dexNumber": 339,
+   "name": "Barboach",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "water",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/339.png",
+   "evolvesToIds": [
+    "gen3-340"
+   ]
+  },
+  {
+   "id": "gen3-340",
+   "dexNumber": 340,
+   "name": "Whiscash",
+   "stage": "stage1",
+   "baseHp": 220,
+   "types": [
+    "water",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/340.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-341",
+   "dexNumber": 341,
+   "name": "Corphish",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/341.png",
+   "evolvesToIds": [
+    "gen3-342"
+   ]
+  },
+  {
+   "id": "gen3-342",
+   "dexNumber": 342,
+   "name": "Crawdaunt",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "water",
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/342.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-343",
+   "dexNumber": 343,
+   "name": "Baltoy",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "ground",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/343.png",
+   "evolvesToIds": [
+    "gen3-344"
+   ]
+  },
+  {
+   "id": "gen3-344",
+   "dexNumber": 344,
+   "name": "Claydol",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "ground",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/344.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-345",
+   "dexNumber": 345,
+   "name": "Lileep",
+   "stage": "basic",
+   "baseHp": 130,
+   "types": [
+    "rock",
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/345.png",
+   "evolvesToIds": [
+    "gen3-346"
+   ]
+  },
+  {
+   "id": "gen3-346",
+   "dexNumber": 346,
+   "name": "Cradily",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "rock",
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/346.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-347",
+   "dexNumber": 347,
+   "name": "Anorith",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "rock",
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/347.png",
+   "evolvesToIds": [
+    "gen3-348"
+   ]
+  },
+  {
+   "id": "gen3-348",
+   "dexNumber": 348,
+   "name": "Armaldo",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "rock",
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/348.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-349",
+   "dexNumber": 349,
+   "name": "Feebas",
+   "stage": "basic",
+   "baseHp": 60,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/349.png",
+   "evolvesToIds": [
+    "gen3-350"
+   ]
+  },
+  {
+   "id": "gen3-350",
+   "dexNumber": 350,
+   "name": "Milotic",
+   "stage": "stage1",
+   "baseHp": 190,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/350.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-351",
+   "dexNumber": 351,
+   "name": "Castform",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/351.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-352",
+   "dexNumber": 352,
+   "name": "Kecleon",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/352.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-353",
+   "dexNumber": 353,
+   "name": "Shuppet",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/353.png",
+   "evolvesToIds": [
+    "gen3-354"
+   ]
+  },
+  {
+   "id": "gen3-354",
+   "dexNumber": 354,
+   "name": "Banette",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/354.png",
+   "evolvesToIds": [
+    "gen3-354-mega"
+   ]
+  },
+  {
+   "id": "gen3-354-mega",
+   "dexNumber": 354,
+   "name": "Mega Banette",
+   "stage": "mega",
+   "baseHp": 190,
+   "types": [
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10056.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-355",
+   "dexNumber": 355,
+   "name": "Duskull",
+   "stage": "basic",
+   "baseHp": 60,
+   "types": [
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/355.png",
+   "evolvesToIds": [
+    "gen3-356"
+   ]
+  },
+  {
+   "id": "gen3-356",
+   "dexNumber": 356,
+   "name": "Dusclops",
+   "stage": "stage1",
+   "baseHp": 110,
+   "types": [
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/356.png",
+   "evolvesToIds": [
+    "gen4-477"
+   ]
+  },
+  {
+   "id": "gen3-357",
+   "dexNumber": 357,
+   "name": "Tropius",
+   "stage": "basic",
+   "baseHp": 180,
+   "types": [
+    "grass",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/357.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-358",
+   "dexNumber": 358,
+   "name": "Chimecho",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/358.png",
+   "evolvesToIds": [
+    "gen3-358-mega"
+   ]
+  },
+  {
+   "id": "gen3-358-mega",
+   "dexNumber": 358,
+   "name": "Mega Chimecho",
+   "stage": "mega",
+   "baseHp": 200,
+   "types": [
+    "psychic",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10306.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-359",
+   "dexNumber": 359,
+   "name": "Absol",
+   "stage": "basic",
+   "baseHp": 130,
+   "types": [
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/359.png",
+   "evolvesToIds": [
+    "gen3-359-mega"
+   ]
+  },
+  {
+   "id": "gen3-359-mega",
+   "dexNumber": 359,
+   "name": "Mega Absol",
+   "stage": "mega",
+   "baseHp": 190,
+   "types": [
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10057.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-359-mega",
+   "dexNumber": 359,
+   "name": "Mega Absol",
+   "stage": "mega",
+   "baseHp": 190,
+   "types": [
+    "dark",
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10307.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-360",
+   "dexNumber": 360,
+   "name": "Wynaut",
+   "stage": "basic",
+   "baseHp": 170,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/360.png",
+   "evolvesToIds": [
+    "gen2-202"
+   ]
+  },
+  {
+   "id": "gen3-361",
+   "dexNumber": 361,
+   "name": "Snorunt",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "ice"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/361.png",
+   "evolvesToIds": [
+    "gen3-362",
+    "gen4-478"
+   ]
+  },
+  {
+   "id": "gen3-362",
+   "dexNumber": 362,
+   "name": "Glalie",
+   "stage": "stage1",
+   "baseHp": 170,
+   "types": [
+    "ice"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/362.png",
+   "evolvesToIds": [
+    "gen3-362-mega"
+   ]
+  },
+  {
+   "id": "gen3-362-mega",
+   "dexNumber": 362,
+   "name": "Mega Glalie",
+   "stage": "mega",
+   "baseHp": 210,
+   "types": [
+    "ice"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10074.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-363",
+   "dexNumber": 363,
+   "name": "Spheal",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "ice",
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/363.png",
+   "evolvesToIds": [
+    "gen3-364"
+   ]
+  },
+  {
+   "id": "gen3-364",
+   "dexNumber": 364,
+   "name": "Sealeo",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "ice",
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/364.png",
+   "evolvesToIds": [
+    "gen3-365"
+   ]
+  },
+  {
+   "id": "gen3-365",
+   "dexNumber": 365,
+   "name": "Walrein",
+   "stage": "stage2",
+   "baseHp": 240,
+   "types": [
+    "ice",
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/365.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-366",
+   "dexNumber": 366,
+   "name": "Clamperl",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/366.png",
+   "evolvesToIds": [
+    "gen3-367",
+    "gen3-368"
+   ]
+  },
+  {
+   "id": "gen3-367",
+   "dexNumber": 367,
+   "name": "Huntail",
+   "stage": "stage1",
+   "baseHp": 130,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/367.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-368",
+   "dexNumber": 368,
+   "name": "Gorebyss",
+   "stage": "stage1",
+   "baseHp": 130,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/368.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-369",
+   "dexNumber": 369,
+   "name": "Relicanth",
+   "stage": "basic",
+   "baseHp": 180,
+   "types": [
+    "water",
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/369.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-370",
+   "dexNumber": 370,
+   "name": "Luvdisc",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/370.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-371",
+   "dexNumber": 371,
+   "name": "Bagon",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/371.png",
+   "evolvesToIds": [
+    "gen3-372"
+   ]
+  },
+  {
+   "id": "gen3-372",
+   "dexNumber": 372,
+   "name": "Shelgon",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/372.png",
+   "evolvesToIds": [
+    "gen3-373"
+   ]
+  },
+  {
+   "id": "gen3-373",
+   "dexNumber": 373,
+   "name": "Salamence",
+   "stage": "stage2",
+   "baseHp": 210,
+   "types": [
+    "dragon",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/373.png",
+   "evolvesToIds": [
+    "gen3-373-mega"
+   ]
+  },
+  {
+   "id": "gen3-373-ex",
+   "dexNumber": 373,
+   "name": "Salamence EX",
+   "stage": "ex",
+   "baseHp": 250,
+   "types": [
+    "dragon",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/373.png",
+   "evolvesToIds": [
+    "gen3-373-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen3-373-mega",
+   "dexNumber": 373,
+   "name": "Mega Salamence",
+   "stage": "mega",
+   "baseHp": 230,
+   "types": [
+    "dragon",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10089.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-374",
+   "dexNumber": 374,
+   "name": "Beldum",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "steel",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/374.png",
+   "evolvesToIds": [
+    "gen3-375"
+   ]
+  },
+  {
+   "id": "gen3-375",
+   "dexNumber": 375,
+   "name": "Metang",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "steel",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/375.png",
+   "evolvesToIds": [
+    "gen3-376"
+   ]
+  },
+  {
+   "id": "gen3-376",
+   "dexNumber": 376,
+   "name": "Metagross",
+   "stage": "stage2",
+   "baseHp": 190,
+   "types": [
+    "steel",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/376.png",
+   "evolvesToIds": [
+    "gen3-376-mega"
+   ]
+  },
+  {
+   "id": "gen3-376-ex",
+   "dexNumber": 376,
+   "name": "Metagross EX",
+   "stage": "ex",
+   "baseHp": 230,
+   "types": [
+    "steel",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/376.png",
+   "evolvesToIds": [
+    "gen3-376-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen3-376-mega",
+   "dexNumber": 376,
+   "name": "Mega Metagross",
+   "stage": "mega",
+   "baseHp": 210,
+   "types": [
+    "steel",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10076.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-377",
+   "dexNumber": 377,
+   "name": "Regirock",
+   "stage": "basic",
+   "baseHp": 150,
+   "types": [
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/377.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-378",
+   "dexNumber": 378,
+   "name": "Regice",
+   "stage": "basic",
+   "baseHp": 150,
+   "types": [
+    "ice"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/378.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-379",
+   "dexNumber": 379,
+   "name": "Registeel",
+   "stage": "basic",
+   "baseHp": 150,
+   "types": [
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/379.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-380",
+   "dexNumber": 380,
+   "name": "Latias",
+   "stage": "basic",
+   "baseHp": 150,
+   "types": [
+    "dragon",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/380.png",
+   "evolvesToIds": [
+    "gen3-380-mega"
+   ]
+  },
+  {
+   "id": "gen3-380-mega",
+   "dexNumber": 380,
+   "name": "Mega Latias",
+   "stage": "mega",
+   "baseHp": 210,
+   "types": [
+    "dragon",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10062.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-381",
+   "dexNumber": 381,
+   "name": "Latios",
+   "stage": "basic",
+   "baseHp": 150,
+   "types": [
+    "dragon",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/381.png",
+   "evolvesToIds": [
+    "gen3-381-mega"
+   ]
+  },
+  {
+   "id": "gen3-381-mega",
+   "dexNumber": 381,
+   "name": "Mega Latios",
+   "stage": "mega",
+   "baseHp": 210,
+   "types": [
+    "dragon",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10063.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-382",
+   "dexNumber": 382,
+   "name": "Kyogre",
+   "stage": "basic",
+   "baseHp": 180,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/382.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-382-ex",
+   "dexNumber": 382,
+   "name": "Kyogre EX",
+   "stage": "ex",
+   "baseHp": 220,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/382.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen3-383",
+   "dexNumber": 383,
+   "name": "Groudon",
+   "stage": "basic",
+   "baseHp": 180,
+   "types": [
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/383.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-383-ex",
+   "dexNumber": 383,
+   "name": "Groudon EX",
+   "stage": "ex",
+   "baseHp": 220,
+   "types": [
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/383.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen3-384",
+   "dexNumber": 384,
+   "name": "Rayquaza",
+   "stage": "basic",
+   "baseHp": 190,
+   "types": [
+    "dragon",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/384.png",
+   "evolvesToIds": [
+    "gen3-384-mega"
+   ]
+  },
+  {
+   "id": "gen3-384-ex",
+   "dexNumber": 384,
+   "name": "Rayquaza EX",
+   "stage": "ex",
+   "baseHp": 230,
+   "types": [
+    "dragon",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/384.png",
+   "evolvesToIds": [
+    "gen3-384-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen3-384-mega",
+   "dexNumber": 384,
+   "name": "Mega Rayquaza",
+   "stage": "mega",
+   "baseHp": 250,
+   "types": [
+    "dragon",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10079.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen3-385",
+   "dexNumber": 385,
+   "name": "Jirachi",
+   "stage": "basic",
+   "baseHp": 180,
+   "types": [
+    "steel",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/385.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen3-385-ex",
+   "dexNumber": 385,
+   "name": "Jirachi EX",
+   "stage": "ex",
+   "baseHp": 220,
+   "types": [
+    "steel",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/385.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen3-386",
+   "dexNumber": 386,
+   "name": "Deoxys",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/386.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-387",
+   "dexNumber": 387,
+   "name": "Turtwig",
+   "stage": "basic",
+   "baseHp": 110,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/387.png",
+   "evolvesToIds": [
+    "gen4-388"
+   ]
+  },
+  {
+   "id": "gen4-388",
+   "dexNumber": 388,
+   "name": "Grotle",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/388.png",
+   "evolvesToIds": [
+    "gen4-389"
+   ]
+  },
+  {
+   "id": "gen4-389",
+   "dexNumber": 389,
+   "name": "Torterra",
+   "stage": "stage2",
+   "baseHp": 210,
+   "types": [
+    "grass",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/389.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-389-ex",
+   "dexNumber": 389,
+   "name": "Torterra EX",
+   "stage": "ex",
+   "baseHp": 250,
+   "types": [
+    "grass",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/389.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen4-390",
+   "dexNumber": 390,
+   "name": "Chimchar",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/390.png",
+   "evolvesToIds": [
+    "gen4-391"
+   ]
+  },
+  {
+   "id": "gen4-391",
+   "dexNumber": 391,
+   "name": "Monferno",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "fire",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/391.png",
+   "evolvesToIds": [
+    "gen4-392"
+   ]
+  },
+  {
+   "id": "gen4-392",
+   "dexNumber": 392,
+   "name": "Infernape",
+   "stage": "stage2",
+   "baseHp": 180,
+   "types": [
+    "fire",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/392.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-392-ex",
+   "dexNumber": 392,
+   "name": "Infernape EX",
+   "stage": "ex",
+   "baseHp": 220,
+   "types": [
+    "fire",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/392.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen4-393",
+   "dexNumber": 393,
+   "name": "Piplup",
+   "stage": "basic",
+   "baseHp": 110,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/393.png",
+   "evolvesToIds": [
+    "gen4-394"
+   ]
+  },
+  {
+   "id": "gen4-394",
+   "dexNumber": 394,
+   "name": "Prinplup",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/394.png",
+   "evolvesToIds": [
+    "gen4-395"
+   ]
+  },
+  {
+   "id": "gen4-395",
+   "dexNumber": 395,
+   "name": "Empoleon",
+   "stage": "stage2",
+   "baseHp": 200,
+   "types": [
+    "water",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/395.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-395-ex",
+   "dexNumber": 395,
+   "name": "Empoleon EX",
+   "stage": "ex",
+   "baseHp": 240,
+   "types": [
+    "water",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/395.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen4-396",
+   "dexNumber": 396,
+   "name": "Starly",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/396.png",
+   "evolvesToIds": [
+    "gen4-397"
+   ]
+  },
+  {
+   "id": "gen4-397",
+   "dexNumber": 397,
+   "name": "Staravia",
+   "stage": "stage1",
+   "baseHp": 130,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/397.png",
+   "evolvesToIds": [
+    "gen4-398"
+   ]
+  },
+  {
+   "id": "gen4-398",
+   "dexNumber": 398,
+   "name": "Staraptor",
+   "stage": "stage2",
+   "baseHp": 200,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/398.png",
+   "evolvesToIds": [
+    "gen4-398-mega"
+   ]
+  },
+  {
+   "id": "gen4-398-mega",
+   "dexNumber": 398,
+   "name": "Mega Staraptor",
+   "stage": "mega",
+   "baseHp": 220,
+   "types": [
+    "fighting",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10308.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen4-399",
+   "dexNumber": 399,
+   "name": "Bidoof",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/399.png",
+   "evolvesToIds": [
+    "gen4-400"
+   ]
+  },
+  {
+   "id": "gen4-400",
+   "dexNumber": 400,
+   "name": "Bibarel",
+   "stage": "stage1",
+   "baseHp": 170,
+   "types": [
+    "normal",
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/400.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-401",
+   "dexNumber": 401,
+   "name": "Kricketot",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/401.png",
+   "evolvesToIds": [
+    "gen4-402"
+   ]
+  },
+  {
+   "id": "gen4-402",
+   "dexNumber": 402,
+   "name": "Kricketune",
+   "stage": "stage1",
+   "baseHp": 170,
+   "types": [
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/402.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-403",
+   "dexNumber": 403,
+   "name": "Shinx",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/403.png",
+   "evolvesToIds": [
+    "gen4-404"
+   ]
+  },
+  {
+   "id": "gen4-404",
+   "dexNumber": 404,
+   "name": "Luxio",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/404.png",
+   "evolvesToIds": [
+    "gen4-405"
+   ]
+  },
+  {
+   "id": "gen4-405",
+   "dexNumber": 405,
+   "name": "Luxray",
+   "stage": "stage2",
+   "baseHp": 190,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/405.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-406",
+   "dexNumber": 406,
+   "name": "Budew",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/406.png",
+   "evolvesToIds": [
+    "gen3-315"
+   ]
+  },
+  {
+   "id": "gen4-407",
+   "dexNumber": 407,
+   "name": "Roserade",
+   "stage": "stage2",
+   "baseHp": 160,
+   "types": [
+    "grass",
+    "poison"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/407.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-408",
+   "dexNumber": 408,
+   "name": "Cranidos",
+   "stage": "basic",
+   "baseHp": 130,
+   "types": [
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/408.png",
+   "evolvesToIds": [
+    "gen4-409"
+   ]
+  },
+  {
+   "id": "gen4-409",
+   "dexNumber": 409,
+   "name": "Rampardos",
+   "stage": "stage1",
+   "baseHp": 200,
+   "types": [
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/409.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-410",
+   "dexNumber": 410,
+   "name": "Shieldon",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "rock",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/410.png",
+   "evolvesToIds": [
+    "gen4-411"
+   ]
+  },
+  {
+   "id": "gen4-411",
+   "dexNumber": 411,
+   "name": "Bastiodon",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "rock",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/411.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-412",
+   "dexNumber": 412,
+   "name": "Burmy",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/412.png",
+   "evolvesToIds": [
+    "gen4-413",
+    "gen4-414"
+   ]
+  },
+  {
+   "id": "gen4-413",
+   "dexNumber": 413,
+   "name": "Wormadam",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "bug",
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/413.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-414",
+   "dexNumber": 414,
+   "name": "Mothim",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "bug",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/414.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-415",
+   "dexNumber": 415,
+   "name": "Combee",
+   "stage": "basic",
+   "baseHp": 80,
+   "types": [
+    "bug",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/415.png",
+   "evolvesToIds": [
+    "gen4-416"
+   ]
+  },
+  {
+   "id": "gen4-416",
+   "dexNumber": 416,
+   "name": "Vespiquen",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "bug",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/416.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-417",
+   "dexNumber": 417,
+   "name": "Pachirisu",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/417.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-418",
+   "dexNumber": 418,
+   "name": "Buizel",
+   "stage": "basic",
+   "baseHp": 110,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/418.png",
+   "evolvesToIds": [
+    "gen4-419"
+   ]
+  },
+  {
+   "id": "gen4-419",
+   "dexNumber": 419,
+   "name": "Floatzel",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/419.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-420",
+   "dexNumber": 420,
+   "name": "Cherubi",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/420.png",
+   "evolvesToIds": [
+    "gen4-421"
+   ]
+  },
+  {
+   "id": "gen4-421",
+   "dexNumber": 421,
+   "name": "Cherrim",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/421.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-422",
+   "dexNumber": 422,
+   "name": "Shellos",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/422.png",
+   "evolvesToIds": [
+    "gen4-423"
+   ]
+  },
+  {
+   "id": "gen4-423",
+   "dexNumber": 423,
+   "name": "Gastrodon",
+   "stage": "stage1",
+   "baseHp": 220,
+   "types": [
+    "water",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/423.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-424",
+   "dexNumber": 424,
+   "name": "Ambipom",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/424.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-425",
+   "dexNumber": 425,
+   "name": "Drifloon",
+   "stage": "basic",
+   "baseHp": 160,
+   "types": [
+    "ghost",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/425.png",
+   "evolvesToIds": [
+    "gen4-426"
+   ]
+  },
+  {
+   "id": "gen4-426",
+   "dexNumber": 426,
+   "name": "Drifblim",
+   "stage": "stage1",
+   "baseHp": 280,
+   "types": [
+    "ghost",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/426.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-427",
+   "dexNumber": 427,
+   "name": "Buneary",
+   "stage": "basic",
+   "baseHp": 110,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/427.png",
+   "evolvesToIds": [
+    "gen4-428"
+   ]
+  },
+  {
+   "id": "gen4-428",
+   "dexNumber": 428,
+   "name": "Lopunny",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/428.png",
+   "evolvesToIds": [
+    "gen4-428-mega"
+   ]
+  },
+  {
+   "id": "gen4-428-mega",
+   "dexNumber": 428,
+   "name": "Mega Lopunny",
+   "stage": "mega",
+   "baseHp": 190,
+   "types": [
+    "normal",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10088.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen4-429",
+   "dexNumber": 429,
+   "name": "Mismagius",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/429.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-430",
+   "dexNumber": 430,
+   "name": "Honchkrow",
+   "stage": "stage1",
+   "baseHp": 200,
+   "types": [
+    "dark",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/430.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-431",
+   "dexNumber": 431,
+   "name": "Glameow",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/431.png",
+   "evolvesToIds": [
+    "gen4-432"
+   ]
+  },
+  {
+   "id": "gen4-432",
+   "dexNumber": 432,
+   "name": "Purugly",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/432.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-433",
+   "dexNumber": 433,
+   "name": "Chingling",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/433.png",
+   "evolvesToIds": [
+    "gen3-358"
+   ]
+  },
+  {
+   "id": "gen4-434",
+   "dexNumber": 434,
+   "name": "Stunky",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "poison",
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/434.png",
+   "evolvesToIds": [
+    "gen4-435"
+   ]
+  },
+  {
+   "id": "gen4-435",
+   "dexNumber": 435,
+   "name": "Skuntank",
+   "stage": "stage1",
+   "baseHp": 200,
+   "types": [
+    "poison",
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/435.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-436",
+   "dexNumber": 436,
+   "name": "Bronzor",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "steel",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/436.png",
+   "evolvesToIds": [
+    "gen4-437"
+   ]
+  },
+  {
+   "id": "gen4-437",
+   "dexNumber": 437,
+   "name": "Bronzong",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "steel",
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/437.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-438",
+   "dexNumber": 438,
+   "name": "Bonsly",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/438.png",
+   "evolvesToIds": [
+    "gen2-185"
+   ]
+  },
+  {
+   "id": "gen4-439",
+   "dexNumber": 439,
+   "name": "Mime Jr.",
+   "stage": "basic",
+   "baseHp": 60,
+   "types": [
+    "psychic",
+    "fairy"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/439.png",
+   "evolvesToIds": [
+    "gen1-122"
+   ]
+  },
+  {
+   "id": "gen4-440",
+   "dexNumber": 440,
+   "name": "Happiny",
+   "stage": "basic",
+   "baseHp": 180,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/440.png",
+   "evolvesToIds": [
+    "gen1-113"
+   ]
+  },
+  {
+   "id": "gen4-441",
+   "dexNumber": 441,
+   "name": "Chatot",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "normal",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/441.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-442",
+   "dexNumber": 442,
+   "name": "Spiritomb",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "ghost",
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/442.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-443",
+   "dexNumber": 443,
+   "name": "Gible",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "dragon",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/443.png",
+   "evolvesToIds": [
+    "gen4-444"
+   ]
+  },
+  {
+   "id": "gen4-444",
+   "dexNumber": 444,
+   "name": "Gabite",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "dragon",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/444.png",
+   "evolvesToIds": [
+    "gen4-445"
+   ]
+  },
+  {
+   "id": "gen4-445",
+   "dexNumber": 445,
+   "name": "Garchomp",
+   "stage": "stage2",
+   "baseHp": 230,
+   "types": [
+    "dragon",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/445.png",
+   "evolvesToIds": [
+    "gen4-445-mega"
+   ]
+  },
+  {
+   "id": "gen4-445-ex",
+   "dexNumber": 445,
+   "name": "Garchomp EX",
+   "stage": "ex",
+   "baseHp": 270,
+   "types": [
+    "dragon",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/445.png",
+   "evolvesToIds": [
+    "gen4-445-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen4-445-mega",
+   "dexNumber": 445,
+   "name": "Mega Garchomp",
+   "stage": "mega",
+   "baseHp": 250,
+   "types": [
+    "dragon",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10058.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen4-445-mega",
+   "dexNumber": 445,
+   "name": "Mega Garchomp",
+   "stage": "mega",
+   "baseHp": 250,
+   "types": [
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10309.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen4-446",
+   "dexNumber": 446,
+   "name": "Munchlax",
+   "stage": "basic",
+   "baseHp": 230,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/446.png",
+   "evolvesToIds": [
+    "gen1-143"
+   ]
+  },
+  {
+   "id": "gen4-447",
+   "dexNumber": 447,
+   "name": "Riolu",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/447.png",
+   "evolvesToIds": [
+    "gen4-448"
+   ]
+  },
+  {
+   "id": "gen4-448",
+   "dexNumber": 448,
+   "name": "Lucario",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "fighting",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/448.png",
+   "evolvesToIds": [
+    "gen4-448-mega"
+   ]
+  },
+  {
+   "id": "gen4-448-ex",
+   "dexNumber": 448,
+   "name": "Lucario EX",
+   "stage": "ex",
+   "baseHp": 200,
+   "types": [
+    "fighting",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/448.png",
+   "evolvesToIds": [
+    "gen4-448-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen4-448-mega",
+   "dexNumber": 448,
+   "name": "Mega Lucario",
+   "stage": "mega",
+   "baseHp": 200,
+   "types": [
+    "fighting",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10059.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen4-448-mega",
+   "dexNumber": 448,
+   "name": "Mega Lucario",
+   "stage": "mega",
+   "baseHp": 200,
+   "types": [
+    "fighting",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10310.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen4-449",
+   "dexNumber": 449,
+   "name": "Hippopotas",
+   "stage": "basic",
+   "baseHp": 130,
+   "types": [
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/449.png",
+   "evolvesToIds": [
+    "gen4-450"
+   ]
+  },
+  {
+   "id": "gen4-450",
+   "dexNumber": 450,
+   "name": "Hippowdon",
+   "stage": "stage1",
+   "baseHp": 210,
+   "types": [
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/450.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-451",
+   "dexNumber": 451,
+   "name": "Skorupi",
+   "stage": "basic",
+   "baseHp": 90,
+   "types": [
+    "poison",
+    "bug"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/451.png",
+   "evolvesToIds": [
+    "gen4-452"
+   ]
+  },
+  {
+   "id": "gen4-452",
+   "dexNumber": 452,
+   "name": "Drapion",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "poison",
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/452.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-453",
+   "dexNumber": 453,
+   "name": "Croagunk",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "poison",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/453.png",
+   "evolvesToIds": [
+    "gen4-454"
+   ]
+  },
+  {
+   "id": "gen4-454",
+   "dexNumber": 454,
+   "name": "Toxicroak",
+   "stage": "stage1",
+   "baseHp": 170,
+   "types": [
+    "poison",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/454.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-455",
+   "dexNumber": 455,
+   "name": "Carnivine",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/455.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-456",
+   "dexNumber": 456,
+   "name": "Finneon",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/456.png",
+   "evolvesToIds": [
+    "gen4-457"
+   ]
+  },
+  {
+   "id": "gen4-457",
+   "dexNumber": 457,
+   "name": "Lumineon",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/457.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-458",
+   "dexNumber": 458,
+   "name": "Mantyke",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "water",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/458.png",
+   "evolvesToIds": [
+    "gen2-226"
+   ]
+  },
+  {
+   "id": "gen4-459",
+   "dexNumber": 459,
+   "name": "Snover",
+   "stage": "basic",
+   "baseHp": 120,
+   "types": [
+    "grass",
+    "ice"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/459.png",
+   "evolvesToIds": [
+    "gen4-460"
+   ]
+  },
+  {
+   "id": "gen4-460",
+   "dexNumber": 460,
+   "name": "Abomasnow",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "grass",
+    "ice"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/460.png",
+   "evolvesToIds": [
+    "gen4-460-mega"
+   ]
+  },
+  {
+   "id": "gen4-460-mega",
+   "dexNumber": 460,
+   "name": "Mega Abomasnow",
+   "stage": "mega",
+   "baseHp": 220,
+   "types": [
+    "grass",
+    "ice"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10060.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen4-461",
+   "dexNumber": 461,
+   "name": "Weavile",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "dark",
+    "ice"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/461.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-462",
+   "dexNumber": 462,
+   "name": "Magnezone",
+   "stage": "stage2",
+   "baseHp": 180,
+   "types": [
+    "electric",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/462.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-463",
+   "dexNumber": 463,
+   "name": "Lickilicky",
+   "stage": "stage1",
+   "baseHp": 220,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/463.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-464",
+   "dexNumber": 464,
+   "name": "Rhyperior",
+   "stage": "stage2",
+   "baseHp": 240,
+   "types": [
+    "ground",
+    "rock"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/464.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-465",
+   "dexNumber": 465,
+   "name": "Tangrowth",
+   "stage": "stage1",
+   "baseHp": 200,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/465.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-466",
+   "dexNumber": 466,
+   "name": "Electivire",
+   "stage": "stage2",
+   "baseHp": 180,
+   "types": [
+    "electric"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/466.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-467",
+   "dexNumber": 467,
+   "name": "Magmortar",
+   "stage": "stage2",
+   "baseHp": 180,
+   "types": [
+    "fire"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/467.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-468",
+   "dexNumber": 468,
+   "name": "Togekiss",
+   "stage": "stage2",
+   "baseHp": 200,
+   "types": [
+    "fairy",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/468.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-469",
+   "dexNumber": 469,
+   "name": "Yanmega",
+   "stage": "stage1",
+   "baseHp": 180,
+   "types": [
+    "bug",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/469.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-470",
+   "dexNumber": 470,
+   "name": "Leafeon",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/470.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-471",
+   "dexNumber": 471,
+   "name": "Glaceon",
+   "stage": "stage1",
+   "baseHp": 150,
+   "types": [
+    "ice"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/471.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-472",
+   "dexNumber": 472,
+   "name": "Gliscor",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "ground",
+    "flying"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/472.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-473",
+   "dexNumber": 473,
+   "name": "Mamoswine",
+   "stage": "stage2",
+   "baseHp": 240,
+   "types": [
+    "ice",
+    "ground"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/473.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-474",
+   "dexNumber": 474,
+   "name": "Porygon-Z",
+   "stage": "stage2",
+   "baseHp": 200,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/474.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-475",
+   "dexNumber": 475,
+   "name": "Gallade",
+   "stage": "stage2",
+   "baseHp": 170,
+   "types": [
+    "psychic",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/475.png",
+   "evolvesToIds": [
+    "gen4-475-mega"
+   ]
+  },
+  {
+   "id": "gen4-475-mega",
+   "dexNumber": 475,
+   "name": "Mega Gallade",
+   "stage": "mega",
+   "baseHp": 190,
+   "types": [
+    "psychic",
+    "fighting"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10068.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen4-476",
+   "dexNumber": 476,
+   "name": "Probopass",
+   "stage": "stage1",
+   "baseHp": 140,
+   "types": [
+    "rock",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/476.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-477",
+   "dexNumber": 477,
+   "name": "Dusknoir",
+   "stage": "stage2",
+   "baseHp": 140,
+   "types": [
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/477.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-478",
+   "dexNumber": 478,
+   "name": "Froslass",
+   "stage": "stage1",
+   "baseHp": 160,
+   "types": [
+    "ice",
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/478.png",
+   "evolvesToIds": [
+    "gen4-478-mega"
+   ]
+  },
+  {
+   "id": "gen4-478-mega",
+   "dexNumber": 478,
+   "name": "Mega Froslass",
+   "stage": "mega",
+   "baseHp": 200,
+   "types": [
+    "ice",
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10285.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen4-479",
+   "dexNumber": 479,
+   "name": "Rotom",
+   "stage": "basic",
+   "baseHp": 100,
+   "types": [
+    "electric",
+    "ghost"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/479.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-480",
+   "dexNumber": 480,
+   "name": "Uxie",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/480.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-481",
+   "dexNumber": 481,
+   "name": "Mesprit",
+   "stage": "basic",
+   "baseHp": 150,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/481.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-482",
+   "dexNumber": 482,
+   "name": "Azelf",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/482.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-483",
+   "dexNumber": 483,
+   "name": "Dialga",
+   "stage": "basic",
+   "baseHp": 180,
+   "types": [
+    "steel",
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/483.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-483-ex",
+   "dexNumber": 483,
+   "name": "Dialga EX",
+   "stage": "ex",
+   "baseHp": 220,
+   "types": [
+    "steel",
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/483.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen4-484",
+   "dexNumber": 484,
+   "name": "Palkia",
+   "stage": "basic",
+   "baseHp": 160,
+   "types": [
+    "water",
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/484.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-484-ex",
+   "dexNumber": 484,
+   "name": "Palkia EX",
+   "stage": "ex",
+   "baseHp": 200,
+   "types": [
+    "water",
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/484.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen4-485",
+   "dexNumber": 485,
+   "name": "Heatran",
+   "stage": "basic",
+   "baseHp": 170,
+   "types": [
+    "fire",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/485.png",
+   "evolvesToIds": [
+    "gen4-485-mega"
+   ]
+  },
+  {
+   "id": "gen4-485-mega",
+   "dexNumber": 485,
+   "name": "Mega Heatran",
+   "stage": "mega",
+   "baseHp": 230,
+   "types": [
+    "fire",
+    "steel"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10311.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen4-486",
+   "dexNumber": 486,
+   "name": "Regigigas",
+   "stage": "basic",
+   "baseHp": 200,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/486.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-487",
+   "dexNumber": 487,
+   "name": "Giratina",
+   "stage": "basic",
+   "baseHp": 260,
+   "types": [
+    "ghost",
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/487.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-487-ex",
+   "dexNumber": 487,
+   "name": "Giratina EX",
+   "stage": "ex",
+   "baseHp": 300,
+   "types": [
+    "ghost",
+    "dragon"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/487.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  },
+  {
+   "id": "gen4-488",
+   "dexNumber": 488,
+   "name": "Cresselia",
+   "stage": "basic",
+   "baseHp": 210,
+   "types": [
+    "psychic"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/488.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-489",
+   "dexNumber": 489,
+   "name": "Phione",
+   "stage": "basic",
+   "baseHp": 150,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/489.png",
+   "evolvesToIds": [
+    "gen4-490"
+   ]
+  },
+  {
+   "id": "gen4-490",
+   "dexNumber": 490,
+   "name": "Manaphy",
+   "stage": "stage1",
+   "baseHp": 200,
+   "types": [
+    "water"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/490.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-491",
+   "dexNumber": 491,
+   "name": "Darkrai",
+   "stage": "basic",
+   "baseHp": 140,
+   "types": [
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/491.png",
+   "evolvesToIds": [
+    "gen4-491-mega"
+   ]
+  },
+  {
+   "id": "gen4-491-ex",
+   "dexNumber": 491,
+   "name": "Darkrai EX",
+   "stage": "ex",
+   "baseHp": 180,
+   "types": [
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/491.png",
+   "evolvesToIds": [
+    "gen4-491-mega"
+   ],
+   "variant": "EX"
+  },
+  {
+   "id": "gen4-491-mega",
+   "dexNumber": 491,
+   "name": "Mega Darkrai",
+   "stage": "mega",
+   "baseHp": 200,
+   "types": [
+    "dark"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10312.png",
+   "evolvesToIds": [],
+   "variant": "Mega"
+  },
+  {
+   "id": "gen4-492",
+   "dexNumber": 492,
+   "name": "Shaymin",
+   "stage": "basic",
+   "baseHp": 180,
+   "types": [
+    "grass"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/492.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-493",
+   "dexNumber": 493,
+   "name": "Arceus",
+   "stage": "basic",
+   "baseHp": 210,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/493.png",
+   "evolvesToIds": []
+  },
+  {
+   "id": "gen4-493-ex",
+   "dexNumber": 493,
+   "name": "Arceus EX",
+   "stage": "ex",
+   "baseHp": 250,
+   "types": [
+    "normal"
+   ],
+   "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/493.png",
+   "evolvesToIds": [],
+   "variant": "EX"
+  }
+ ]
+}

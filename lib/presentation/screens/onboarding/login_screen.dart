@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/audio/sfx.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/app_text_styles.dart';
@@ -40,7 +41,10 @@ class LoginScreen extends ConsumerWidget {
               ),
               const Spacer(flex: 4),
               _GoogleButton(
-                onPressed: () => ref.read(authProvider.notifier).signInWithGoogle(),
+                onPressed: () {
+                  sfx(Sfx.confirm);
+                  ref.read(authProvider.notifier).signInWithGoogle();
+                },
               ),
               const SizedBox(height: 14),
               TextButton(

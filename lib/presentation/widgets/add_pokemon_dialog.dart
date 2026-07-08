@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../../core/audio/sfx.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_palette.dart';
 import '../../core/theme/app_text_styles.dart';
@@ -117,7 +118,10 @@ class _AddPokemonDialogState extends State<_AddPokemonDialog> {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      sfx(Sfx.back);
+                      Navigator.pop(context);
+                    },
                     style: OutlinedButton.styleFrom(
                       foregroundColor: context.palette.textPrimary,
                       side: BorderSide(color: context.palette.border),
@@ -131,6 +135,7 @@ class _AddPokemonDialogState extends State<_AddPokemonDialog> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
+                      sfx(Sfx.confirm);
                       final v = _editing ? int.tryParse(_controller.text) ?? _hp : _hp;
                       Navigator.pop(context, v.clamp(0, 9999));
                     },
