@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_palette.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../domain/models/card.dart';
 
@@ -38,7 +39,7 @@ class _AddPokemonDialogState extends State<_AddPokemonDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: AppColors.surface,
+      backgroundColor: context.palette.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
@@ -62,7 +63,7 @@ class _AddPokemonDialogState extends State<_AddPokemonDialog> {
                     height: 44,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: AppColors.surface2,
+                      color: context.palette.surface2,
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: _editing
@@ -72,7 +73,7 @@ class _AddPokemonDialogState extends State<_AddPokemonDialog> {
                             keyboardType: TextInputType.number,
                             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                             textAlign: TextAlign.center,
-                            style: AppTextStyles.hpValue.copyWith(color: AppColors.textPrimary),
+                            style: AppTextStyles.hpValue.copyWith(color: context.palette.textPrimary),
                             decoration: const InputDecoration(
                               border: InputBorder.none,
                               isDense: true,
@@ -84,7 +85,7 @@ class _AddPokemonDialogState extends State<_AddPokemonDialog> {
                             }),
                           )
                         : Text('$_hp',
-                            style: AppTextStyles.hpValue.copyWith(color: AppColors.textPrimary)),
+                            style: AppTextStyles.hpValue.copyWith(color: context.palette.textPrimary)),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -96,7 +97,7 @@ class _AddPokemonDialogState extends State<_AddPokemonDialog> {
               height: 200,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: AppColors.surface2,
+                color: context.palette.surface2,
                 borderRadius: BorderRadius.circular(16),
               ),
               padding: const EdgeInsets.all(12),
@@ -118,8 +119,8 @@ class _AddPokemonDialogState extends State<_AddPokemonDialog> {
                   child: OutlinedButton(
                     onPressed: () => Navigator.pop(context),
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.textPrimary,
-                      side: const BorderSide(color: AppColors.border),
+                      foregroundColor: context.palette.textPrimary,
+                      side: BorderSide(color: context.palette.border),
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
                     ),
@@ -162,7 +163,7 @@ class _RoundBtn extends StatelessWidget {
       child: Container(
         width: 44,
         height: 44,
-        decoration: const BoxDecoration(color: AppColors.surface2, shape: BoxShape.circle),
+        decoration: BoxDecoration(color: context.palette.surface2, shape: BoxShape.circle),
         child: Icon(icon, color: AppColors.blue, size: 22),
       ),
     );

@@ -1,15 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/settings_provider.dart';
 import '../../widgets/ad_banner.dart';
 import '../../widgets/battle_menu.dart';
 
-/// Preset avatars (no gallery plugin needed). Stored in Auth.photoPath as a key.
+/// Preset avatars. Stored in Auth.photoPath as a preset key. Real photos taken
+/// from the camera/gallery are stored as a `b64:<base64>` string instead, so the
+/// same field works across web and mobile without touching the filesystem.
 const _avatarPresets = <String, IconData>{
   'trainer': Icons.person,
   'pokeball': Icons.catching_pokemon,
@@ -19,7 +25,19 @@ const _avatarPresets = <String, IconData>{
   'shield': Icons.shield,
 };
 
+const _photoPrefix = 'b64:';
+
 IconData _avatarIcon(String? key) => _avatarPresets[key] ?? Icons.person;
+
+/// Returns a decoded image provider when [key] holds a real photo, else null.
+ImageProvider? _photoProvider(String? key) {
+  if (key == null || !key.startsWith(_photoPrefix)) return null;
+  try {
+    return MemoryImage(base64Decode(key.substring(_photoPrefix.length)));
+  } catch (_) {
+    return null;
+  }
+}
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -31,7 +49,7 @@ class ProfileScreen extends ConsumerWidget {
     final showAds = plan.showsAds;
 
     return Scaffold(
-      backgroundColor: AppColors.bg,
+      backgroundColor: context.palette.bg,
       bottomNavigationBar: const _BottomBar(),
       body: SafeArea(
         bottom: false,
@@ -50,6 +68,13 @@ class ProfileScreen extends ConsumerWidget {
                       subtitle: 'Atualize o nome exibido na sua conta.',
                       icon: Icons.badge_outlined,
                       onTap: () => context.push('/profile/name'),
+                    ),
+                    const _Divider(),
+                    _MenuItem(
+                      title: 'Eventos próximos',
+                      subtitle: 'Torneios e trocas de TCG perto de você.',
+                      icon: Icons.map_outlined,
+                      onTap: () => context.push('/events'),
                     ),
                     const _Divider(),
                     _MenuItem(
@@ -99,7 +124,7 @@ class ProfileScreen extends ConsumerWidget {
     final current = ref.read(authProvider).photoPath;
     final chosen = await showModalBottomSheet<String>(
       context: context,
-      backgroundColor: AppColors.surface,
+      backgroundColor: context.palette.surface,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       builder: (ctx) => SafeArea(
@@ -109,8 +134,30 @@ class ProfileScreen extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Escolha um avatar', style: AppTextStyles.h3),
-              const SizedBox(height: 16),
+              Text('Foto de perfil', style: AppTextStyles.h3),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: _PhotoSourceButton(
+                      icon: Icons.photo_camera_outlined,
+                      label: 'Câmera',
+                      onTap: () => Navigator.pop(ctx, '__camera__'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _PhotoSourceButton(
+                      icon: Icons.photo_library_outlined,
+                      label: 'Galeria',
+                      onTap: () => Navigator.pop(ctx, '__gallery__'),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Text('Ou escolha um avatar', style: AppTextStyles.labelBold),
+              const SizedBox(height: 12),
               Wrap(
                 spacing: 16,
                 runSpacing: 16,
@@ -122,7 +169,7 @@ class ProfileScreen extends ConsumerWidget {
                         radius: 28,
                         backgroundColor: current == entry.key
                             ? AppColors.blue
-                            : AppColors.surface2,
+                            : context.palette.surface2,
                         child: Icon(entry.value,
                             color: current == entry.key ? Colors.white : AppColors.blue),
                       ),
@@ -134,14 +181,49 @@ class ProfileScreen extends ConsumerWidget {
         ),
       ),
     );
-    if (chosen != null) ref.read(authProvider.notifier).updatePhoto(chosen);
+    if (chosen == null || !context.mounted) return;
+    if (chosen == '__camera__') {
+      await _pickPhoto(context, ref, ImageSource.camera);
+    } else if (chosen == '__gallery__') {
+      await _pickPhoto(context, ref, ImageSource.gallery);
+    } else {
+      ref.read(authProvider.notifier).updatePhoto(chosen);
+    }
+  }
+
+  Future<void> _pickPhoto(BuildContext context, WidgetRef ref, ImageSource source) async {
+    try {
+      final file = await ImagePicker().pickImage(
+        source: source,
+        maxWidth: 600,
+        maxHeight: 600,
+        imageQuality: 80,
+      );
+      if (file == null) return;
+      final bytes = await file.readAsBytes();
+      await ref.read(authProvider.notifier).updatePhoto('$_photoPrefix${base64Encode(bytes)}');
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(source == ImageSource.camera
+                ? 'Não foi possível acessar a câmera.'
+                : 'Não foi possível acessar a galeria.'),
+            backgroundColor: AppColors.red,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          ),
+        );
+      }
+      debugPrint('image_picker error: $e');
+    }
   }
 
   Future<void> _confirmLogout(BuildContext context, WidgetRef ref) async {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: context.palette.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Text('Sair da conta', style: AppTextStyles.h3),
         content: Text('Deseja realmente sair? Você voltará à tela de login.',
@@ -182,11 +264,17 @@ class _Header extends StatelessWidget {
             onTap: onEditPhoto,
             child: Stack(
               children: [
-                CircleAvatar(
-                  radius: 40,
-                  backgroundColor: AppColors.blue.withValues(alpha: 0.14),
-                  child: Icon(_avatarIcon(auth.photoPath), size: 44, color: AppColors.blue),
-                ),
+                Builder(builder: (context) {
+                  final photo = _photoProvider(auth.photoPath);
+                  return CircleAvatar(
+                    radius: 40,
+                    backgroundColor: AppColors.blue.withValues(alpha: 0.14),
+                    backgroundImage: photo,
+                    child: photo == null
+                        ? Icon(_avatarIcon(auth.photoPath), size: 44, color: AppColors.blue)
+                        : null,
+                  );
+                }),
                 Positioned(
                   right: 0,
                   bottom: 0,
@@ -277,7 +365,7 @@ class _ChangeNameScreenState extends ConsumerState<ChangeNameScreen> {
                 const SizedBox(height: 12),
                 TextField(
                   controller: _controller,
-                  style: const TextStyle(color: AppColors.textPrimary),
+                  style: TextStyle(color: context.palette.textPrimary),
                   textCapitalization: TextCapitalization.words,
                   onSubmitted: (_) => _save(),
                   decoration: InputDecoration(
@@ -285,10 +373,10 @@ class _ChangeNameScreenState extends ConsumerState<ChangeNameScreen> {
                     hintText: 'Digite seu nome',
                     hintStyle: const TextStyle(color: AppColors.textDim),
                     filled: true,
-                    fillColor: AppColors.surface2,
+                    fillColor: context.palette.surface2,
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: AppColors.border),
+                      borderSide: BorderSide(color: context.palette.border),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -328,17 +416,10 @@ class ThemesScreen extends ConsumerWidget {
             const _Divider(),
             _ThemeItem(
               title: 'Tema claro',
-              subtitle: 'Em breve — o modo claro será liberado numa próxima versão.',
+              subtitle: 'Interface com fundo claro.',
               icon: Icons.light_mode_outlined,
               selected: themeMode == ThemeMode.light,
-              onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: const Text('O tema claro será adicionado em breve.'),
-                  backgroundColor: AppColors.surface2,
-                  behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                ),
-              ),
+              onTap: () => ref.read(settingsProvider.notifier).setTheme(ThemeMode.light),
             ),
           ],
         ),
@@ -396,12 +477,12 @@ class _SubScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bg,
+      backgroundColor: context.palette.bg,
       appBar: AppBar(
-        backgroundColor: AppColors.bg,
+        backgroundColor: context.palette.bg,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+          icon: Icon(Icons.arrow_back, color: context.palette.textPrimary),
           onPressed: () => context.pop(),
         ),
         title: Text(title, style: AppTextStyles.h3),
@@ -426,9 +507,9 @@ class _Card extends StatelessWidget {
       width: double.infinity,
       padding: padding,
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: context.palette.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: context.palette.border),
       ),
       child: child,
     );
@@ -524,7 +605,7 @@ class _InfoRow extends StatelessWidget {
 class _Divider extends StatelessWidget {
   const _Divider();
   @override
-  Widget build(BuildContext context) => const Divider(height: 1, color: AppColors.border);
+  Widget build(BuildContext context) => Divider(height: 1, color: context.palette.border);
 }
 
 class _PrimaryButton extends StatelessWidget {
@@ -567,6 +648,34 @@ class _DangerButton extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           side: const BorderSide(color: AppColors.red),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+      ),
+    );
+  }
+}
+
+class _PhotoSourceButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+  const _PhotoSourceButton({required this.icon, required this.label, required this.onTap});
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        decoration: BoxDecoration(
+          color: context.palette.surface2,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: context.palette.border),
+        ),
+        child: Column(
+          children: [
+            Icon(icon, color: AppColors.blue, size: 26),
+            const SizedBox(height: 6),
+            Text(label, style: AppTextStyles.label),
+          ],
         ),
       ),
     );

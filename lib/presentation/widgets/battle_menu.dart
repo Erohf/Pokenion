@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_palette.dart';
 import '../providers/battle_provider.dart';
 import 'deck_selection_sheet.dart';
 import 'coin_flip_dialog.dart';
@@ -42,7 +43,7 @@ class BattleMenu extends ConsumerWidget {
             top: 32,
             child: Container(
               decoration: BoxDecoration(
-                color: AppColors.surfaceVariant,
+                color: context.palette.surfaceVariant,
                 borderRadius: BorderRadius.circular(24),
               ),
             ),

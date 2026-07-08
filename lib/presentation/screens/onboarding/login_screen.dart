@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/settings_provider.dart';
@@ -11,7 +12,7 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: AppColors.bg,
+      backgroundColor: context.palette.bg,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 28),
@@ -75,7 +76,7 @@ class LoginScreen extends ConsumerWidget {
       context: context,
       builder: (ctx) => StatefulBuilder(
         builder: (ctx, setState) => AlertDialog(
-          backgroundColor: AppColors.surface,
+          backgroundColor: ctx.palette.surface,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           title: Text('Continuar sem conta?', style: AppTextStyles.h3),
           content: Column(
@@ -136,20 +137,20 @@ class LoginScreen extends ConsumerWidget {
     return showDialog<String>(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: ctx.palette.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Text('Como podemos te chamar?', style: AppTextStyles.h3),
         content: TextField(
           controller: controller,
           autofocus: true,
-          style: const TextStyle(color: AppColors.textPrimary),
+          style: TextStyle(color: ctx.palette.textPrimary),
           textCapitalization: TextCapitalization.words,
           decoration: InputDecoration(
             hintText: 'Seu nome',
             hintStyle: const TextStyle(color: AppColors.textDim),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: AppColors.border),
+              borderSide: BorderSide(color: ctx.palette.border),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -195,7 +196,8 @@ class _GoogleButton extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 16)),
         ),
-        label: Text('Entrar com o Google', style: AppTextStyles.buttonText.copyWith(fontSize: 15)),
+        label: Text('Entrar com o Google',
+            style: AppTextStyles.buttonText.copyWith(fontSize: 15, color: Colors.white)),
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.blue,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),

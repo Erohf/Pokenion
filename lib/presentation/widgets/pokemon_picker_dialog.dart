@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_palette.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../domain/models/card.dart';
 import '../providers/pokedex_provider.dart';
@@ -36,9 +37,9 @@ class _PokemonPickerSheetState extends ConsumerState<_PokemonPickerSheet> {
         minChildSize: 0.5,
         expand: false,
         builder: (context, scrollController) => Container(
-          decoration: const BoxDecoration(
-            color: AppColors.surface,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          decoration: BoxDecoration(
+            color: context.palette.surface,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           ),
           child: Column(
             children: [
@@ -48,7 +49,7 @@ class _PokemonPickerSheetState extends ConsumerState<_PokemonPickerSheet> {
                   width: 40,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: AppColors.border,
+                    color: context.palette.border,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -58,13 +59,13 @@ class _PokemonPickerSheetState extends ConsumerState<_PokemonPickerSheet> {
                 child: TextField(
                   autofocus: true,
                   onChanged: (v) => setState(() => _query = v),
-                  style: const TextStyle(color: AppColors.textPrimary),
+                  style: TextStyle(color: context.palette.textPrimary),
                   decoration: InputDecoration(
                     hintText: 'Buscar Pokémon...',
                     hintStyle: const TextStyle(color: AppColors.textDim),
                     prefixIcon: const Icon(Icons.search, color: AppColors.blue),
                     filled: true,
-                    fillColor: AppColors.surface2,
+                    fillColor: context.palette.surface2,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(28),
                       borderSide: BorderSide.none,
@@ -85,7 +86,7 @@ class _PokemonPickerSheetState extends ConsumerState<_PokemonPickerSheet> {
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       itemCount: results.length,
                       separatorBuilder: (_, __) =>
-                          const Divider(height: 1, color: AppColors.border),
+                          Divider(height: 1, color: context.palette.border),
                       itemBuilder: (context, i) {
                         final card = results[i];
                         return ListTile(

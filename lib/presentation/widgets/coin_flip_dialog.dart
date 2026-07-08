@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_palette.dart';
 import '../../core/theme/app_text_styles.dart';
 
 Future<void> showCoinFlipDialog(BuildContext context) {
@@ -71,7 +72,7 @@ class _CoinFlipDialogState extends State<_CoinFlipDialog>
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: AppColors.surface,
+      backgroundColor: context.palette.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -106,7 +107,7 @@ class _CoinFlipDialogState extends State<_CoinFlipDialog>
             style: AppTextStyles.h2,
             decoration: InputDecoration(
               filled: true,
-              fillColor: AppColors.surface2,
+              fillColor: context.palette.surface2,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide.none,
@@ -177,8 +178,8 @@ class _CoinFlipDialogState extends State<_CoinFlipDialog>
               child: OutlinedButton(
                 onPressed: () => setState(() => _phase = _Phase.setup),
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: AppColors.textPrimary,
-                  side: const BorderSide(color: AppColors.border),
+                  foregroundColor: context.palette.textPrimary,
+                  side: BorderSide(color: context.palette.border),
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
                 ),
@@ -209,7 +210,7 @@ class _CoinFlipDialogState extends State<_CoinFlipDialog>
       height: 90,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: heads ? AppColors.blue : AppColors.surfaceVariant,
+        color: heads ? AppColors.blue : context.palette.surfaceVariant,
         border: Border.all(color: AppColors.blueLight, width: 3),
       ),
       alignment: Alignment.center,

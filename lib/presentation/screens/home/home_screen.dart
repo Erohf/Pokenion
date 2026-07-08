@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../domain/models/deck.dart';
 import '../../providers/deck_provider.dart';
@@ -20,7 +21,7 @@ class HomeScreen extends ConsumerWidget {
     final plan = ref.watch(settingsProvider).plan;
 
     return Scaffold(
-      backgroundColor: AppColors.bg,
+      backgroundColor: context.palette.bg,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -64,18 +65,17 @@ class HomeScreen extends ConsumerWidget {
     }
     final name = await showNameDialog(context,
         title: 'Novo Deck', hint: 'Nome do deck', confirm: 'Criar');
-    if (name == null) return;
-    final id = await ref
-        .read(deckNotifierProvider.notifier)
-        .createDeck(name, maxDecks: plan.maxDecks);
-    if (id != null && context.mounted) context.push('/deck/$id');
+    if (name == null || !context.mounted) return;
+    // Open the editor in "new" mode. The deck is only persisted if the user
+    // taps Salvar; tapping Cancelar discards it entirely.
+    context.push('/deck/new', extra: name);
   }
 
   Future<void> _confirmDelete(BuildContext context, WidgetRef ref, Deck deck) async {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: AppColors.surface,
+        backgroundColor: ctx.palette.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Text('Apagar deck', style: AppTextStyles.h3),
         content: Text('Deseja apagar "${deck.name}"? Esta ação não pode ser desfeita.',
@@ -106,7 +106,7 @@ class HomeScreen extends ConsumerWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(msg),
-        backgroundColor: AppColors.surface2,
+        backgroundColor: context.palette.surface2,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
@@ -123,6 +123,7 @@ class _DeckSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final p = context.palette;
     final cards = deck.pokemonCards;
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),
@@ -151,9 +152,9 @@ class _DeckSection extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: AppColors.surface,
+                color: p.surface,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppColors.border),
+                border: Border.all(color: p.border),
               ),
               child: cards.isEmpty
                   ? SizedBox(
@@ -173,7 +174,7 @@ class _DeckSection extends StatelessWidget {
                             height: 44,
                             padding: const EdgeInsets.all(2),
                             decoration: BoxDecoration(
-                              color: AppColors.surface2,
+                              color: p.surface2,
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: CardThumbnail(
@@ -205,7 +206,7 @@ class _MoreChip extends StatelessWidget {
       height: 44,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: AppColors.surface2,
+        color: context.palette.surface2,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text('+$count',
