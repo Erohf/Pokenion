@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
+import '../../../core/audio/sfx.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/app_text_styles.dart';
@@ -13,6 +14,7 @@ import '../../widgets/card_thumbnail.dart';
 import '../../widgets/pokemon_picker_dialog.dart';
 import '../../widgets/add_pokemon_dialog.dart';
 import '../../widgets/name_dialog.dart';
+import '../../widgets/pixel.dart';
 
 /// Deck editor. Works on a local *draft* copy: all changes (name, cards, cover)
 /// are only committed to the store when the user taps Salvar. Cancelar (or a
@@ -158,8 +160,16 @@ class _DeckDetailScreenState extends ConsumerState<DeckDetailScreen> {
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: context.palette.surface,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: context.palette.border),
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(
+                        color: context.palette.borderStrong, width: 2),
+                    boxShadow: [
+                      BoxShadow(
+                        color: context.palette.shadow,
+                        offset: const Offset(4, 4),
+                        blurRadius: 0,
+                      ),
+                    ],
                   ),
                   child: GridView.builder(
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -199,36 +209,29 @@ class _DeckDetailScreenState extends ConsumerState<DeckDetailScreen> {
 
   Widget _saveCancelBar() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+      padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
       child: Row(
         children: [
           Expanded(
-            child: SizedBox(
+            child: PixelButton(
+              onTap: _cancel,
+              color: context.palette.surface2,
               height: 52,
-              child: OutlinedButton(
-                onPressed: _cancel,
-                style: OutlinedButton.styleFrom(
-                  side: BorderSide(color: context.palette.border),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                ),
-                child: Text('Cancelar',
-                    style: AppTextStyles.buttonText.copyWith(color: AppColors.textSecondary)),
-              ),
+              sound: null, // _cancel plays its own
+              child: Text('Cancelar',
+                  style: AppTextStyles.buttonText
+                      .copyWith(color: context.palette.textSecondary)),
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 14),
           Expanded(
-            child: SizedBox(
+            child: PixelButton(
+              onTap: _save,
+              color: AppColors.blue,
               height: 52,
-              child: ElevatedButton(
-                onPressed: _save,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.blue,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                ),
-                child: Text('Salvar',
-                    style: AppTextStyles.buttonText.copyWith(fontSize: 15, color: Colors.white)),
-              ),
+              sound: null, // _save plays confirm
+              child: Text('Salvar',
+                  style: AppTextStyles.buttonText.copyWith(color: Colors.white)),
             ),
           ),
         ],
@@ -310,6 +313,7 @@ class _DeckDetailScreenState extends ConsumerState<DeckDetailScreen> {
   // ── Commit / discard ───────────────────────────────────────────────────
 
   Future<void> _save() async {
+    sfx(Sfx.confirm);
     final notifier = ref.read(deckNotifierProvider.notifier);
     if (_isNew) {
       final maxDecks = ref.read(settingsProvider).plan.maxDecks;
@@ -325,6 +329,7 @@ class _DeckDetailScreenState extends ConsumerState<DeckDetailScreen> {
   }
 
   void _cancel() async {
+    sfx(Sfx.back);
     if (await _confirmDiscard() && mounted) context.pop();
   }
 
@@ -335,7 +340,10 @@ class _DeckDetailScreenState extends ConsumerState<DeckDetailScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: context.palette.surface,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14),
+          side: BorderSide(color: context.palette.borderStrong, width: 2),
+        ),
         title: Text('Descartar alterações?', style: AppTextStyles.h3),
         content: Text(
           _isNew
@@ -363,16 +371,7 @@ class _DeckDetailScreenState extends ConsumerState<DeckDetailScreen> {
     return discard == true;
   }
 
-  void _snack(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(msg),
-        backgroundColor: context.palette.surface2,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
-  }
+  void _snack(String msg) => showPixelSnack(context, msg);
 }
 
 class _AddTile extends StatelessWidget {
@@ -380,21 +379,20 @@ class _AddTile extends StatelessWidget {
   const _AddTile({required this.onTap});
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return PixelButton(
       onTap: onTap,
+      color: context.palette.surface2,
+      radius: 10,
+      padding: EdgeInsets.zero,
       child: Container(
+        width: 34,
+        height: 34,
         decoration: BoxDecoration(
-          color: context.palette.surface2,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: context.palette.border),
+          color: AppColors.blue,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: context.palette.borderStrong, width: 2),
         ),
-        child: const Center(
-          child: CircleAvatar(
-            radius: 16,
-            backgroundColor: AppColors.blue,
-            child: Icon(Icons.add, color: Colors.white, size: 20),
-          ),
-        ),
+        child: const Icon(Icons.add, color: Colors.white, size: 20),
       ),
     );
   }
@@ -429,10 +427,13 @@ class _CardTile extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: context.palette.surface2,
-                borderRadius: BorderRadius.circular(12),
-                border: isCover
-                    ? Border.all(color: AppColors.blue, width: 2)
-                    : Border.all(color: context.palette.border),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: isCover
+                      ? AppColors.blue
+                      : context.palette.borderStrong,
+                  width: 2,
+                ),
               ),
               padding: const EdgeInsets.all(6),
               child: Column(

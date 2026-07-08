@@ -7,10 +7,12 @@ import '../../../core/theme/app_text_styles.dart';
 import '../../../domain/models/deck.dart';
 import '../../providers/deck_provider.dart';
 import '../../providers/settings_provider.dart';
+import '../../../core/audio/sfx.dart';
 import '../../widgets/ad_banner.dart';
 import '../../widgets/card_thumbnail.dart';
 import '../../widgets/battle_menu.dart';
 import '../../widgets/name_dialog.dart';
+import '../../widgets/pixel.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -76,7 +78,10 @@ class HomeScreen extends ConsumerWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: ctx.palette.surface,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14),
+          side: BorderSide(color: ctx.palette.borderStrong, width: 2),
+        ),
         title: Text('Apagar deck', style: AppTextStyles.h3),
         content: Text('Deseja apagar "${deck.name}"? Esta ação não pode ser desfeita.',
             style: AppTextStyles.body),
@@ -102,16 +107,7 @@ class HomeScreen extends ConsumerWidget {
     }
   }
 
-  void _snack(BuildContext context, String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(msg),
-        backgroundColor: context.palette.surface2,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
-  }
+  void _snack(BuildContext context, String msg) => showPixelSnack(context, msg);
 }
 
 class _DeckSection extends StatelessWidget {
@@ -142,20 +138,20 @@ class _DeckSection extends StatelessWidget {
                       overflow: TextOverflow.ellipsis),
                 ),
                 IconButton(
-                  onPressed: onDelete,
+                  onPressed: () {
+                    sfx(Sfx.back);
+                    onDelete();
+                  },
                   icon: const Icon(Icons.delete_outline, color: AppColors.blue),
                   tooltip: 'Apagar deck',
                 ),
               ],
             ),
             const SizedBox(height: 8),
-            Container(
+            PixelBox(
+              color: p.surface,
+              radius: 14,
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: p.surface,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: p.border),
-              ),
               child: cards.isEmpty
                   ? SizedBox(
                       height: 56,
@@ -220,14 +216,14 @@ class _AddDeckButton extends StatelessWidget {
   const _AddDeckButton({required this.onTap});
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return PixelButton(
       onTap: onTap,
-      child: Container(
-        width: 56,
-        height: 56,
-        decoration: const BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
-        child: const Icon(Icons.add, color: Colors.white, size: 30),
-      ),
+      color: AppColors.blue,
+      width: 58,
+      height: 58,
+      radius: 14,
+      padding: EdgeInsets.zero,
+      child: const Icon(Icons.add, color: Colors.white, size: 30),
     );
   }
 }

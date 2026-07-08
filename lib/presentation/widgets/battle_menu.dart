@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../../core/audio/sfx.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_palette.dart';
 import '../providers/battle_provider.dart';
 import 'deck_selection_sheet.dart';
 import 'coin_flip_dialog.dart';
+import 'pixel.dart';
 
-/// Bottom navigation bar with a context-aware center action:
+/// Bottom navigation dock (modern pixel): a flat outlined tray with two square
+/// key-cap buttons and the raised VS cap in the middle. The center action is
+/// context-aware:
 /// - On the battle screen → Coin Flip.
 /// - Elsewhere with a battle in progress → return to the battle.
 /// - Otherwise → pick a deck and start a new battle.
@@ -18,6 +23,7 @@ class BattleMenu extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final battle = ref.watch(battleProvider);
+    final p = context.palette;
 
     void onCenter() {
       if (inBattleScreen) {
@@ -29,39 +35,41 @@ class BattleMenu extends ConsumerWidget {
       }
     }
 
-    final centerIsCoin = inBattleScreen;
-
     return SizedBox(
       width: 328,
-      height: 112,
+      height: 108,
       child: Stack(
+        clipBehavior: Clip.none,
         children: [
+          // Dock tray
           Positioned(
             left: 0,
             right: 0,
             bottom: 0,
-            top: 32,
-            child: Container(
-              decoration: BoxDecoration(
-                color: context.palette.surfaceVariant,
-                borderRadius: BorderRadius.circular(24),
-              ),
+            top: 30,
+            child: PixelBox(
+              color: p.surface,
+              radius: 18,
+              shadowOffset: const Offset(0, 4),
+              child: const SizedBox.expand(),
             ),
           ),
           Positioned(
-            left: 30,
-            bottom: 24,
-            child: _MenuButton(
-              icon: Icons.bookmark_outline,
-              onPressed: () => context.go('/'),
+            left: 26,
+            bottom: 18,
+            child: PixelIconButton(
+              icon: Icons.style_outlined,
+              color: AppColors.blue,
+              onTap: () => context.go('/'),
             ),
           ),
           Positioned(
-            right: 30,
-            bottom: 24,
-            child: _MenuButton(
+            right: 26,
+            bottom: 18,
+            child: PixelIconButton(
               icon: Icons.person_outline,
-              onPressed: () => context.go('/profile'),
+              color: AppColors.blue,
+              onTap: () => context.go('/profile'),
             ),
           ),
           Positioned(
@@ -69,44 +77,7 @@ class BattleMenu extends ConsumerWidget {
             left: 0,
             right: 0,
             child: Center(
-              child: GestureDetector(
-                onTap: onCenter,
-                child: Container(
-                  width: 64,
-                  height: 64,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Container(
-                      width: 48,
-                      height: 48,
-                      decoration: const BoxDecoration(
-                        color: AppColors.blue,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: centerIsCoin
-                            ? const Icon(Icons.monetization_on_outlined,
-                                color: Colors.white, size: 26)
-                            : const Text('VS',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18)),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              child: VsButton(coinMode: inBattleScreen, onTap: onCenter),
             ),
           ),
         ],
@@ -115,24 +86,112 @@ class BattleMenu extends ConsumerWidget {
   }
 }
 
-class _MenuButton extends StatelessWidget {
-  final IconData icon;
-  final VoidCallback onPressed;
-  const _MenuButton({required this.icon, required this.onPressed});
+/// The raised center cap: flat blue rounded square with a pixel lightning bolt
+/// and "VS" (or a pixel coin during battle). Idles with a tiny bob so it feels
+/// alive without glowing.
+class VsButton extends StatefulWidget {
+  final bool coinMode;
+  final VoidCallback onTap;
+  const VsButton({super.key, required this.coinMode, required this.onTap});
+
+  @override
+  State<VsButton> createState() => _VsButtonState();
+}
+
+class _VsButtonState extends State<VsButton>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _bob = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 2600),
+  )..repeat(reverse: true);
+
+  @override
+  void dispose() {
+    _bob.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 48,
-      height: 48,
-      decoration: BoxDecoration(
+    return AnimatedBuilder(
+      animation: _bob,
+      builder: (context, child) {
+        final dy = -2.0 * Curves.easeInOut.transform(_bob.value);
+        return Transform.translate(offset: Offset(0, dy), child: child);
+      },
+      child: PixelButton(
+        onTap: widget.onTap,
         color: AppColors.blue,
-        borderRadius: BorderRadius.circular(42),
-      ),
-      child: IconButton(
-        icon: Icon(icon, color: Colors.white),
-        onPressed: onPressed,
+        width: 64,
+        height: 64,
+        radius: 16,
+        padding: EdgeInsets.zero,
+        sound: Sfx.tap,
+        child: widget.coinMode
+            // Same emblem as the login logo (catching_pokemon), no frame —
+            // reads as the app's "ball" and doubles as the coin to flip.
+            ? const Icon(Icons.catching_pokemon, color: Colors.white, size: 32)
+            : const _VsEmblem(),
       ),
     );
   }
 }
+
+/// Blocky lightning bolt + "VS" in pixel lettering.
+class _VsEmblem extends StatelessWidget {
+  const _VsEmblem();
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        CustomPaint(size: const Size(26, 32), painter: _PixelBoltPainter()),
+        Text(
+          'VS',
+          style: GoogleFonts.silkscreen(
+            color: Colors.white,
+            fontSize: 17,
+            height: 1,
+            shadows: [
+              Shadow(
+                color: AppColors.blueDark.withValues(alpha: 0.9),
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Bolt drawn as stacked blocks (real pixel-art construction, no smooth path).
+class _PixelBoltPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..color = Colors.white.withValues(alpha: 0.28);
+    final u = size.width / 6; // pixel unit
+    // (col,row,width) rows of the bolt, 8 rows tall
+    const rows = [
+      (3, 0, 2),
+      (2, 1, 2),
+      (2, 2, 2),
+      (1, 3, 4),
+      (2, 4, 3),
+      (2, 5, 2),
+      (1, 6, 2),
+      (1, 7, 1),
+    ];
+    for (final (c, r, w) in rows) {
+      canvas.drawRect(
+        Rect.fromLTWH(c * u, r * size.height / 8, w * u, size.height / 8),
+        paint,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _PixelBoltPainter oldDelegate) => false;
+}
+

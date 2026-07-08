@@ -8,7 +8,9 @@ import 'package:latlong2/latlong.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/app_text_styles.dart';
+import '../../../core/audio/sfx.dart';
 import '../../../domain/models/tcg_event.dart';
+import '../../widgets/pixel.dart';
 
 /// Nearby Pokémon TCG events on a real map centered on the user's location.
 /// Events are mocked (see [MockEventGenerator]) until a real data source exists.
@@ -298,25 +300,19 @@ class _SearchHereButton extends StatelessWidget {
   const _SearchHereButton({required this.onTap});
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return PixelButton(
+      onTap: onTap,
       color: AppColors.blue,
-      borderRadius: BorderRadius.circular(28),
-      elevation: 4,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(28),
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.search, color: Colors.white, size: 20),
-              const SizedBox(width: 10),
-              Text('Procurar eventos nesta região',
-                  style: AppTextStyles.buttonText.copyWith(color: Colors.white)),
-            ],
-          ),
-        ),
+      sound: Sfx.confirm,
+      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.search, color: Colors.white, size: 20),
+          const SizedBox(width: 10),
+          Text('Procurar eventos nesta região',
+              style: AppTextStyles.buttonText.copyWith(color: Colors.white)),
+        ],
       ),
     );
   }

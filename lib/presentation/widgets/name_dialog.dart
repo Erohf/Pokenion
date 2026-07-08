@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_palette.dart';
 import '../../core/theme/app_text_styles.dart';
+import '../../core/audio/sfx.dart';
+import 'pixel.dart';
 
 /// Shows a single text-field dialog and returns the trimmed non-empty value,
 /// or null if cancelled/empty.
@@ -17,7 +19,10 @@ Future<String?> showNameDialog(
     context: context,
     builder: (ctx) => AlertDialog(
       backgroundColor: ctx.palette.surface,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14),
+        side: BorderSide(color: ctx.palette.borderStrong, width: 2),
+      ),
       title: Text(title, style: AppTextStyles.h3),
       content: TextField(
         controller: controller,
@@ -39,17 +44,20 @@ Future<String?> showNameDialog(
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(ctx),
+          onPressed: () {
+            sfx(Sfx.back);
+            Navigator.pop(ctx);
+          },
           child: Text('Cancelar',
               style: AppTextStyles.label.copyWith(color: AppColors.textSecondary)),
         ),
-        ElevatedButton(
-          onPressed: () => Navigator.pop(ctx, controller.text),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.blue,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          ),
-          child: Text(confirm, style: const TextStyle(color: Colors.white)),
+        PixelButton(
+          onTap: () => Navigator.pop(ctx, controller.text),
+          color: AppColors.blue,
+          sound: Sfx.confirm,
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+          child: Text(confirm,
+              style: AppTextStyles.buttonText.copyWith(color: Colors.white)),
         ),
       ],
     ),

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/audio/sfx.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/settings_provider.dart';
+import '../../widgets/pixel.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -19,19 +21,17 @@ class LoginScreen extends ConsumerWidget {
           child: Column(
             children: [
               const Spacer(flex: 3),
-              // Logo (placeholder wordmark until a real logo exists).
-              Container(
+              // Logo (pixel-framed emblem until a real logo exists).
+              PixelBox(
                 width: 96,
                 height: 96,
-                decoration: BoxDecoration(
-                  color: AppColors.blue.withValues(alpha: 0.15),
-                  shape: BoxShape.circle,
-                ),
+                radius: 20,
+                color: AppColors.blue.withValues(alpha: 0.12),
                 child: const Icon(Icons.catching_pokemon,
-                    color: AppColors.blue, size: 56),
+                    color: AppColors.blue, size: 54),
               ),
-              const SizedBox(height: 20),
-              Text('Pokénion', style: AppTextStyles.h1.copyWith(fontSize: 34)),
+              const SizedBox(height: 22),
+              Text('Pokénion', style: AppTextStyles.h1.copyWith(fontSize: 38)),
               const SizedBox(height: 8),
               Text(
                 'Seu companheiro de batalhas Pokémon TCG',
@@ -40,7 +40,10 @@ class LoginScreen extends ConsumerWidget {
               ),
               const Spacer(flex: 4),
               _GoogleButton(
-                onPressed: () => ref.read(authProvider.notifier).signInWithGoogle(),
+                onPressed: () {
+                  sfx(Sfx.confirm);
+                  ref.read(authProvider.notifier).signInWithGoogle();
+                },
               ),
               const SizedBox(height: 14),
               TextButton(
@@ -77,7 +80,10 @@ class LoginScreen extends ConsumerWidget {
       builder: (ctx) => StatefulBuilder(
         builder: (ctx, setState) => AlertDialog(
           backgroundColor: ctx.palette.surface,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+            side: BorderSide(color: ctx.palette.borderStrong, width: 2),
+          ),
           title: Text('Continuar sem conta?', style: AppTextStyles.h3),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -138,7 +144,10 @@ class LoginScreen extends ConsumerWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: ctx.palette.surface,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14),
+          side: BorderSide(color: ctx.palette.borderStrong, width: 2),
+        ),
         title: Text('Como podemos te chamar?', style: AppTextStyles.h3),
         content: TextField(
           controller: controller,
@@ -180,28 +189,31 @@ class _GoogleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return PixelButton(
+      onTap: onPressed,
+      color: AppColors.blue,
       width: double.infinity,
       height: 54,
-      child: ElevatedButton.icon(
-        onPressed: onPressed,
-        icon: Container(
-          width: 24,
-          height: 24,
-          alignment: Alignment.center,
-          decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-          child: const Text('G',
-              style: TextStyle(
-                  color: Color(0xFF4285F4),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16)),
-        ),
-        label: Text('Entrar com o Google',
-            style: AppTextStyles.buttonText.copyWith(fontSize: 15, color: Colors.white)),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.blue,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        ),
+      sound: null, // caller plays confirm
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 24,
+            height: 24,
+            alignment: Alignment.center,
+            decoration:
+                const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+            child: const Text('G',
+                style: TextStyle(
+                    color: Color(0xFF4285F4),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16)),
+          ),
+          const SizedBox(width: 10),
+          Text('Entrar com o Google',
+              style: AppTextStyles.buttonText.copyWith(color: Colors.white)),
+        ],
       ),
     );
   }

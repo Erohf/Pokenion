@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../../core/audio/sfx.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_palette.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../domain/models/card.dart';
+import 'pixel.dart';
 
 /// Confirmation dialog with an editable LIFE selector (proto "AddPokemon").
 /// Returns the chosen HP, or null if cancelled.
@@ -40,7 +42,10 @@ class _AddPokemonDialogState extends State<_AddPokemonDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: context.palette.surface,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: context.palette.borderStrong, width: 2),
+      ),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
         child: Column(
@@ -64,7 +69,9 @@ class _AddPokemonDialogState extends State<_AddPokemonDialog> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: context.palette.surface2,
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                          color: context.palette.borderStrong, width: 2),
                     ),
                     child: _editing
                         ? TextField(
@@ -98,7 +105,9 @@ class _AddPokemonDialogState extends State<_AddPokemonDialog> {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: context.palette.surface2,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(12),
+                border:
+                    Border.all(color: context.palette.borderStrong, width: 2),
               ),
               padding: const EdgeInsets.all(12),
               child: widget.card.imageUrl == null
@@ -106,6 +115,7 @@ class _AddPokemonDialogState extends State<_AddPokemonDialog> {
                   : CachedNetworkImage(
                       imageUrl: widget.card.imageUrl!,
                       fit: BoxFit.contain,
+                      filterQuality: FilterQuality.none,
                       errorWidget: (_, __, ___) => const Icon(
                           Icons.catching_pokemon, size: 80, color: AppColors.blue),
                     ),
@@ -116,31 +126,29 @@ class _AddPokemonDialogState extends State<_AddPokemonDialog> {
             Row(
               children: [
                 Expanded(
-                  child: OutlinedButton(
-                    onPressed: () => Navigator.pop(context),
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: context.palette.textPrimary,
-                      side: BorderSide(color: context.palette.border),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-                    ),
-                    child: const Text('Cancelar'),
+                  child: PixelButton(
+                    onTap: () => Navigator.pop(context),
+                    color: context.palette.surface2,
+                    height: 48,
+                    sound: Sfx.back,
+                    child: Text('Cancelar',
+                        style: AppTextStyles.buttonText
+                            .copyWith(color: context.palette.textSecondary)),
                   ),
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: 14),
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
+                  child: PixelButton(
+                    onTap: () {
                       final v = _editing ? int.tryParse(_controller.text) ?? _hp : _hp;
                       Navigator.pop(context, v.clamp(0, 9999));
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.blue,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-                    ),
-                    child: const Text('Confirmar',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    color: AppColors.blue,
+                    height: 48,
+                    sound: Sfx.confirm,
+                    child: Text('Confirmar',
+                        style: AppTextStyles.buttonText
+                            .copyWith(color: Colors.white)),
                   ),
                 ),
               ],
@@ -158,14 +166,13 @@ class _RoundBtn extends StatelessWidget {
   const _RoundBtn({required this.icon, required this.onTap});
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return PixelIconButton(
+      icon: icon,
       onTap: onTap,
-      child: Container(
-        width: 44,
-        height: 44,
-        decoration: BoxDecoration(color: context.palette.surface2, shape: BoxShape.circle),
-        child: Icon(icon, color: AppColors.blue, size: 22),
-      ),
+      color: context.palette.surface2,
+      iconColor: AppColors.blue,
+      size: 44,
+      iconSize: 22,
     );
   }
 }

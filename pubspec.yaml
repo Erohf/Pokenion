@@ -36,6 +36,7 @@ dependencies:
   image_picker: ^1.1.2
   flutter_map: ^7.0.2
   latlong2: ^0.9.1
+  audioplayers: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -50,3 +51,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/data/gen1.json
+    - assets/data/pokedex.json
+    - assets/audio/

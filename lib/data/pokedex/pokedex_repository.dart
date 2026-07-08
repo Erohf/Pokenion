@@ -2,18 +2,21 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import '../../domain/models/card.dart';
 
-/// Loads the curated local Pokédex dataset (Gen 1 + Megas/EX) from assets.
+/// Loads the curated local Pokédex dataset (Gens 1-4 + Megas/EX) from assets.
 class PokedexRepository {
-  PokedexRepository._(this._cards, this._byId);
+  PokedexRepository._(this._cards, this._byId, this._searchKeys);
 
   final List<PokemonCard> _cards;
   final Map<String, PokemonCard> _byId;
+  // Pre-lowered names, parallel to [_cards], so search doesn't re-lowercase
+  // ~600 strings per keystroke.
+  final List<String> _searchKeys;
 
   static PokedexRepository? _instance;
 
   static Future<PokedexRepository> load() async {
     if (_instance != null) return _instance!;
-    final raw = await rootBundle.loadString('assets/data/gen1.json');
+    final raw = await rootBundle.loadString('assets/data/pokedex.json');
     final json = jsonDecode(raw) as Map<String, dynamic>;
     final list = (json['cards'] as List)
         .map((e) => _fromDataset(e as Map<String, dynamic>))
@@ -21,6 +24,7 @@ class PokedexRepository {
     _instance = PokedexRepository._(
       list,
       {for (final c in list) c.id: c},
+      [for (final c in list) c.name.toLowerCase()],
     );
     return _instance!;
   }
@@ -33,10 +37,26 @@ class PokedexRepository {
   List<PokemonCard> evolutionsOf(PokemonCard card) =>
       card.evolvesToIds.map((id) => _byId[id]).whereType<PokemonCard>().toList();
 
-  List<PokemonCard> search(String query) {
+  /// Generation of a dex number (1-4).
+  static int generationOf(int dex) {
+    if (dex <= 151) return 1;
+    if (dex <= 251) return 2;
+    if (dex <= 386) return 3;
+    return 4;
+  }
+
+  /// Filters by name substring and, optionally, generation ([gen] 1-4, null =
+  /// all).
+  List<PokemonCard> search(String query, {int? gen}) {
     final q = query.trim().toLowerCase();
-    if (q.isEmpty) return all;
-    return _cards.where((c) => c.name.toLowerCase().contains(q)).toList();
+    final out = <PokemonCard>[];
+    for (var i = 0; i < _cards.length; i++) {
+      final c = _cards[i];
+      if (gen != null && generationOf(c.dexNumber ?? 1) != gen) continue;
+      if (q.isNotEmpty && !_searchKeys[i].contains(q)) continue;
+      out.add(c);
+    }
+    return out;
   }
 
   static PokemonCard _fromDataset(Map<String, dynamic> j) {

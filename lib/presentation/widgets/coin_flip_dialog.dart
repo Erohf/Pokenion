@@ -1,9 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../../core/audio/sfx.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_palette.dart';
 import '../../core/theme/app_text_styles.dart';
+import 'pixel.dart';
 
 Future<void> showCoinFlipDialog(BuildContext context) {
   return showDialog(
@@ -47,6 +50,7 @@ class _CoinFlipDialogState extends State<_CoinFlipDialog>
   }
 
   void _start() {
+    sfx(Sfx.coin);
     final n = (int.tryParse(_controller.text) ?? 1).clamp(1, 100);
     _heads = 0;
     _tails = 0;
@@ -73,7 +77,10 @@ class _CoinFlipDialogState extends State<_CoinFlipDialog>
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: context.palette.surface,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: context.palette.borderStrong, width: 2),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -104,29 +111,32 @@ class _CoinFlipDialogState extends State<_CoinFlipDialog>
             keyboardType: TextInputType.number,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             textAlign: TextAlign.center,
-            style: AppTextStyles.h2,
+            style: GoogleFonts.silkscreen(
+                fontSize: 20, color: context.palette.textPrimary),
             decoration: InputDecoration(
               filled: true,
               fillColor: context.palette.surface2,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide:
+                    BorderSide(color: context.palette.borderStrong, width: 2),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: AppColors.blue, width: 2),
               ),
             ),
           ),
         ),
         const SizedBox(height: 20),
-        SizedBox(
+        PixelButton(
+          onTap: _start,
+          color: AppColors.blue,
           width: double.infinity,
-          child: ElevatedButton(
-            onPressed: _start,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.blue,
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-            ),
-            child: const Text('Lançar', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-          ),
+          height: 48,
+          sound: null, // _start plays the coin sound
+          child: Text('Lançar',
+              style: AppTextStyles.buttonText.copyWith(color: Colors.white)),
         ),
       ],
     );
@@ -175,27 +185,25 @@ class _CoinFlipDialogState extends State<_CoinFlipDialog>
         Row(
           children: [
             Expanded(
-              child: OutlinedButton(
-                onPressed: () => setState(() => _phase = _Phase.setup),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: context.palette.textPrimary,
-                  side: BorderSide(color: context.palette.border),
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-                ),
-                child: const Text('De novo'),
+              child: PixelButton(
+                onTap: () => setState(() => _phase = _Phase.setup),
+                color: context.palette.surface2,
+                height: 46,
+                child: Text('De novo',
+                    style: AppTextStyles.buttonText
+                        .copyWith(color: context.palette.textPrimary)),
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 14),
             Expanded(
-              child: ElevatedButton(
-                onPressed: () => Navigator.pop(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-                ),
-                child: const Text('Fechar', style: TextStyle(color: Colors.white)),
+              child: PixelButton(
+                onTap: () => Navigator.pop(context),
+                color: AppColors.blue,
+                height: 46,
+                sound: Sfx.back,
+                child: Text('Fechar',
+                    style:
+                        AppTextStyles.buttonText.copyWith(color: Colors.white)),
               ),
             ),
           ],
@@ -205,20 +213,36 @@ class _CoinFlipDialogState extends State<_CoinFlipDialog>
   }
 
   Widget _coin(bool heads) {
+    // Heads = pokéball (app palette); tails = flat silver back with "K".
+    final child = heads
+        ? const PixelPokeball(size: 90)
+        : Container(
+            width: 90,
+            height: 90,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: const Color(0xFFB9BDC7),
+              border: Border.all(color: const Color(0xFF6E7280), width: 4),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              'K',
+              style: GoogleFonts.silkscreen(
+                  fontSize: 30, color: const Color(0xFF4A4E5A), height: 1),
+            ),
+          );
     return Container(
-      width: 90,
-      height: 90,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: heads ? AppColors.blue : context.palette.surfaceVariant,
-        border: Border.all(color: AppColors.blueLight, width: 3),
+        boxShadow: [
+          BoxShadow(
+            color: context.palette.shadow,
+            offset: const Offset(0, 5),
+            blurRadius: 0,
+          ),
+        ],
       ),
-      alignment: Alignment.center,
-      child: Text(
-        heads ? 'C' : 'K',
-        style: AppTextStyles.h1.copyWith(
-            color: heads ? Colors.white : AppColors.textDark),
-      ),
+      child: child,
     );
   }
 
@@ -234,7 +258,9 @@ class _CoinFlipDialogState extends State<_CoinFlipDialog>
             color: color.withValues(alpha: 0.15),
             border: Border.all(color: color, width: 2),
           ),
-          child: Text('$value', style: AppTextStyles.h1.copyWith(color: color)),
+          child: Text('$value',
+              style: GoogleFonts.silkscreen(
+                  fontSize: 24, color: color, height: 1)),
         ),
         const SizedBox(height: 6),
         Text(label, style: AppTextStyles.label),
